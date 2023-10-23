@@ -1,19 +1,30 @@
-{ config, pkgs, user_name, ... }: {
+{ config, pkgs, user_name, mk_config, ... }: {
   fonts.fontconfig.enable = true;
   home = {
     homeDirectory = "/home/${user_name}";
     packages = [
       # desktop
       pkgs.brave
+      pkgs.discord
       pkgs.dmenu
       (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
+      pkgs.noto-fonts
+      pkgs.noto-fonts-cjk
+      pkgs.noto-fonts-emoji
     ];
     file = {
-      alacritty = {
+      bashrc = {
         source = config.lib.file.mkOutOfStoreSymlink
-          "${config.home.homeDirectory}/dots/config/alacritty";
-        target = "${config.home.homeDirectory}/.config/alacritty";
+          "${config.home.homeDirectory}/dots/config/bash/.bashrc";
+        target = "${config.home.homeDirectory}/.bashrc";
       };
+      profile = {
+        source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/dots/config/bash/.profile";
+        target = "${config.home.homeDirectory}/.profile";
+      };
+      alacritty = mk_config config "alacritty";
+      awesome = mk_config config "awesome";
       up = {
         executable = true;
         target = "${config.home.homeDirectory}/.local/bin/up";

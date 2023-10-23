@@ -214,7 +214,7 @@ require("lazy").setup({
                 "cmake",
                 "gopls",
                 "html",
-                "julials",
+                "nil_ls",
                 "svelte",
                 "tailwindcss",
                 "tsserver",
@@ -296,7 +296,6 @@ require("lazy").setup({
                     null_ls.builtins.diagnostics.cmake_lint,
                     null_ls.builtins.formatting.clang_format,
                     null_ls.builtins.formatting.cmake_format,
-
                     null_ls.builtins.diagnostics.golangci_lint,
                     null_ls.builtins.formatting.gofumpt,
                     null_ls.builtins.formatting.rustfmt,

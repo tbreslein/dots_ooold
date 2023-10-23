@@ -1,4 +1,4 @@
-{ config, pkgs, user_name, ... }: {
+{ config, pkgs, user_name, mk_config, ... }: {
   nixpkgs.config.allowUnfree = true;
   home = {
     username = user_name;
@@ -7,21 +7,24 @@
       # coding
       pkgs.gcc
       pkgs.neovim
+      pkgs.shellcheck
+      pkgs.shfmt
+      pkgs.lua-language-server
+      pkgs.stylua
+      pkgs.yamllint
+      pkgs.prettierd
       pkgs.statix
       pkgs.nil
-      pkgs.alejandra
       pkgs.nixfmt
 
       # cli
       pkgs.fzf
+      pkgs.tmux
     ];
 
     file = {
-      nvim = {
-        source = config.lib.file.mkOutOfStoreSymlink
-          "${config.home.homeDirectory}/dots/config/nvim";
-        target = "${config.home.homeDirectory}/.config/nvim";
-      };
+      nvim = mk_config config "nvim";
+      tmux = mk_config config "tmux";
     };
 
     # You can also manage environment variables but you will have to manually
@@ -40,5 +43,8 @@
   };
 
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  programs = {
+    home-manager.enable = true;
+    eza = { enable = true; };
+  };
 }
