@@ -1,0 +1,12 @@
+---
+session: tdos
+root: ~/coding/tdos/
+windows:
+  - name: dev
+    layout: main-horizontal
+    commands:
+      - clear
+  - name: sh
+    layout: main-horizontal
+    commands:
+      - clear
