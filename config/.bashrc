@@ -24,29 +24,9 @@ PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-	if [ -f /usr/share/bash-completion/bash_completion ]; then
-		. /usr/share/bash-completion/bash_completion
-	elif [ -f /etc/bash_completion ]; then
-		. /etc/bash_completion
-	fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+        . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+        . /etc/bash_completion
+    fi
 fi
-
-alias ls='eza'
-alias ll='eza -l'
-alias la='eza -a'
-alias lt='eza -T'
-alias lla='eza -la'
-alias lta='eza -Ta'
-alias gs='git status'
-alias gc='git commit'
-alias gca='git commit -a'
-alias gcm='git commit -m'
-alias gcam='git commit -am'
-alias gl='git pull'
-alias gp='git push'
-alias gpu='git push -u'
-alias gpf='git push --force-with-lease'
-alias lg='lazygit'
-alias cp='cp -i'
-alias rm='rm -i'
-alias mv='mv -i'

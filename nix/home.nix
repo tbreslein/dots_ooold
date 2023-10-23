@@ -1,5 +1,6 @@
 { config, pkgs, user_name, mk_config, ... }: {
   nixpkgs.config.allowUnfree = true;
+  news.display = "show";
   home = {
     username = user_name;
     stateVersion = "23.05";
@@ -18,9 +19,11 @@
       pkgs.nixfmt
 
       # cli
-      pkgs.fzf
-      pkgs.tmux
+      pkgs.bat
+      pkgs.bottom
+      pkgs.jq
       pkgs.lazygit
+      pkgs.tmux
     ];
 
     file = {
@@ -28,18 +31,16 @@
       tmux = mk_config config "tmux";
     };
 
-    # You can also manage environment variables but you will have to manually
-    # source
-    #
-    #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-    #
-    # or
-    #
-    #  /etc/profiles/per-user/tommy/etc/profile.d/hm-session-vars.sh
-    #
-    # if you don't want to manage your shell through Home Manager.
+    shellAliases = {
+      lg = "lazygit";
+      cp = "cp -i";
+      rm = "rm -i";
+      mv = "mv -i";
+    };
+
     sessionVariables = {
-      # EDITOR = "emacs";
+      EDITOR = "nvim";
+      BROWSER = "brave";
     };
   };
 
@@ -64,6 +65,43 @@
   # Let Home Manager install and manage itself.
   programs = {
     home-manager.enable = true;
-    eza = { enable = true; };
+    eza = {
+      enable = true;
+      enableAliases = true;
+    };
+    git = {
+      enable = true;
+      aliases = {
+        a = "add";
+        aa = "add .";
+        cm = "commit -m";
+        cam = "commit -am";
+        p = "push";
+        pf = "push --force-with-lease";
+        pu = "push -u";
+        pl = "pull";
+        co = "checkout";
+        cb = "checkout --branch";
+        br = "branch";
+        sw = "switch";
+        st = "status";
+      };
+      delta = {
+        enable = true;
+        options = { line-numbers = true; };
+      };
+    };
+    direnv = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      nix-direnv.enable = true;
+    };
+    fzf = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      defaultOptions = [ "--height 40%" ];
+    };
   };
 }
