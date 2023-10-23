@@ -18,7 +18,7 @@ shopt -s globstar
 # check the window size after each command and, if necessary,
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
-PS1='${debian_chroot:+($debian_chroot)}\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
@@ -37,3 +37,16 @@ alias la='eza -a'
 alias lt='eza -T'
 alias lla='eza -la'
 alias lta='eza -Ta'
+alias gs='git status'
+alias gc='git commit'
+alias gca='git commit -a'
+alias gcm='git commit -m'
+alias gcam='git commit -am'
+alias gl='git pull'
+alias gp='git push'
+alias gpu='git push -u'
+alias gpf='git push --force-with-lease'
+alias lg='lazygit'
+alias cp='cp -i'
+alias rm='rm -i'
+alias mv='mv -i'

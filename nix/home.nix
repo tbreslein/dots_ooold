@@ -20,6 +20,7 @@
       # cli
       pkgs.fzf
       pkgs.tmux
+      pkgs.lazygit
     ];
 
     file = {
@@ -39,6 +40,24 @@
     # if you don't want to manage your shell through Home Manager.
     sessionVariables = {
       # EDITOR = "emacs";
+    };
+  };
+
+  editorconfig = {
+    enable = true;
+    settings = {
+      "*" = {
+        charset = "utf-8";
+        trim_trailing_whitespace = true;
+        max_line_width = 80;
+        indent_style = "space";
+        indent_size = 4;
+      };
+      "*.{nix,cabal,hs,json,js,jsx,ts,tsx,cjs,mjs,yml,yaml,ml,mli,hl,md,mdx,html},CMakeLists.txt" =
+        {
+          indent_size = 2;
+        };
+      "Makefile" = { indent_style = "tab"; };
     };
   };
 
