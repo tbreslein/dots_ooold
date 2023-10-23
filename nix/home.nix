@@ -23,7 +23,9 @@
       pkgs.bottom
       pkgs.jq
       pkgs.lazygit
+      pkgs.ripgrep
       pkgs.tmux
+      pkgs.tealdeer
     ];
 
     file = {
@@ -36,6 +38,7 @@
       cp = "cp -i";
       rm = "rm -i";
       mv = "mv -i";
+      vim = "nvim";
     };
 
     sessionVariables = {
@@ -102,6 +105,23 @@
       enableBashIntegration = true;
       enableZshIntegration = true;
       defaultOptions = [ "--height 40%" ];
+    };
+    starship = {
+      enable = true;
+      enableBashIntegration = true;
+      enableZshIntegration = true;
+      settings = {
+        character = {
+          success_symbol = "[λ](bold yellow)";
+          error_symbol = "[λ](bold red)";
+          vicmd_symbol = "[λ](bold gree)";
+        };
+        directory = {
+          truncate_to_repo = true;
+          truncation_symbol = ".../";
+          style = "bold blue";
+        };
+      };
     };
   };
 }
