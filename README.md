@@ -5,7 +5,7 @@ run base install without a desktop env
 ```bash
 # log into root
 
-apt install sudo curl wget htop vim awesome awesome-extra xinit git alacritty wireplumber pipewire-pulse pipewire-alsa network-manager
+apt install sudo curl wget htop vim awesome awesome-extra xinit git alacritty picom wireplumber pipewire-pulse pipewire-alsa network-manager
 systemctl disable networking.service
 systemctl enable NetworkManager
 usermod -a -G sudo tommy
