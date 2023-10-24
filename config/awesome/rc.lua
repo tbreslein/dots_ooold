@@ -39,6 +39,7 @@ end
 -- === Variable definitions ===
 beautiful.init("~/.config/awesome/theme.lua")
 Terminal = "alacritty"
+Browser = "brave"
 Editor = os.getenv("EDITOR") or "Editor"
 Editor_cmd = Terminal .. " -e " .. Editor
 Modkey = "Mod4"

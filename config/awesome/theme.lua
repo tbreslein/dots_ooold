@@ -1,8 +1,6 @@
-local theme_assets = require("beautiful.theme_assets")
+local gears = require("gears")
 local xresources = require("beautiful.xresources")
 local dpi = xresources.apply_dpi
-
-local gfs = require("gears.filesystem")
 local theme = {}
 
 theme.font = "Hack Nerd Font Bold 15"
@@ -43,6 +41,13 @@ theme.border_marked = "#d8a657"
 -- notification_[bg|fg]
 -- notification_[width|height|margin]
 -- notification_[border_color|border_width|shape|opacity]
+theme.notification_font = "Noto Sans 15"
+theme.notification_bg = "#282828"
+theme.notification_fg = "#d4be98"
+theme.notification_border_color = "#d4be98"
+theme.notification_shape = function(cr, width, height)
+    gears.shape.rounded_rect(cr, width, height, 7)
+end
 
 -- You can add as many variables as
 -- you wish and access them by using
