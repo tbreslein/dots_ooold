@@ -5,7 +5,9 @@ run base install without a desktop env
 ```bash
 # log into root
 
-apt install sudo curl wget htop vim awesome awesome-extra xinit git alacritty wireplumber pipewire-pulse pipewire-alsa
+apt install sudo curl wget htop vim awesome awesome-extra xinit git alacritty wireplumber pipewire-pulse pipewire-alsa network-manager
+systemctl disable networking.service
+systemctl enable NetworkManager
 usermod -a -G sudo tommy
 
 # log in as tommy and install nix
