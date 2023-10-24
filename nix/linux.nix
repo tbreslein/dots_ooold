@@ -18,6 +18,7 @@
       pkgs.networkmanagerapplet
       pkgs.pasystray
       pkgs.picom
+      pkgs.telegram-desktop
       pkgs.zathura
 
       # fonts
