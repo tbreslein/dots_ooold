@@ -24,14 +24,10 @@
       pkgs.jq
       pkgs.lazygit
       pkgs.ripgrep
-      # pkgs.tmux
       pkgs.tealdeer
     ];
 
-    file = {
-      nvim = mk_config config "nvim";
-      # tmux = mk_config config "tmux";
-    };
+    file = { nvim = mk_config config "nvim"; };
 
     shellAliases = {
       lg = "lazygit";
@@ -139,8 +135,6 @@
       mouse = true;
       plugins = with pkgs;
         with tmuxPlugins; [
-          battery
-          cpu
           sensible
           vim-tmux-navigator
           yank
@@ -177,8 +171,8 @@
         set -gq status-utf8 on
         set -g status-interval 30
         set -g status-justify left
-        set -g status-left 'Session: #[fg=green] #S : '
-        set -g status-right '#{battery_status_bg} Batt: #{battery_icon} #{battery_percentage} | #{cpu_bg_color} CPU: #{cpu_icon} #{cpu_percentage} | #{ram_bg_color} MEM: #{ram_icon} #{ram_percentage} | %H:%M '
+        set -g status-left ""
+        set -g status-right 'Session: #[fg=green] #S | #[fg=white] %H:%M '
         set -g status-style fg=white,bg=black
         set -g message-style fg=yellow,bold,bg=black
         setw -g window-status-style fg=white,bg=black

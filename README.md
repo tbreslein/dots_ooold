@@ -19,7 +19,8 @@ systemctl restart nix-daemon.service
 # back to tommy
 nix-channel --add https://nixos.org/channels/nixpkgs-unstable unstable
 nix-channel --update
-nix run home-manager -- init --switch
+
+# clone my dots and home-manager switch --flake on it
 ```
 
 ## todo
