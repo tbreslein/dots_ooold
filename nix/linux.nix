@@ -12,6 +12,11 @@
       pkgs.brave
       pkgs.discord
       pkgs.dmenu
+      pkgs.flameshot
+      pkgs.gammastep
+      pkgs.networkmanagerapplet
+      pkgs.pasystray
+      pkgs.picom
       pkgs.zathura
 
       # fonts
@@ -33,7 +38,6 @@
   };
 
   programs = {
-    autorandr.enable = true;
     bash = {
       enable = true;
       enableCompletion = true;
@@ -88,20 +92,10 @@
   # };
 
   services = {
-    autorandr.enable = true;
-    blueman-applet.enable = true;
-    flameshot.enable = true;
     gammastep = {
       enable = true;
       latitude = 54.323334;
       longitude = 10.139444;
-    };
-    megasync.enable = true;
-    network-manager-applet.enable = true;
-    pasystray.enable = true;
-    picom = {
-      enable = true;
-      fade = true;
     };
   };
 
