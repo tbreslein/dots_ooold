@@ -12,6 +12,7 @@
       pkgs.brave
       pkgs.discord
       pkgs.dmenu
+      pkgs.zathura
 
       # fonts
       (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
@@ -21,34 +22,18 @@
     ];
 
     file = {
-      # bashrc = mk_config_home config ".bashrc";
-      # profile = mk_config_home config ".profile";
-
       alacritty = mk_config config "alacritty";
       awesome = mk_config config "awesome";
-
-      up = {
-        executable = true;
-        target = "${config.home.homeDirectory}/.local/bin/up";
-        text = ''
-          #!/usr/bin/env bash
-          source ~/.bashrc
-          sudo apt update && sudo apt upgrade
-          pushd ${config.home.homeDirectory}/dots
-          home-manager switch --impure --flake .
-          nvim --headless "+Lazy! sync" +qa
-          popd
-        '';
+      xinitrc = {
+        source = config.lib.file.mkOutOfStoreSymlink
+          "${config.home.homeDirectory}/dots/config/xinitrc";
+        target = "${config.home.homeDirectory}/.xinitrc";
       };
     };
   };
 
   programs = {
-    git = {
-      userName = "Tommy Breslein";
-      userEmail = "tommy.breslein@protonmail.com";
-    };
-
+    autorandr.enable = true;
     bash = {
       enable = true;
       enableCompletion = true;
@@ -84,6 +69,11 @@
         fi
       '';
     };
+
+    git = {
+      userName = "Tommy Breslein";
+      userEmail = "tommy.breslein@protonmail.com";
+    };
   };
 
   # gtk = {
@@ -96,4 +86,24 @@
   #   # cursorTheme.package = pkgs.vanilla-dmz;
   #   cursorTheme.name = "Gruvbox-cursors";
   # };
+
+  services = {
+    autorandr.enable = true;
+    blueman-applet.enable = true;
+    flameshot.enable = true;
+    gammastep = {
+      enable = true;
+      latitude = 54.323334;
+      longitude = 10.139444;
+    };
+    megasync.enable = true;
+    network-manager-applet.enable = true;
+    pasystray.enable = true;
+    picom = {
+      enable = true;
+      fade = true;
+    };
+  };
+
+  targets.genericLinux.enable = true;
 }

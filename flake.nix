@@ -9,11 +9,6 @@
     };
   };
 
-  # nvim = {
-  #   source = config.lib.file.mkOutOfStoreSymlink
-  #     "${config.home.homeDirectory}/dots/config/nvim";
-  #   target = "${config.home.homeDirectory}/.config/nvim";
-  # };
   outputs = { nixpkgs, home-manager, ... }:
     let
       common_modules = [ ./nix/home.nix ];
