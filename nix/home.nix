@@ -24,13 +24,13 @@
       pkgs.jq
       pkgs.lazygit
       pkgs.ripgrep
-      pkgs.tmux
+      # pkgs.tmux
       pkgs.tealdeer
     ];
 
     file = {
       nvim = mk_config config "nvim";
-      tmux = mk_config config "tmux";
+      # tmux = mk_config config "tmux";
     };
 
     shellAliases = {
@@ -68,10 +68,12 @@
   # Let Home Manager install and manage itself.
   programs = {
     home-manager.enable = true;
+
     eza = {
       enable = true;
       enableAliases = true;
     };
+
     git = {
       enable = true;
       aliases = {
@@ -94,18 +96,21 @@
         options = { line-numbers = true; };
       };
     };
+
     direnv = {
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
       nix-direnv.enable = true;
     };
+
     fzf = {
       enable = true;
       enableBashIntegration = true;
       enableZshIntegration = true;
       defaultOptions = [ "--height 40%" ];
     };
+
     starship = {
       enable = true;
       enableBashIntegration = true;
@@ -122,6 +127,65 @@
           style = "bold blue";
         };
       };
+    };
+
+    tmux = {
+      enable = true;
+      baseIndex = 1;
+      clock24 = true;
+      escapeTime = 0;
+      historyLimit = 10000;
+      keyMode = "vi";
+      mouse = true;
+      plugins = with pkgs;
+        with tmuxPlugins; [
+          battery
+          cpu
+          sensible
+          vim-tmux-navigator
+          yank
+        ];
+      extraConfig = ''
+        if-shell "uname | grep -q Darwin" {
+            set -g default-terminal "xterm-256color"
+            set -ag terminal-overrides ",xterm-256color:RGB"
+        } {
+            set -g default-terminal "alacritty"
+            set -ag terminal-overrides ",alacritty:RGB"
+        }
+
+        set-option -g renumber-windows on
+        setw -g main-pane-height 60
+
+        bind-key -n M-n previous-window
+        bind-key -n M-m next-window
+
+        bind-key C-g copy-mode
+        bind-key -T copy-mode-vi v send-keys -X begin-selection
+        bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+        bind-key -T copy-mode-vi Enter send-keys -X copy-selection-and-cancel
+
+        bind C-x split-window -v -c "#{pane_current_path}"
+        bind C-v split-window -h -c "#{pane_current_path}"
+        bind C-t new-window
+        bind -r M-h resize-pane -L 5
+        bind -r M-j resize-pane -D 5
+        bind -r M-k resize-pane -U 5
+        bind -r M-l resize-pane -R 5
+
+        set -gq status-utf8 on
+        set -g status-interval 30
+        set -g status-justify left
+        set -g status-left 'Session: #[fg=green] #S : '
+        set -g status-right '#{battery_status_bg} Batt: #{battery_icon} #{battery_percentage} | #{cpu_bg_color} CPU: #{cpu_icon} #{cpu_percentage} | #{ram_bg_color} MEM: #{ram_icon} #{ram_percentage} | %H:%M '
+        set -g status-style fg=white,bg=black
+        set -g message-style fg=yellow,bold,bg=black
+        setw -g window-status-style fg=white,bg=black
+        setw -g window-status-current-style fg=yellow,bold,bg=black
+        set -g pane-border-style fg=white,bg=black
+        set -g pane-active-border-style fg=yellow,bg=black
+      '';
     };
   };
 }
