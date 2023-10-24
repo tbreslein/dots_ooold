@@ -36,12 +36,12 @@
         text = ''
           #!/usr/bin/env bash
           pushd ${config.home.homeDirectory}/dots
-          [[ -z $(git status -s) ]] && echo "git tree is dirty" && return 1
+          [[ -n $(git status -s) ]] && echo "git tree is dirty" && return 1
           nix-channel --update
           nix-collect-garbage -d
           function up-hm {
               nix flake update
-              if [[ $(git diff --stat) != "" ]]; then
+              if [[ -n $(git status -s) ]]; then
                   git add flake.lock && git commit -m "update flake.lock"
               fi
               home-manager switch --flake .

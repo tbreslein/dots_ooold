@@ -17,7 +17,7 @@ end
 vim.opt.rtp:prepend(lazy_path)
 require("lazy").setup({
     -- common dependencies
-    { "nvim-lua/plenary.nvim",       lazy = true },
+    { "nvim-lua/plenary.nvim", lazy = true },
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
     -- [[ UI ]]
@@ -74,38 +74,38 @@ require("lazy").setup({
         event = "VeryLazy",
         opts = { menu = { width = 80 }, mark_branch = true },
         keys = {
-            { "<m-u>",     ":lua require('harpoon-core.ui').nav_file(1)<cr>" },
-            { "<m-i>",     ":lua require('harpoon-core.ui').nav_file(2)<cr>" },
-            { "<m-o>",     ":lua require('harpoon-core.ui').nav_file(3)<cr>" },
-            { "<m-p>",     ":lua require('harpoon-core.ui').nav_file(4)<cr>" },
+            { "<m-u>", ":lua require('harpoon-core.ui').nav_file(1)<cr>" },
+            { "<m-i>", ":lua require('harpoon-core.ui').nav_file(2)<cr>" },
+            { "<m-o>", ":lua require('harpoon-core.ui').nav_file(3)<cr>" },
+            { "<m-p>", ":lua require('harpoon-core.ui').nav_file(4)<cr>" },
             { "<leader>a", ":lua require('harpoon-core.mark').add_file()<cr>" },
             { "<leader>e", ":lua require('harpoon-core.ui').toggle_quick_menu()<cr>" },
         },
     },
     {
-        "ibhagwan/fzf-lua",
-        opts = { winopts = { preview = { vertical = "up:60%", layout = "vertical" } } },
+        "linrongbin16/fzfx.nvim",
+        dependencies = "junegunn/fzf",
+        opts = {},
         keys = {
-            -- { "<leader>pf", ":lua require('fzf-lua').git_files()<cr>" },
             {
                 "<leader>pf",
                 function()
                     vim.fn.system("git rev-parse --is-inside-work-tree")
                     if vim.v.shell_error == 0 then
-                        require("fzf-lua").git_files()
+                        vim.cmd("FzfxGFiles")
                     else
-                        require("fzf-lua").files()
+                        vim.cmd("FzfxFiles")
                     end
                 end,
             },
-            { "<leader>pg", ":lua require('fzf-lua').files()<cr>" },
-            { "<leader>ps", ":lua require('fzf-lua').live_grep()<cr>" },
+            { "<leader>pg", ":FzfxFiles<cr>" },
+            { "<leader>ps", ":FzfxLiveGrep<cr>" },
         },
     },
 
     -- [[ Editing ]]
-    { "mbbill/undotree",           event = "BufEnter" },
-    { "numtostr/Comment.nvim",     event = "BufEnter", opts = {} },
+    { "mbbill/undotree", event = "BufEnter" },
+    { "numtostr/Comment.nvim", event = "BufEnter", opts = {} },
     { "echasnovski/mini.surround", event = "BufEnter", opts = {} },
     {
         "nvim-treesitter/nvim-treesitter",
