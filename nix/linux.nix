@@ -118,16 +118,35 @@
     };
   };
 
-  # gtk = {
-  #   enable = true;
-  #   theme = {
-  #     name = "Gruvbox-Dark";
-  #     package = pkgs.gruvbox-gtk-theme;
-  #   };
-  #   iconTheme.name = "Gruvbox-Dark";
-  #   # cursorTheme.package = pkgs.vanilla-dmz;
-  #   cursorTheme.name = "Gruvbox-cursors";
-  # };
+  gtk = {
+    enable = true;
+    theme = {
+      name = "gruvbox-dark";
+      package = pkgs.gruvbox-gtk-theme;
+    };
+    iconTheme = {
+      name = "gruvbox-dark";
+      package = pkgs.gruvbox-dark-icons-gtk;
+    };
+    cursorTheme = {
+      name = "Numix-Cursor";
+      package = pkgs.numix-cursor-theme;
+    };
+    gtk3.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+    gtk4.extraConfig = {
+      Settings = ''
+        gtk-application-prefer-dark-theme=1
+      '';
+    };
+  };
+  dconf.settings = {
+    "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
+  };
+  home.sessionVariables.GTK_THEME = "gruvbox-dark";
 
   services = {
     gammastep = {
