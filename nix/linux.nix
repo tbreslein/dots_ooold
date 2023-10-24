@@ -12,6 +12,7 @@
       pkgs.brave
       pkgs.discord
       pkgs.dmenu
+      pkgs.feh
       pkgs.flameshot
       pkgs.gammastep
       pkgs.networkmanagerapplet

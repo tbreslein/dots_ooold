@@ -11,4 +11,4 @@ run "pasystray"
 run "nm-applet"
 run "gammastep"
 run "feh" --randomize --bg-fill ~/MEGA/Wallpaper/
-run "megasync"
+sleep 5 && run "megasync"
