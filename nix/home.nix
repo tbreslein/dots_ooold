@@ -28,49 +28,7 @@
       pkgs.tealdeer
     ];
 
-    file = {
-      nvim = mk_config config "nvim";
-      up = {
-        executable = true;
-        target = "${config.home.homeDirectory}/.local/bin/up";
-        text = ''
-          #!/usr/bin/env bash
-          pushd ${config.home.homeDirectory}/dots
-          [[ -n $(git status -s) ]] && echo "git tree is dirty" && return 1
-          nix-channel --update
-          nix-collect-garbage -d
-          function up-hm {
-              nix flake update
-              if [[ -n $(git status -s) ]]; then
-                  git add flake.lock && git commit -m "update flake.lock"
-              fi
-              home-manager switch --flake .
-          }
-          function up-pkgs {
-                if [[ $(uname) == "Darwin" ]]; then
-                    npm update -g
-                    HOMEBREW_NO_INSTALL_CLEANUP=1 brew update && HOMEBREW_NO_INSTALL_CLEANUP=1 brew upgrade
-                    brew cleanup
-                    HOMEBREW_NO_INSTALL_CLEANUP=1 axbrew update && HOMEBREW_NO_INSTALL_CLEANUP=1 axbrew upgrade
-                    axbrew cleanup
-                    poetry self update
-                else
-                    sudo apt update && sudo apt upgrade
-                fi
-          }
-          function up-nvim {
-              nvim --headless "+Lazy! sync" +qa
-          }
-          case "$1" in
-            hm) up-hm;;
-            pkgs) up-pkgs;;
-            nvim) up-nvim;;
-            *) up-pkgs && up-hm && up-nvim;;
-          esac
-          popd
-        '';
-      };
-    };
+    file = { nvim = mk_config config "nvim"; };
 
     shellAliases = {
       lg = "lazygit";

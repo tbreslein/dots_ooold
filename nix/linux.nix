@@ -38,6 +38,38 @@
           "${config.home.homeDirectory}/dots/config/xinitrc";
         target = "${config.home.homeDirectory}/.xinitrc";
       };
+      up = {
+        executable = true;
+        target = "${config.home.homeDirectory}/.local/bin/up";
+        text = ''
+          #!/usr/bin/env bash
+          source ~/.bashrc
+          pushd ${config.home.homeDirectory}/dots
+          [[ -n $(git status -s) ]] && echo "git tree is dirty" && popd && return 1
+          nix-channel --update
+          nix-collect-garbage -d
+          function up-hm {
+              nix flake update
+              if [[ -n $(git status -s) ]]; then
+                  git add flake.lock && git commit -m "update flake.lock"
+              fi
+              home-manager switch --flake .
+          }
+          function up-pkgs {
+              sudo apt update && sudo apt upgrade
+          }
+          function up-nvim {
+              nvim --headless "+Lazy! sync" +qa
+          }
+          case "$1" in
+            hm) up-hm;;
+            pkgs) up-pkgs;;
+            nvim) up-nvim;;
+            *) up-pkgs && up-hm && up-nvim;;
+          esac
+          popd
+        '';
+      };
     };
   };
 
@@ -47,11 +79,12 @@
       enableCompletion = true;
       historyControl = [ "ignoredups" "ignorespace" ];
       historyFile = "${config.home.homeDirectory}/.bash_histoy";
-      shellOptions = [ "histappend" "globstar" "checkwinsize" "vi" ];
+      shellOptions = [ "histappend" "globstar" "checkwinsize" ];
       bashrcExtra = ''
         # make less more friendly for non-text input files, see lesspipe(1)
         [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
         PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
+        set -o vi
       '';
       profileExtra = ''
         # if running bash
