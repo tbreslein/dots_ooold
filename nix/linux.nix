@@ -7,6 +7,7 @@
       # cli
       pkgs.imv
       pkgs.mpv
+      pkgs.pfetch-rs
 
       # desktop
       pkgs.brave
@@ -19,6 +20,7 @@
       pkgs.pasystray
       pkgs.picom
       pkgs.telegram-desktop
+      pkgs.vlc
       pkgs.zathura
 
       # fonts

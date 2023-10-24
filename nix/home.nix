@@ -21,6 +21,7 @@
       # cli
       pkgs.bat
       pkgs.bottom
+      pkgs.go-task
       pkgs.jq
       pkgs.lazygit
       pkgs.ripgrep
@@ -35,7 +36,10 @@
         text = ''
           #!/usr/bin/env bash
           pushd ${config.home.homeDirectory}/dots
+          nix-channel --update
+          nix-collect-garbage -d
           function up-hm {
+              nix flake update
               home-manager switch --flake .
           }
           function up-pkgs {
