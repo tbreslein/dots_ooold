@@ -10,6 +10,7 @@
       pkgs.pfetch-rs
 
       # desktop
+      pkgs.arandr
       pkgs.brave
       pkgs.discord
       pkgs.dmenu
