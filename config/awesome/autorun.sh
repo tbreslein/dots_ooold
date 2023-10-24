@@ -6,9 +6,9 @@ run() {
     fi
 }
 
-run "picom" -b
+run "picom" -bfc --backend glx --vsync --corner-radius 7
 run "pasystray"
 run "nm-applet"
 run "gammastep" -l 54:10
-run "feh" --randomize --bg-fill ~/MEGA/Wallpaper/
+run "feh" --bg-fill ~/MEGA/Wallpaper/lofi-cafe_gray.jpg
 sleep 5 && run "megasync"

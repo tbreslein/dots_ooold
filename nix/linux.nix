@@ -19,7 +19,7 @@
       pkgs.gammastep
       pkgs.networkmanagerapplet
       pkgs.pasystray
-      pkgs.picom
+      # pkgs.picom
       pkgs.telegram-desktop
       pkgs.vlc
       pkgs.zathura
