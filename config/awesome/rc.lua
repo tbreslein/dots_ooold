@@ -73,30 +73,8 @@ local taglist_buttons = gears.table.join(
     end)
 )
 
-local tasklist_buttons = gears.table.join(
-    awful.button({}, 1, function(c)
-        if c == client.focus then
-            c.minimized = true
-        else
-            c:emit_signal("request::activate", "tasklist", { raise = true })
-        end
-    end),
-    awful.button({}, 3, function()
-        awful.menu.client_list({ theme = { width = 250 } })
-    end),
-    awful.button({}, 4, function()
-        awful.client.focus.byidx(1)
-    end),
-    awful.button({}, 5, function()
-        awful.client.focus.byidx(-1)
-    end)
-)
-
 Systray = wibox.widget.systray()
--- Systray:set_horizontal()
 Systray:set_base_size(30)
-
-local dpi = beautiful.xresources.apply_dpi
 awful.screen.connect_for_each_screen(function(s)
     awful.tag({ " ", "󰖟 ", " " }, s, awful.layout.layouts[1])
     s.mytaglist = awful.widget.taglist({
@@ -112,7 +90,6 @@ awful.screen.connect_for_each_screen(function(s)
     s.mywibox = awful.wibar({
         position = "top",
         screen = s,
-        -- width = dpi(30),
         widget = wibox.container.background,
         shape = function(cr, width, height)
             gears.shape.rounded_rect(cr, width, height, 7)
@@ -120,13 +97,20 @@ awful.screen.connect_for_each_screen(function(s)
     })
     s.mywibox:setup({
         layout = wibox.layout.align.horizontal,
-        s.mytaglist,
-        nil,
+        {
+            layout = wibox.layout.fixed.horizontal,
+            s.mytaglist,
+        },
+        {
+            layout = wibox.layout.align.horizontal,
+            expand = "outside",
+            nil,
+            wibox.widget.textclock("%H:%M"),
+            nil,
+        },
         {
             layout = wibox.layout.fixed.horizontal,
             Systray,
-            wibox.widget.separator({ orientation = "vertical", forced_width = 10, span_ratio = 0.8 }),
-            wibox.widget.textclock("%H:%M"),
         },
     })
 end)
@@ -165,9 +149,6 @@ Globalkeys = gears.table.join(
                 .. " -sb '#5a524c'"
                 .. " -sf '#d8a657'"
         )
-    end, { description = "open dmenu", group = "launcher" }),
-    awful.key({ Modkey, "Control" }, "space", function()
-        awful.spawn.with_shell("xprop > ~/foo.txt")
     end, { description = "open dmenu", group = "launcher" }),
     awful.key({ Modkey, "Control" }, "r", awesome.restart, { description = "reload awesome", group = "awesome" }),
     awful.key({ Modkey, "Control" }, "x", awesome.quit, { description = "quit awesome", group = "awesome" }),
