@@ -17,7 +17,7 @@
         "spacing": 15
     },
     "clock": {
-        "format": " | {:%H:%M} ",
+        "format": "  {:%H:%M} ",
         "interval": 30
     },
 
