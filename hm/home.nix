@@ -27,7 +27,10 @@
       pkgs.tealdeer
     ];
 
-    file = { nvim = mk_config config "nvim"; };
+    file = {
+      nvim = mk_config config "nvim";
+      smug = mk_config config "smug";
+    };
 
     shellAliases = {
       lg = "lazygit";

@@ -1,56 +1,50 @@
 { config, pkgs, user_name, ... }: {
   home = {
     homeDirectory = "/Users/${user_name}";
-    #packages = [
-    #];
-    file = {
-      up = {
-        executable = true;
-        target = "${config.home.homeDirectory}/.local/bin/up";
-        text = ''
-          #!/usr/bin/env zsh
-          source ~/.zshrc
-          pushd ${config.home.homeDirectory}/dots
-          [[ -n $(git status -s) ]] && echo "git tree is dirty" && popd && return 1
-          function up-hm {
-              nix-collect-garbage -d
-              nix flake update
-              if [[ -n $(git status -s) ]]; then
-                  git add flake.lock && git commit -m "update flake.lock"
-              fi
-              home-manager switch --flake .
-          }
-          function up-pkgs {
-              npm update -g
-              HOMEBREW_NO_INSTALL_CLEANUP=1 brew update && HOMEBREW_NO_INSTALL_CLEANUP=1 brew upgrade
-              brew cleanup
-              HOMEBREW_NO_INSTALL_CLEANUP=1 axbrew update && HOMEBREW_NO_INSTALL_CLEANUP=1 axbrew upgrade
-              axbrew cleanup
-              poetry self update
-          }
-          function up-nvim {
-              nvim --headless "+Lazy! sync" +qa
-          }
-          function up-all {
-              up-pkgs && up-hm && up-nvim
-          }
-          case "$1" in
-            hm) up-hm;;
-            pkgs) up-pkgs;;
-            nvim) up-nvim;;
-            all) up-all;;
-          esac
-          popd
-        '';
-      };
-    };
+    packages = [
+      (pkgs.writeShellScriptBin "up" ''
+        #!/usr/bin/env zsh
+        source ~/.zshrc
+        pushd ${config.home.homeDirectory}/dots
+        function up-hm {
+            nix-collect-garbage -d
+            nix flake update
+            if [[ -n $(git status -s) ]]; then
+                git add flake.lock && git commit -m "update flake.lock"
+            fi
+            home-manager switch --flake .
+        }
+        function up-pkgs {
+            npm update -g
+            HOMEBREW_NO_INSTALL_CLEANUP=1 brew update && HOMEBREW_NO_INSTALL_CLEANUP=1 brew upgrade
+            brew cleanup
+            HOMEBREW_NO_INSTALL_CLEANUP=1 axbrew update && HOMEBREW_NO_INSTALL_CLEANUP=1 axbrew upgrade
+            axbrew cleanup
+            poetry self update
+        }
+        function up-nvim {
+            nvim --headless "+Lazy! sync" +qa
+        }
+        function up-all {
+            up-pkgs && up-hm && up-nvim
+        }
+        if [[ -n $(git status -s) ]]; then
+            echo "Error: git tree is dirty"
+        else
+            case "$1" in
+              hm) up-hm;;
+              pkgs) up-pkgs;;
+              nvim) up-nvim;;
+              all) up-all;;
+            esac
+        fi
+        popd
+      '')
+    ];
+    # file = {
+    # };
   };
   programs = {
-    pyenv = {
-      enable = true;
-      enableZshIntegration = true;
-    };
-
     wezterm = {
       enable = true;
       extraConfig = ''
@@ -123,6 +117,10 @@
         _comp_options+=(globdots)
         compinit
       '';
+      shellAliases = {
+        twork = "smug dots --detach; smug planning";
+        axbrew = "arch -x86_64 /usr/local/Homebrew/bin/brew";
+      };
       history = {
         ignoreAllDups = true;
         ignoreSpace = true;

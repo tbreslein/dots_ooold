@@ -1,6 +1,10 @@
 { config, pkgs, ... }: {
   nixpkgs.config.allowUnfree = true;
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix = {
+    settings.experimental-features = [ "nix-command" "flakes" ];
+    trusted-users = [ "tommy" ];
+    builders-use-substituters = true;
+  };
 
   networking = {
     networkmanager.enable = true;
