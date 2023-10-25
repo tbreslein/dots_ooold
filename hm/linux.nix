@@ -140,5 +140,10 @@ in {
       font = "Noto Sans 15";
       defaultTimeout = 20;
     };
+    wlsunset = {
+      enable = true;
+      latitude = "54.2";
+      longitude = "10.5";
+    };
   };
 }

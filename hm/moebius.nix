@@ -10,7 +10,7 @@
             mode = "3440x1440@144.000";
             adaptiveSync = true;
           }];
-          exec = "swww init";
+          exec = "wlsunset && swww init";
         };
       };
     };
