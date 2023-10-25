@@ -33,6 +33,7 @@
 
     file = {
       alacritty = mk_config config "alacritty";
+      hypr = mk_config config "hypr";
       up = {
         executable = true;
         target = "${config.home.homeDirectory}/.local/bin/up";
