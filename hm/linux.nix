@@ -18,6 +18,8 @@ in {
       pkgs.telegram-desktop
       pkgs.vlc
       pkgs.zathura
+      pkgs.nwg-look
+      pkgs.lxappearance
 
       # wayland
       pkgs.waybar
