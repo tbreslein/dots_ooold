@@ -21,23 +21,18 @@ window#waybar {
 #workspaces button {
   padding: 0px 11px 0px 11px;
   min-width: 1px;
-  color: #5a524c;
+  color: #32302f;
 }
 
-#workspaces button.focused {
+#workspaces button.active {
   padding: 0px 11px 0px 11px;
   background-color: #928374;
-  color: #d8a657;
+  color: #45403d;
 }
 
 #window {
-  color: #ddc7a1;
-  background-color: #4f422e;
+  background-color: #32302f;
   padding: 0px 10px 0px 10px;
-}
-
-window#waybar.empty {
-  background-color: #4f422e;
 }
 
 #network,
