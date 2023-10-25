@@ -1,4 +1,6 @@
-{ config, pkgs, user_name, mk_config, ... }: {
+{ config, pkgs, user_name, mk_config, ... }:
+let gruvboxPlus = import ./gruvbox-plus.nix { inherit pkgs; };
+in {
   fonts.fontconfig.enable = true;
   home = {
     homeDirectory = "/home/${user_name}";
@@ -100,6 +102,22 @@
     git = {
       userName = "Tommy Breslein";
       userEmail = "tommy.breslein@protonmail.com";
+    };
+  };
+
+  gtk = {
+    enable = true;
+    cursorTheme = {
+      package = pkgs.bibata-cursors;
+      name = "Bibata-Classic-Ice";
+    };
+    theme = {
+      package = pkgs.adw-gtk3;
+      name = "adw-gtk3";
+    };
+    iconTheme = {
+      package = gruvboxPlus;
+      name = "GruvboxPlus";
     };
   };
 }
