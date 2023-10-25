@@ -129,5 +129,16 @@ in {
     };
   };
 
-  services = { kanshi = { enable = true; }; };
+  services = {
+    kanshi = { enable = true; };
+    mako = {
+      enable = true;
+      borderRadius = 5;
+      backgroundColor = "#32302fff";
+      borderColor = "#d8a657ff";
+      textColor = "#ddc7a1ff";
+      font = "Noto Sans 15";
+      defaultTimeout = 20;
+    };
+  };
 }
