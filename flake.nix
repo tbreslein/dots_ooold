@@ -20,7 +20,11 @@
     nixosConfigurations = {
       moebius = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        modules = [./nixos/configuration.nix] ;
+        modules = [
+          ./nixos/configuration.nix
+          ./nixos/moebius.nix
+          ./nixos/moebius-hardware.nix
+        ] ;
       };
     };
   };
