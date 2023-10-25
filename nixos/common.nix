@@ -3,7 +3,7 @@
   nix = {
     settings.experimental-features = [ "nix-command" "flakes" ];
     trusted-users = [ "tommy" ];
-    builders-use-substituters = true;
+    builders.use-substituters = true;
   };
 
   networking = {
