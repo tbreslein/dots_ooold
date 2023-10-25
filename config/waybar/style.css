@@ -1,102 +1,66 @@
 * {
-    font-family: "UbuntuMono Nerd Font";
-    font-size: 16px;
+  font-family: "Hack Nerd Font";
+  font-size: 18px;
 }
 
-
-window#waybar { 
-    background-color: #225877; 
-    color: #ffffff;    
+window#waybar {
+  background-color: #32302f;
+  color: #ddc7a1;
 }
-
 
 .modules-left {
-	background-color: #323232;
-	padding: 0px 0px 0px 0px;
+  background-color: #32302f;
+  padding: 0px 0px 0px 0px;
 }
-
 
 .modules-right {
-	background-color: #323232;
-	padding: 0px 5px 0px 0px;
+  background-color: #32302f;
+  padding: 0px 5px 0px 0px;
 }
-
-
-#custom-scratch {
-	background-color: #323232;
-	color: #b8b8b8;
-	padding: 0px 9px 0px 9px;
-}
-
-
-#workspaces {
-}
-
 
 #workspaces button {
-	padding: 0px 11px 0px 11px; 
- 	min-width: 1px;
-	color: #888888;
+  padding: 0px 11px 0px 11px;
+  min-width: 1px;
+  color: #5a524c;
 }
 
-
-#workspaces button.focused { 
-	padding: 0px 11px 0px 11px; 
-	background-color: #285577;
-	color: #ffffff;
+#workspaces button.focused {
+  padding: 0px 11px 0px 11px;
+  background-color: #928374;
+  color: #d8a657;
 }
-
-
-#mode { 
-	 background-color: #900000;
-	 color: #ffffff;
-     padding: 0px 5px 0px 5px;
-     border: 1px solid #2f343a;
-}
-
 
 #window {
-	 color: #ffffff;
-	 background-color: #285577;
-     padding: 0px 10px 0px 10px;
+  color: #ddc7a1;
+  background-color: #4f422e;
+  padding: 0px 10px 0px 10px;
 }
-
-
-window#waybar.empty #window {
-	background-color: transparent;
-	color: transparent;
-}
-
 
 window#waybar.empty {
-	background-color: #323232;
+  background-color: #4f422e;
 }
 
-
-#network, #temperature, #backlight, #pulseudio, #battery {
-    padding: 0px 15px 0px 15px;
+#network,
+#temperature,
+#backlight,
+#pulseudio,
+#battery {
+  padding: 0px 15px 0px 15px;
 }
-    
 
 #clock {
-	margin: 0px 15px 0px 15px;
+  margin: 0px 15px 0px 15px;
 }
 
-
-#tray{
-   padding: 0px 8px 0px 5px;
-   margin: 0px 5px 0px 5px;
+#tray {
+  padding: 0px 8px 0px 5px;
+  margin: 0px 5px 0px 5px;
 }
-
 
 #battery.critical {
-   color: #ff5555;
+  color: #ea6962;
 }
-
 
 #network.disconnected {
-    color: #ff5555;
+  color: #ea6962;
 }
-
-
-

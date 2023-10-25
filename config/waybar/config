@@ -5,16 +5,8 @@
 
     "modules-left": ["hyprland/workspaces", "hyprland/window"],
     "modules-center": [],
-    "modules-right": ["network", "pulseaudio", "battery", "clock", "tray"],
+    "modules-right": ["network", "wireplumber", "battery", "clock", "tray"],
 
-	"hyprland/workspaces": {
-        "format": "{icon}",
-        "format-icons": {
-            "active": " ",
-            "default": " ",
-            "empty": " ",
-        }
-    },
 	"hyprland/window": {
     	"format": "{}",
     	"max-length": 150
@@ -25,7 +17,7 @@
         "spacing": 15
     },
     "clock": {
-        "format": "{:%H:%M}",
+        "format": "{:%H:%M}   | ",
         "interval": 30
     },
 
@@ -38,23 +30,23 @@
               "warning": 20,
               "critical": 20
         },
-        "format": "{icon}   {capacity}%",
-        "format-good": "{icon}   {capacity}%",
-        "format-full": "   {capacity}%",
+        "format": "{icon}   {capacity}%   | ",
+        "format-good": "{icon}   {capacity}%   | ",
+        "format-full": "   {capacity}%   | ",
         "format-icons": ["", "", "", "", ""],
         "interval": 30
     },
 
     "network": {
-        "format-ethernet": "󰈀 ",
-        "format-wifi": " ",
-        "format-disconnected": " ",
+        "format-ethernet": "󰈀  | ",
+        "format-wifi": "  | ",
+        "format-disconnected": "  | ",
     },
 
     "wireplumber": {
-        "format": "{icon}  {volume}%  ",
-        "format-bluetooth": "  {volume}%  ",
-        "format-muted":"󰝟  Mute  ",
+        "format": "{icon} {volume}%  | ",
+        "format-bluetooth": " {volume}%  | ",
+        "format-muted":"󰝟   | ",
         "max-volume": 150.0,
         "format-icons": {
             "default": [""]
