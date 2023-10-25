@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+  imports = [ ./common.nix ./moebius-hardware.nix ];
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
@@ -15,4 +16,3 @@
   };
   networking.hostName = "moebius";
 }
-

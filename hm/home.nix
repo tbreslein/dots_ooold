@@ -2,7 +2,6 @@
   nixpkgs.config.allowUnfree = true;
   home = {
     username = user_name;
-    homeDirectory = "/home/${user_name}";
     stateVersion = "23.05";
     packages = [
       # coding
