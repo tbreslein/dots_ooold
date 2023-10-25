@@ -19,7 +19,7 @@ in {
       pkgs.vlc
       pkgs.zathura
       pkgs.nwg-look
-      pkgs.lxappearance
+      pkgs.pavucontrol
 
       # wayland
       pkgs.waybar
@@ -31,6 +31,8 @@ in {
       pkgs.tofi
       pkgs.wdisplays
       pkgs.wlsunset
+      pkgs.grim
+      pkgs.slurp
 
       # fonts
       (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
