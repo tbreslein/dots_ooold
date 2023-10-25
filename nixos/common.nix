@@ -80,7 +80,8 @@
 
   users.users.tommy = {
     isNormalUser = true;
-    extraGroups = [ "wheel" ];
+    extraGroups = [ "wheel" "networkmanager" ];
+    initialPassword = "qwert";
     packages = with pkgs; [ alacritty ];
   };
 
