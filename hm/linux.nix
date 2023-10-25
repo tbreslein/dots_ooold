@@ -25,7 +25,9 @@ in {
       pkgs.mako
       pkgs.wl-clipboard
       pkgs.swww
+      pkgs.kanshi
       pkgs.tofi
+      pkgs.wdisplays
 
       # fonts
       (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
@@ -126,4 +128,6 @@ in {
       name = "GruvboxPlus";
     };
   };
+
+  services = { kanshi = { enable = true; }; };
 }
