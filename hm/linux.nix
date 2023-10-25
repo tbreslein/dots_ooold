@@ -72,6 +72,7 @@ in {
     file = {
       alacritty = mk_config config "alacritty";
       hypr = mk_config config "hypr";
+      tofi = mk_config config "tofi";
     };
   };
 
