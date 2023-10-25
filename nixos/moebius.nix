@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 
 {
+  networking.hostName = "moebius";
   boot.loader = {
     efi = {
       canTouchEfiVariables = true;
