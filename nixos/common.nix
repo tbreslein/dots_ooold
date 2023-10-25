@@ -1,11 +1,19 @@
 { config, pkgs, ... }: {
   nixpkgs.config.allowUnfree = true;
-  nix.settings = {
-    experimental-features = [ "nix-command" "flakes" ];
-    trusted-users = [ "tommy" ];
-    substituters = [ "https://cachix.cachix.org" ];
-    trusted-public-keys =
-      [ "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM=" ];
+  nix = {
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than 30d";
+    };
+    optimise.automatic = true;
+    settings = {
+      experimental-features = [ "nix-command" "flakes" ];
+      trusted-users = [ "tommy" ];
+      substituters = [ "https://cachix.cachix.org" ];
+      trusted-public-keys =
+        [ "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM=" ];
+    };
   };
 
   networking = {
