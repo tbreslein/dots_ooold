@@ -1,9 +1,11 @@
 { config, pkgs, ... }: {
   nixpkgs.config.allowUnfree = true;
-  nix = {
-    settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings = {
+    experimental-features = [ "nix-command" "flakes" ];
     trusted-users = [ "tommy" ];
-    builders.use-substituters = true;
+    substituters = [ "https://cachix.cachix.org" ];
+    trusted-public-keys =
+      [ "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM=" ];
   };
 
   networking = {
