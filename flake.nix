@@ -7,33 +7,49 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, darwin, ... } :
     let
-      common_modules = [ ./nix/home.nix ];
-      user_name = "tommy";
+      common_hm_modules = [ ./hm/home.nix ];
+      common_nixos_modules = [ ./nixos/configuration.nix ];
+      #user_name = "tommy";
       mk_config = config: name: {
         source = config.lib.file.mkOutOfStoreSymlink
           "${config.home.homeDirectory}/dots/config/${name}";
         target = "${config.home.homeDirectory}/.config/${name}";
       };
     in {
-      homeConfigurations = {
-        "tommy@moebius" = home-manager.lib.homeManagerConfiguration {
-          extraSpecialArgs = { inherit user_name mk_config; };
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          modules = common_modules ++ [ ./nix/linux.nix ./nix/moebius.nix ];
+      nixosConfigurations = {
+        moebius = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          modules = common_nixos_modules ++ [
+            ./nixos/moebius.nix ./nixos/moebius-hardware.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.extraSpecialArgs = { inherit mk_config; };
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.tommy = import (common_hm_modules ++ [ ./hm/linux.nix ./hm/moebius.nix ]);
+            }
+          ];
         };
-        "tommy@audron" = home-manager.lib.homeManagerConfiguration {
-          specialArgs = { inherit user_name mk_config; };
-          pkgs = nixpkgs.legacyPackages."x86_64-linux";
-          modules = common_modules ++ [ ./nix/linux.nix ./nix/audron.nix ];
-        };
-        mac = home-manager.lib.homeManagerConfiguration rec {
-          specialArgs = { inherit user_name mk_config; };
-          pkgs = nixpkgs.legacyPackages."aarch64-darwin";
-          modules = common_modules ++ [ ./nix/darwin.nix ];
+      };
+      darwinConfigurations = {
+        mac = darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          modules = [
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.tommy = import (common_hm_modules ++ [ ./hm/darwin.nix ]);
+            }
+          ];
         };
       };
     };

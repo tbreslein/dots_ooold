@@ -10,16 +10,8 @@
       pkgs.pfetch-rs
 
       # desktop
-      pkgs.arandr
       pkgs.brave
       pkgs.discord
-      pkgs.dmenu
-      pkgs.feh
-      pkgs.flameshot
-      pkgs.gammastep
-      pkgs.networkmanagerapplet
-      pkgs.pasystray
-      # pkgs.picom
       pkgs.telegram-desktop
       pkgs.vlc
       pkgs.zathura
@@ -33,12 +25,6 @@
 
     file = {
       alacritty = mk_config config "alacritty";
-      awesome = mk_config config "awesome";
-      xinitrc = {
-        source = config.lib.file.mkOutOfStoreSymlink
-          "${config.home.homeDirectory}/dots/config/xinitrc";
-        target = "${config.home.homeDirectory}/.xinitrc";
-      };
       up = {
         executable = true;
         target = "${config.home.homeDirectory}/.local/bin/up";
@@ -47,26 +33,26 @@
           source ~/.bashrc
           pushd ${config.home.homeDirectory}/dots
           [[ -n $(git status -s) ]] && echo "git tree is dirty" && popd && return 1
-          nix-channel --update
-          nix-collect-garbage -d
           function up-hm {
+              # nix-collect-garbage -d
               nix flake update
               if [[ -n $(git status -s) ]]; then
                   git add flake.lock && git commit -m "update flake.lock"
               fi
-              home-manager switch --flake .
-          }
-          function up-pkgs {
-              sudo apt update && sudo apt upgrade
+              sudo nixos-rebuild switch --flake .
           }
           function up-nvim {
               nvim --headless "+Lazy! sync" +qa
           }
+          function up-all {
+              up-hm
+              up-nvim
+          }
           case "$1" in
-            hm) up-hm;;
-            pkgs) up-pkgs;;
+            nix) up-nix;;
             nvim) up-nvim;;
-            *) up-pkgs && up-hm && up-nvim;;
+            all) up-all;;
+            *) up-all;;
           esac
           popd
         '';
@@ -117,44 +103,4 @@
       userEmail = "tommy.breslein@protonmail.com";
     };
   };
-
-  gtk = {
-    enable = true;
-    theme = {
-      name = "gruvbox-dark";
-      package = pkgs.gruvbox-gtk-theme;
-    };
-    iconTheme = {
-      name = "gruvbox-dark";
-      package = pkgs.gruvbox-dark-icons-gtk;
-    };
-    cursorTheme = {
-      name = "Numix-Cursor";
-      package = pkgs.numix-cursor-theme;
-    };
-    gtk3.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
-    };
-    gtk4.extraConfig = {
-      Settings = ''
-        gtk-application-prefer-dark-theme=1
-      '';
-    };
-  };
-  dconf.settings = {
-    "org/gnome/desktop/interface" = { color-scheme = "prefer-dark"; };
-  };
-  home.sessionVariables.GTK_THEME = "gruvbox-dark";
-
-  services = {
-    gammastep = {
-      enable = true;
-      latitude = 54.323334;
-      longitude = 10.139444;
-    };
-  };
-
-  targets.genericLinux.enable = true;
 }

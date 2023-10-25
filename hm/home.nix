@@ -1,6 +1,5 @@
 { config, pkgs, user_name, mk_config, ... }: {
   nixpkgs.config.allowUnfree = true;
-  news.display = "show";
   home = {
     username = user_name;
     stateVersion = "23.05";

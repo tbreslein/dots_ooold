@@ -12,9 +12,8 @@
           source ~/.zshrc
           pushd ${config.home.homeDirectory}/dots
           [[ -n $(git status -s) ]] && echo "git tree is dirty" && popd && return 1
-          nix-channel --update
-          nix-collect-garbage -d
           function up-hm {
+              nix-collect-garbage -d
               nix flake update
               if [[ -n $(git status -s) ]]; then
                   git add flake.lock && git commit -m "update flake.lock"
@@ -32,11 +31,14 @@
           function up-nvim {
               nvim --headless "+Lazy! sync" +qa
           }
+          function up-all {
+              up-pkgs && up-hm && up-nvim
+          }
           case "$1" in
             hm) up-hm;;
             pkgs) up-pkgs;;
             nvim) up-nvim;;
-            *) up-pkgs && up-hm && up-nvim;;
+            all) up-all;;
           esac
           popd
         '';
