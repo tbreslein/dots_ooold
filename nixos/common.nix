@@ -1,6 +1,4 @@
-{ config, pkgs, ... }:
-
-{
+{ config, pkgs, ... }: {
   nixpkgs.config.allowUnfree = true;
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -20,7 +18,10 @@
   services = {
     xserver = {
       enable = true;
-      displayManager.sddm.enable = true;
+      displayManager.sddm = {
+        enable = true;
+        theme = "${import ./sddm-themes/sugar-dark.nix { inherit pkgs; }}";
+      };
     };
     openssh.enable = true;
     pipewire = {
@@ -46,7 +47,15 @@
 
   environment = {
     sessionVariables = { NIXOS_OZONE_WL = "1"; };
-    systemPackages = with pkgs; [ vim wget git ];
+    systemPackages = with pkgs; [
+      vim
+      wget
+      git
+
+      # for sddm themeing
+      libsForQt5.qt5.qtquickcontrols2
+      libsForQt5.qt5.qtgraphicaleffects
+    ];
   };
 
   sound.enable = true;

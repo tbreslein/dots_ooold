@@ -1,5 +1,5 @@
 { config, pkgs, user_name, mk_config, ... }:
-let gruvboxPlus = import ./gruvbox-plus.nix { inherit pkgs; };
+let gtkGruvboxPlus = import ./gtk-themes/gruvbox-plus.nix { inherit pkgs; };
 in {
   fonts.fontconfig.enable = true;
   home = {
@@ -121,7 +121,7 @@ in {
       name = "adw-gtk3";
     };
     iconTheme = {
-      package = gruvboxPlus;
+      package = gtkGruvboxPlus;
       name = "GruvboxPlus";
     };
   };
