@@ -28,6 +28,7 @@ in {
       pkgs.kanshi
       pkgs.tofi
       pkgs.wdisplays
+      pkgs.wlsunset
 
       # fonts
       (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
