@@ -16,6 +16,14 @@
       pkgs.vlc
       pkgs.zathura
 
+      # wayland
+      pkgs.waybar
+      pkgs.eww
+      pkgs.mako
+      pkgs.wl-clipboard
+      pkgs.swww
+      pkgs.tofi
+
       # fonts
       (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
       pkgs.noto-fonts
@@ -52,7 +60,6 @@
             nix) up-nix;;
             nvim) up-nvim;;
             all) up-all;;
-            *) up-all;;
           esac
           popd
         '';

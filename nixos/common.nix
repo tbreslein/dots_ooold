@@ -8,38 +8,55 @@
     networkmanager.enable = true;
     firewall.enable = false;
   };
+  security.rtkit.enable = true;
   time.timeZone = "Europe/Berlin";
 
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    useXkbConfig = true; # use xkbOptions in tty.
+    useXkbConfig = true;
   };
 
   services = {
     xserver = {
       enable = true;
       displayManager.sddm.enable = true;
-      desktopManager.plasma5.enable = true;
     };
     openssh.enable = true;
+    pipewire = {
+      enable = true;
+      alsa = {
+        enable = true;
+        support32Bit = true;
+      };
+      pulse.enable = true;
+      jack.enable = true;
+    };
+  };
+
+  programs.hyprland = {
+    enable = true;
+    xwayland.enable = true;
+  };
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+  };
+
+  environment = {
+    sessionVariables = { NIXOS_OZONE_WL = "1"; };
+    systemPackages = with pkgs; [ vim wget git ];
   };
 
   sound.enable = true;
-  hardware.pulseaudio.enable = true;
+  hardware.opengl.enable = true;
 
   users.users.tommy = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    packages = with pkgs; [ firefox ];
+    packages = with pkgs; [ alacritty kitty ];
   };
-
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    git
-  ];
 
   system.stateVersion = "23.05";
 }
-
