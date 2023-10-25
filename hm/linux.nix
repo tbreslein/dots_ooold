@@ -41,7 +41,7 @@
           source ~/.bashrc
           pushd ${config.home.homeDirectory}/dots
           [[ -n $(git status -s) ]] && echo "git tree is dirty" && popd && return 1
-          function up-hm {
+          function up-nix {
               # nix-collect-garbage -d
               nix flake update
               if [[ -n $(git status -s) ]]; then
@@ -53,7 +53,7 @@
               nvim --headless "+Lazy! sync" +qa
           }
           function up-all {
-              up-hm
+              up-nix
               up-nvim
           }
           case "$1" in
@@ -78,7 +78,7 @@
         # make less more friendly for non-text input files, see lesspipe(1)
         [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
         PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-        set -o vi
+        set editing-mode vi
       '';
       profileExtra = ''
         # if running bash
@@ -97,10 +97,6 @@
         # set PATH so it includes user's private bin if it exists
         if [ -d "$HOME/.local/bin" ]; then
             PATH="$HOME/.local/bin:$PATH"
-        fi
-
-        if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" -eq 1 ]; then
-            exec startx
         fi
       '';
     };
