@@ -56,7 +56,10 @@
     systemPackages = with pkgs; [
       vim
       wget
+      curl
+      unzip
       git
+      killall
 
       # for sddm themeing
       libsForQt5.qt5.qtquickcontrols2
@@ -70,7 +73,7 @@
   users.users.tommy = {
     isNormalUser = true;
     extraGroups = [ "wheel" ];
-    packages = with pkgs; [ alacritty kitty ];
+    packages = with pkgs; [ alacritty ];
   };
 
   system.stateVersion = "23.05";
