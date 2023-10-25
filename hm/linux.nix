@@ -10,6 +10,7 @@ in {
       pkgs.imv
       pkgs.mpv
       pkgs.pfetch-rs
+      pkgs.playerctl
 
       # desktop
       pkgs.brave
