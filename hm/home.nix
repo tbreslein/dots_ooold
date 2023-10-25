@@ -25,6 +25,7 @@
       pkgs.lazygit
       pkgs.ripgrep
       pkgs.tealdeer
+      pkgs.duf
     ];
 
     file = {
