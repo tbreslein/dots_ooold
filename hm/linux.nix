@@ -29,42 +29,38 @@
       pkgs.noto-fonts
       pkgs.noto-fonts-cjk
       pkgs.noto-fonts-emoji
+
+      # shell scripts
+      (pkgs.writeShellScriptBin "up" ''
+        source ~/.bashrc
+        pushd ${config.home.homeDirectory}/dots
+        [[ -n $(git status -s) ]] && echo "git tree is dirty" && popd && return 1
+        function up-nix {
+            nix flake update
+            if [[ -n $(git status -s) ]]; then
+                git add flake.lock && git commit -m "update flake.lock"
+            fi
+            sudo nixos-rebuild switch --flake .
+        }
+        function up-nvim {
+            nvim --headless "+Lazy! sync" +qa
+        }
+        function up-all {
+            up-nix
+            up-nvim
+        }
+        case "$1" in
+          nix) up-nix;;
+          nvim) up-nvim;;
+          all) up-all;;
+        esac
+        popd
+      '')
     ];
 
     file = {
       alacritty = mk_config config "alacritty";
       hypr = mk_config config "hypr";
-      up = {
-        executable = true;
-        target = "${config.home.homeDirectory}/.local/bin/up";
-        text = ''
-          #!/usr/bin/env bash
-          source ~/.bashrc
-          pushd ${config.home.homeDirectory}/dots
-          [[ -n $(git status -s) ]] && echo "git tree is dirty" && popd && return 1
-          function up-nix {
-              # nix-collect-garbage -d
-              nix flake update
-              if [[ -n $(git status -s) ]]; then
-                  git add flake.lock && git commit -m "update flake.lock"
-              fi
-              sudo nixos-rebuild switch --flake .
-          }
-          function up-nvim {
-              nvim --headless "+Lazy! sync" +qa
-          }
-          function up-all {
-              up-nix
-              up-nvim
-          }
-          case "$1" in
-            nix) up-nix;;
-            nvim) up-nvim;;
-            all) up-all;;
-          esac
-          popd
-        '';
-      };
     };
   };
 
