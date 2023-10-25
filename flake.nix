@@ -14,7 +14,7 @@
       user_name = "tommy";
       mk_config = config: name: {
         source = config.lib.file.mkOutOfStoreSymlink
-          "${config.home.homeDirectory}/dots/config${name}";
+          "${config.home.homeDirectory}/dots/config/${name}";
         target = "${config.home.homeDirectory}/.config/${name}";
       };
     in {
