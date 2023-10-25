@@ -71,7 +71,7 @@ in {
       enable = true;
       enableCompletion = true;
       historyControl = [ "ignoredups" "ignorespace" ];
-      historyFile = "${config.home.homeDirectory}/.bash_histoy";
+      historyFile = "${config.home.homeDirectory}/.bash_history";
       shellOptions = [ "histappend" "globstar" "checkwinsize" ];
       bashrcExtra = ''
         # make less more friendly for non-text input files, see lesspipe(1)
