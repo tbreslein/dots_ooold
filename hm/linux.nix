@@ -36,7 +36,6 @@ in {
       (pkgs.writeShellScriptBin "up" ''
         source ~/.bashrc
         pushd ${config.home.homeDirectory}/dots
-        [[ -n $(git status -s) ]] && echo "git tree is dirty" && popd && return 1
         function up-nix {
             nix flake update
             if [[ -n $(git status -s) ]]; then
@@ -51,11 +50,17 @@ in {
             up-nix
             up-nvim
         }
-        case "$1" in
-          nix) up-nix;;
-          nvim) up-nvim;;
-          all) up-all;;
-        esac
+
+        if [[ -n $(git status -s) ]]; then
+            echo "Error: git tree is dirty"
+        else
+            case "$1" in
+              nix) up-nix;;
+              nvim) up-nvim;;
+              all) up-all;;
+              *) echo "Error: unknown command";;
+            esac
+        fi
         popd
       '')
     ];
