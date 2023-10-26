@@ -19,6 +19,10 @@
   networking = {
     networkmanager.enable = true;
     firewall.enable = false;
+    extraHosts = ''
+      192.168.0.91 moebius
+      192.168.0.90 vorador
+    '';
   };
   security.rtkit.enable = true;
   time.timeZone = "Europe/Berlin";
