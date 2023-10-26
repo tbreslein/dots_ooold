@@ -1,6 +1,6 @@
 { config, pkgs, user_name, mk_config, ... }: {
   imports = [ ./home.nix ./linux.nix ];
-  home = { packages = [ pkgs.steam ]; };
+  home = { packages = with pkgs; [ steam lutris ]; };
   services = {
     kanshi = {
       profiles = {
