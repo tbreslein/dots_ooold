@@ -145,7 +145,7 @@ in {
       backgroundColor = "#32302fff";
       borderColor = "#d8a657ff";
       textColor = "#ddc7a1ff";
-      font = "Noto Sans 15";
+      # font = "Noto Sans 15";
       defaultTimeout = 20;
     };
     wlsunset = {
