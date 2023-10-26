@@ -25,6 +25,7 @@ in {
       pkgs.waybar
       pkgs.eww
       pkgs.mako
+      pkgs.libnotify
       pkgs.wl-clipboard
       pkgs.swww
       pkgs.kanshi
