@@ -12,7 +12,8 @@
         [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
       kernelModules = [ ];
     };
-    kernelModules = [ "kvm-amd" "amdgpu" ];
+    # kernelModules = [ "kvm-amd" "amdgpu" ];
+    kernelModules = [ "amdgpu" ];
     extraModulePackages = [ ];
   };
 
@@ -43,7 +44,7 @@
     opengl = {
       driSupport = true;
       driSupport32Bit = true;
-      extraPackages = with pkgs; [ rocm-opencl-icd rocm-opencl-runtime amdvlk ];
+      extraPackages = with pkgs; [ amdvlk ];
       extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
     };
   };
