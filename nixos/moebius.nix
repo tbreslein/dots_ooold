@@ -15,13 +15,4 @@
     };
   };
   networking.hostName = "moebius";
-  environment = {
-    systemPackages = with pkgs; [
-      steam
-      lutris
-      # (lutris.override {
-      #   extraPkgs = pkgs: [ wineWowPackages.waylandFull libnghttp2 winetricks ];
-      # })
-    ];
-  };
 }
