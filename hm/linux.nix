@@ -153,5 +153,6 @@ in {
       latitude = "54.2";
       longitude = "10.5";
     };
+    syncthing.enable = true;
   };
 }
