@@ -1,11 +1,11 @@
 { config, pkgs, user_name, mk_config, ... }: {
   imports = [ ./home.nix ./linux.nix ];
-  home = {
-    packages = with pkgs; [
-      steam
-      (lutris.override { extraPkgs = pkgs: [ wineWowPackages.waylandFull ]; })
-    ];
-  };
+  # home = {
+  #   packages = with pkgs; [
+  #     steam
+  #     (lutris.override { extraPkgs = pkgs: [ wineWowPackages.waylandFull ]; })
+  #   ];
+  # };
   services = {
     kanshi = {
       profiles = {

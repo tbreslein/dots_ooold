@@ -15,4 +15,10 @@
     };
   };
   networking.hostName = "moebius";
+  environment = {
+    systemPackages = with pkgs; [
+      steam
+      (lutris.override { extraPkgs = pkgs: [ wineWowPackages.waylandFull ]; })
+    ];
+  };
 }
