@@ -14,6 +14,7 @@ in {
 
       # desktop
       pkgs.brave
+      pkgs.microsoft-edge
       pkgs.discord
       pkgs.telegram-desktop
       pkgs.vlc
