@@ -19,13 +19,13 @@
 
       # cli
       pkgs.bat
-      pkgs.bottom
+      pkgs.duf
       pkgs.go-task
       pkgs.jq
       pkgs.lazygit
       pkgs.ripgrep
+      pkgs.scc
       pkgs.tealdeer
-      pkgs.duf
     ];
 
     file = {
