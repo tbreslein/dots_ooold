@@ -6,34 +6,12 @@ in {
     homeDirectory = "/home/${userConfig.name}";
 
     packages = [
-      # cli
-      pkgs.imv
-      pkgs.mpv
-      pkgs.playerctl
-
       # desktop
       pkgs.brave
       pkgs.microsoft-edge
       pkgs.discord
       pkgs.telegram-desktop
       pkgs.vlc
-      pkgs.zathura
-      pkgs.nwg-look
-      pkgs.pavucontrol
-
-      # # wayland
-      # pkgs.waybar
-      # pkgs.eww
-      # pkgs.mako
-      # pkgs.libnotify
-      # pkgs.wl-clipboard
-      # pkgs.swww
-      # pkgs.kanshi
-      # pkgs.tofi
-      # pkgs.wdisplays
-      # pkgs.wlsunset
-      # pkgs.grim
-      # pkgs.slurp
 
       # fonts
       (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
@@ -92,6 +70,12 @@ in {
         popd
       '')
     ] ++ (if userConfig.isWaylandWM then [
+      # cli
+      pkgs.imv
+      pkgs.mpv
+      pkgs.playerctl
+
+      # desktop
       pkgs.waybar
       pkgs.eww
       pkgs.mako
@@ -104,6 +88,11 @@ in {
       pkgs.wlsunset
       pkgs.grim
       pkgs.slurp
+
+      # apps
+      pkgs.zathura
+      pkgs.nwg-look
+      pkgs.pavucontrol
     ] else
       [ ]);
 

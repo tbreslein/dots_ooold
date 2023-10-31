@@ -1,4 +1,4 @@
-{ config, pkgs, userConfig, ... }: {
+{ config, pkgs, lib, userConfig, ... }: {
   nixpkgs.config.allowUnfree = true;
   nix = {
     gc = {
@@ -56,8 +56,10 @@
       displayManager.sddm = {
         enable = true;
         theme = "${import ./sddm-themes/sugar-dark.nix { inherit pkgs; }}";
-        wayland.enable = userConfig.isWaylandWM || userConfig.wm == "plasma";
+        # wayland.enable = userConfig.isWaylandWM || userConfig.isWaylandDE;
+        wayland.enable = userConfig.isWaylandWM;
       };
+      desktopManager.plasma5.enable = userConfig.wm == "plasma";
     };
     openssh.enable = true;
     pipewire = {
@@ -70,27 +72,36 @@
       jack.enable = true;
     };
   };
+  environment.plasma5.excludePackages = lib.mkIf (userConfig.wm == "plasma") [
+    pkgs.libsForQt5.elisa
+    pkgs.libsForQt5.khelpcenter
+    pkgs.libsForQt5.konsole
+    pkgs.libsForQt5.plasma-browser-integration
+  ];
 
-  systemd = {
-    user.services.polkit-kde-authentication-agent-1 = {
-      description = "polkit-kde-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
-      serviceConfig = {
-        Type = "simple";
-        ExecStart =
-          "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
+  # systemd = {
+  #   user.services.polkit-kde-authentication-agent-1 = {
+  #     description = "polkit-kde-authentication-agent-1";
+  #     wantedBy = [ "graphical-session.target" ];
+  #     wants = [ "graphical-session.target" ];
+  #     after = [ "graphical-session.target" ];
+  #     serviceConfig = {
+  #       Type = "simple";
+  #       ExecStart =
+  #         "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+  #       Restart = "on-failure";
+  #       RestartSec = 1;
+  #       TimeoutStopSec = 10;
+  #     };
+  #   };
+  # };
+
+  programs = {
+    dconf.enable = true;
+    hyprland = {
+      enable = userConfig.wm == "hyprland";
+      xwayland.enable = true;
     };
-  };
-
-  programs.hyprland = {
-    enable = userConfig.isWaylandWM;
-    xwayland.enable = true;
   };
 
   xdg.portal = {
@@ -128,7 +139,7 @@
     isNormalUser = true;
     extraGroups = [ "wheel" "networkmanager" ];
     initialPassword = "qwert";
-    packages = with pkgs; [ alacritty ];
+    packages = with pkgs; [ alacritty kitty ];
   };
 
   system.stateVersion = "23.05";
