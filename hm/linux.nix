@@ -94,11 +94,10 @@ in {
       pkgs.nwg-look
       pkgs.pavucontrol
     ] else if userConfig.isXWM then [
-      pkgs.dmenu-rs
+      pkgs.dmenu
       pkgs.feh
       pkgs.zathura
       pkgs.pavucontrol
-      # pkgs.picom-next
       pkgs.nitrogen
       pkgs.polybar
       pkgs.flameshot
@@ -185,7 +184,6 @@ in {
       backgroundColor = "#32302fff";
       borderColor = "#d8a657ff";
       textColor = "#ddc7a1ff";
-      # font = "Noto Sans 15";
       defaultTimeout = 20;
     };
     wlsunset = {
