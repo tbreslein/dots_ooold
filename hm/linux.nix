@@ -9,7 +9,6 @@ in {
       # cli
       pkgs.imv
       pkgs.mpv
-      pkgs.pfetch-rs
       pkgs.playerctl
 
       # desktop

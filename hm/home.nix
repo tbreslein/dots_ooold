@@ -18,13 +18,20 @@
       pkgs.nixfmt
 
       # cli
+      pkgs.bandwhich
       pkgs.bat
       pkgs.duf
       pkgs.go-task
       pkgs.jq
       pkgs.lazygit
+      pkgs.most
+      pkgs.nitch
+      pkgs.procs
       pkgs.ripgrep
+      pkgs.rm-improved
+      pkgs.rsync
       pkgs.scc
+      pkgs.sd
       pkgs.tealdeer
     ];
 
