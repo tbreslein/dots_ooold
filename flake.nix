@@ -14,11 +14,10 @@
       userConfig = rec {
         name = "tommy";
         linuxShell = "bash";
-        # options: hyprland, plasma, gnome
-        wm = "gnome";
+        # options: hyprland, bspwm
+        wm = "bspwm";
         isWaylandWM = wm == "hyprland";
-        isWaylandDE = wm == "plasma" || wm == "gnome";
-        # isX = !wm;
+        isXWM = !isWaylandWM;
         linkConfig = config: name: {
           source = config.lib.file.mkOutOfStoreSymlink
             "${config.home.homeDirectory}/dots/config/${name}";

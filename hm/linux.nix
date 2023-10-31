@@ -93,6 +93,17 @@ in {
       pkgs.zathura
       pkgs.nwg-look
       pkgs.pavucontrol
+    ] else if userConfig.isXWM then [
+      pkgs.dmenu-rs
+      pkgs.feh
+      pkgs.zathura
+      pkgs.pavucontrol
+      # pkgs.picom-next
+      pkgs.nitrogen
+      pkgs.polybar
+      pkgs.flameshot
+      pkgs.gammastep
+      pkgs.sxhkd
     ] else
       [ ]);
 
@@ -102,6 +113,11 @@ in {
       hypr = userConfig.linkConfig config "hypr";
       tofi = userConfig.linkConfig config "tofi";
       waybar = userConfig.linkConfig config "waybar";
+    } else if userConfig.wm == "bspwm" then {
+      bspwm = userConfig.linkConfig config "bspwm";
+      sxhkd = userConfig.linkConfig config "sxhkd";
+      # picom = userConfig.linkConfig config "picom";
+      polybar = userConfig.linkConfig config "polybar";
     } else
       { });
   };
@@ -178,5 +194,16 @@ in {
       longitude = "10.5";
     };
     syncthing.enable = true;
+
+    picom = {
+      enable = userConfig.isXWM;
+      settings = {
+        fading = true;
+        fade-in-step = 0.12;
+        fade-out-step = 0.12;
+        corner-radius = 7;
+        backend = "glx";
+      };
+    };
   };
 }
