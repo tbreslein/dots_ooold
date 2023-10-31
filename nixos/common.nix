@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ config, pkgs, userConfig, ... }: {
   nixpkgs.config.allowUnfree = true;
   nix = {
     gc = {
@@ -56,7 +56,7 @@
       displayManager.sddm = {
         enable = true;
         theme = "${import ./sddm-themes/sugar-dark.nix { inherit pkgs; }}";
-        wayland.enable = true;
+        wayland.enable = userConfig.isWaylandWM || userConfig.wm == "plasma";
       };
     };
     openssh.enable = true;
@@ -89,19 +89,23 @@
   };
 
   programs.hyprland = {
-    enable = true;
+    enable = userConfig.isWaylandWM;
     xwayland.enable = true;
   };
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
+    extraPortals = if userConfig.wm == "hyprland" then
+      [ pkgs.xdg-desktop-portal-hyprland ]
+    else
+      [ ];
   };
 
   environment = {
     sessionVariables = {
       NIXOS_OZONE_WL = "1";
-      QT_QPA_PLATFORM = "wayland:xcb";
+      QT_QPA_PLATFORM =
+        if userConfig.wm == "hyprland" then "wayland:xcb" else "xcb";
     };
     systemPackages = with pkgs; [
       vim

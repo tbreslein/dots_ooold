@@ -11,16 +11,23 @@
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
-      user_name = "tommy";
-      mk_config = config: name: {
-        source = config.lib.file.mkOutOfStoreSymlink
-          "${config.home.homeDirectory}/dots/config/${name}";
-        target = "${config.home.homeDirectory}/.config/${name}";
+      userConfig = rec {
+        name = "tommy";
+        linuxShell = "bash";
+        wm = "hyprland";
+        isWaylandWM = wm == "hyprland";
+        isX = !wm;
+        linkConfig = config: name: {
+          source = config.lib.file.mkOutOfStoreSymlink
+            "${config.home.homeDirectory}/dots/config/${name}";
+          target = "${config.home.homeDirectory}/.config/${name}";
+        };
       };
     in {
       nixosConfigurations = {
         moebius = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
+          specialArgs = { inherit userConfig; };
           modules = [
             ./nixos/moebius.nix
             ./nixos/moebius-hardware.nix
@@ -28,7 +35,7 @@
             home-manager.nixosModules.home-manager
             {
               home-manager = {
-                extraSpecialArgs = { inherit user_name mk_config; };
+                extraSpecialArgs = { inherit userConfig; };
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.tommy = import ./hm/moebius.nix;

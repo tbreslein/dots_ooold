@@ -1,4 +1,4 @@
-{ config, pkgs, user_name, mk_config, ... }: {
+{ config, pkgs, userConfig, ... }: {
   imports = [ ./home.nix ./linux.nix ];
   services = {
     kanshi = {

@@ -1,7 +1,7 @@
-{ config, pkgs, user_name, mk_config, ... }: {
+{ config, pkgs, userConfig, ... }: {
   nixpkgs.config.allowUnfree = true;
   home = {
-    username = user_name;
+    username = userConfig.name;
     stateVersion = "23.05";
     packages = [
       # coding
@@ -18,7 +18,6 @@
       pkgs.nixfmt
 
       # cli
-      pkgs.bandwhich
       pkgs.bat
       pkgs.duf
       pkgs.go-task
@@ -26,7 +25,6 @@
       pkgs.lazygit
       pkgs.most
       pkgs.nitch
-      pkgs.procs
       pkgs.ripgrep
       pkgs.rm-improved
       pkgs.rsync
@@ -36,8 +34,8 @@
     ];
 
     file = {
-      nvim = mk_config config "nvim";
-      smug = mk_config config "smug";
+      nvim = userConfig.linkConfig config "nvim";
+      smug = userConfig.linkConfig config "smug";
     };
 
     shellAliases = {
@@ -72,7 +70,6 @@
     };
   };
 
-  # Let Home Manager install and manage itself.
   programs = {
     home-manager.enable = true;
 

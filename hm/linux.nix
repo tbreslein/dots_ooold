@@ -1,9 +1,9 @@
-{ config, pkgs, user_name, mk_config, ... }:
+{ config, pkgs, userConfig, ... }:
 let gtkGruvboxPlus = import ./gtk-themes/gruvbox-plus.nix { inherit pkgs; };
 in {
   fonts.fontconfig.enable = true;
   home = {
-    homeDirectory = "/home/${user_name}";
+    homeDirectory = "/home/${userConfig.name}";
 
     packages = [
       # cli
@@ -21,19 +21,19 @@ in {
       pkgs.nwg-look
       pkgs.pavucontrol
 
-      # wayland
-      pkgs.waybar
-      pkgs.eww
-      pkgs.mako
-      pkgs.libnotify
-      pkgs.wl-clipboard
-      pkgs.swww
-      pkgs.kanshi
-      pkgs.tofi
-      pkgs.wdisplays
-      pkgs.wlsunset
-      pkgs.grim
-      pkgs.slurp
+      # # wayland
+      # pkgs.waybar
+      # pkgs.eww
+      # pkgs.mako
+      # pkgs.libnotify
+      # pkgs.wl-clipboard
+      # pkgs.swww
+      # pkgs.kanshi
+      # pkgs.tofi
+      # pkgs.wdisplays
+      # pkgs.wlsunset
+      # pkgs.grim
+      # pkgs.slurp
 
       # fonts
       (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
@@ -91,19 +91,35 @@ in {
         fi
         popd
       '')
-    ];
+    ] ++ (if userConfig.isWaylandWM then [
+      pkgs.waybar
+      pkgs.eww
+      pkgs.mako
+      pkgs.libnotify
+      pkgs.wl-clipboard
+      pkgs.swww
+      pkgs.kanshi
+      pkgs.tofi
+      pkgs.wdisplays
+      pkgs.wlsunset
+      pkgs.grim
+      pkgs.slurp
+    ] else
+      [ ]);
 
     file = {
-      alacritty = mk_config config "alacritty";
-      hypr = mk_config config "hypr";
-      tofi = mk_config config "tofi";
-      waybar = mk_config config "waybar";
-    };
+      alacritty = userConfig.linkConfig config "alacritty";
+    } // (if userConfig.isWaylandWM then {
+      hypr = userConfig.linkConfig config "hypr";
+      tofi = userConfig.linkConfig config "tofi";
+      waybar = userConfig.linkConfig config "waybar";
+    } else
+      { });
   };
 
   programs = {
     bash = {
-      enable = true;
+      enable = userConfig.linuxShell == "bash";
       enableCompletion = true;
       historyControl = [ "ignoredups" "ignorespace" ];
       historyFile = "${config.home.homeDirectory}/.bash_history";
@@ -140,26 +156,26 @@ in {
     };
   };
 
-  gtk = {
-    enable = true;
-    cursorTheme = {
-      package = pkgs.bibata-cursors;
-      name = "Bibata-Classic-Ice";
-    };
-    theme = {
-      package = pkgs.adw-gtk3;
-      name = "adw-gtk3";
-    };
-    iconTheme = {
-      package = gtkGruvboxPlus;
-      name = "GruvboxPlus";
-    };
-  };
+  # gtk = {
+  #   enable = true;
+  #   cursorTheme = {
+  #     package = pkgs.bibata-cursors;
+  #     name = "Bibata-Classic-Ice";
+  #   };
+  #   theme = {
+  #     package = pkgs.adw-gtk3;
+  #     name = "adw-gtk3";
+  #   };
+  #   iconTheme = {
+  #     package = gtkGruvboxPlus;
+  #     name = "GruvboxPlus";
+  #   };
+  # };
 
   services = {
-    kanshi = { enable = true; };
+    kanshi = { enable = userConfig.isWaylandWM; };
     mako = {
-      enable = true;
+      enable = userConfig.isWaylandWM;
       borderRadius = 5;
       backgroundColor = "#32302fff";
       borderColor = "#d8a657ff";
@@ -168,7 +184,7 @@ in {
       defaultTimeout = 20;
     };
     wlsunset = {
-      enable = true;
+      enable = userConfig.isWaylandWM;
       latitude = "54.2";
       longitude = "10.5";
     };
