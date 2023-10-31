@@ -44,8 +44,7 @@ in {
 
       # shell scripts
       (pkgs.writeShellScriptBin "up" ''
-        #!/usr/bin/env bash
-        set -euo pipefaile
+        set -euo pipefail
         source ~/.bashrc
         pushd ${config.home.homeDirectory}/dots
         function up-nix {
