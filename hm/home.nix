@@ -177,9 +177,10 @@
 
         set -gq status-utf8 on
         set -g status-interval 30
+        set -g status-position top
         set -g status-justify left
-        set -g status-left ""
-        set -g status-right 'Session: #[fg=green] #S #[fg=white] | %H:%M '
+        set -g status-left "#[fg=blue,bold] #S λ  "
+        set -g status-right ""
         set -g status-style fg=white,bg=black
         set -g message-style fg=yellow,bold,bg=black
         setw -g window-status-style fg=white,bg=black
