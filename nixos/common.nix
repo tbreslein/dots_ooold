@@ -35,6 +35,7 @@
 
   services = {
     xserver = {
+      layout = "us,de";
       enable = true;
       displayManager.sddm = {
         enable = true;
