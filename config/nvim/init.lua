@@ -17,7 +17,7 @@ end
 vim.opt.rtp:prepend(lazy_path)
 require("lazy").setup({
     -- common dependencies
-    { "nvim-lua/plenary.nvim",       lazy = true },
+    { "nvim-lua/plenary.nvim", lazy = true },
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
     -- [[ UI ]]
@@ -45,11 +45,11 @@ require("lazy").setup({
             },
             sections = {
                 lualine_a = { { "mode", icon = "󰣇 ", fmt = function(str) return str:sub(1, 1) end } },
-                lualine_b = { { "branch", icon = "" }, "diff" },
-                lualine_c = { "%=", { "filename", path = 1 } },
-                lualine_x = {
+                lualine_b = {
                     { "diagnostics", symbols = { error = " ", warn = " ", info = " ", hint = " " } },
                 },
+                lualine_c = { "%=", { "filename", path = 1 } },
+                lualine_x = {},
                 lualine_y = { "progress" },
                 lualine_z = { "location" },
             },
@@ -74,10 +74,10 @@ require("lazy").setup({
         event = "VeryLazy",
         opts = { menu = { width = 80 }, mark_branch = true },
         keys = {
-            { "<m-u>",     ":lua require('harpoon-core.ui').nav_file(1)<cr>" },
-            { "<m-i>",     ":lua require('harpoon-core.ui').nav_file(2)<cr>" },
-            { "<m-o>",     ":lua require('harpoon-core.ui').nav_file(3)<cr>" },
-            { "<m-p>",     ":lua require('harpoon-core.ui').nav_file(4)<cr>" },
+            { "<m-u>", ":lua require('harpoon-core.ui').nav_file(1)<cr>" },
+            { "<m-i>", ":lua require('harpoon-core.ui').nav_file(2)<cr>" },
+            { "<m-o>", ":lua require('harpoon-core.ui').nav_file(3)<cr>" },
+            { "<m-p>", ":lua require('harpoon-core.ui').nav_file(4)<cr>" },
             { "<leader>a", ":lua require('harpoon-core.mark').add_file()<cr>" },
             { "<leader>e", ":lua require('harpoon-core.ui').toggle_quick_menu()<cr>" },
         },
@@ -104,8 +104,8 @@ require("lazy").setup({
     },
 
     -- [[ Editing ]]
-    { "mbbill/undotree",           event = "BufEnter" },
-    { "numtostr/Comment.nvim",     event = "BufEnter", opts = {} },
+    { "mbbill/undotree", event = "BufEnter" },
+    { "numtostr/Comment.nvim", event = "BufEnter", opts = {} },
     { "echasnovski/mini.surround", event = "BufEnter", opts = {} },
     {
         "nvim-treesitter/nvim-treesitter",
