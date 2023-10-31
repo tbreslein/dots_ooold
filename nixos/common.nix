@@ -24,7 +24,23 @@
       192.168.0.90 vorador
     '';
   };
-  security.rtkit.enable = true;
+  security = {
+    rtkit.enable = true;
+    polkit = {
+      enable = true;
+      extraConfig = ''
+        polkit.addRule(function(action, subject) {
+            if ((action.id == "org.corectrl.helper.init" ||
+                 action.id == "org.corectrl.helperkiller.init") &&
+                subject.local == true &&
+                subject.active == true &&
+                subject.isInGroup("wheel")) {
+                    return polkit.Result.YES;
+            }
+        });
+      '';
+    };
+  };
   time.timeZone = "Europe/Berlin";
 
   i18n.defaultLocale = "en_US.UTF-8";
@@ -40,6 +56,7 @@
       displayManager.sddm = {
         enable = true;
         theme = "${import ./sddm-themes/sugar-dark.nix { inherit pkgs; }}";
+        wayland.enable = true;
       };
     };
     openssh.enable = true;
@@ -54,6 +71,23 @@
     };
   };
 
+  systemd = {
+    user.services.polkit-kde-authentication-agent-1 = {
+      description = "polkit-kde-authentication-agent-1";
+      wantedBy = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+        Type = "simple";
+        ExecStart =
+          "${pkgs.libsForQt5.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+    };
+  };
+
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
@@ -65,7 +99,10 @@
   };
 
   environment = {
-    sessionVariables = { NIXOS_OZONE_WL = "1"; };
+    sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+      QT_QPA_PLATFORM = "wayland:xcb";
+    };
     systemPackages = with pkgs; [
       vim
       wget
