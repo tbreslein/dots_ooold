@@ -14,7 +14,24 @@
       useOSProber = true;
     };
   };
-  environment = { systemPackages = with pkgs; [ lutris winetricks ]; };
+  # environment = {
+  #   systemPackages = with pkgs;
+  #     [
+  #       # (lutris.override {
+  #       #   extraPkgs = pkgs: [
+  #       #     (wineWowPackages.full.override {
+  #       #       wineRelease = "staging";
+  #       #       mingwSupport = true;
+  #       #     })
+  #       #     winetricks
+  #       #   ];
+  #       # })
+  #     ];
+  #   sessionVariables = {
+  #     WINEARCH = "win64";
+  #     WINEPREFIX = "/home/tommy/.wine";
+  #   };
+  # };
   programs = {
     steam = {
       enable = true;
