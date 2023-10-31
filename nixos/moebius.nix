@@ -14,5 +14,10 @@
       useOSProber = true;
     };
   };
+  environment = { systemPackages = with pkgs; [ lutris corectrl ]; };
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true;
+  };
   networking.hostName = "moebius";
 }

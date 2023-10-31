@@ -44,6 +44,8 @@ in {
 
       # shell scripts
       (pkgs.writeShellScriptBin "up" ''
+        #!/usr/bin/env bash
+        set -euo pipefaile
         source ~/.bashrc
         pushd ${config.home.homeDirectory}/dots
         function up-nix {
@@ -56,9 +58,24 @@ in {
         function up-nvim {
             nvim --headless "+Lazy! sync" +qa
         }
+        function up-protonge {
+            # make temp working directory
+            mkdir -p ~/tmp/proton-ge-custom
+            cd ~/tmp/proton-ge-custom
+            curl -sLOJ "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep .tar.gz)"
+            curl -sLOJ "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep .sha512sum)"
+            if [ sha512sum -c ./*.sha512sum ]; then
+                mkdir -p ~/.steam/root/compatibilitytools.d
+                tar -xf GE-Proton*.tar.gz -C ~/.steam/root/compatibilitytools.d/
+                echo "All done :)"
+            else
+                echo "Error: protonge sha512sum did not match!"
+            fi
+        }
         function up-all {
             up-nix
             up-nvim
+            up-protonge
         }
 
         if [[ -n $(git status -s) ]]; then
@@ -67,6 +84,7 @@ in {
             case "$1" in
               nix) up-nix;;
               nvim) up-nvim;;
+              pge) up-protonge;;
               all) up-all;;
               *) echo "Error: unknown command";;
             esac
