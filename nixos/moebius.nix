@@ -14,7 +14,7 @@
       useOSProber = true;
     };
   };
-  environment = { systemPackages = with pkgs; [ lutris ]; };
+  environment = { systemPackages = with pkgs; [ lutris winetricks ]; };
   programs = {
     steam = {
       enable = true;
