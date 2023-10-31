@@ -14,10 +14,10 @@
       userConfig = rec {
         name = "tommy";
         linuxShell = "bash";
-        # options: hyprland, plasma
-        wm = "plasma";
+        # options: hyprland, plasma, gnome
+        wm = "gnome";
         isWaylandWM = wm == "hyprland";
-        isWaylandDE = wm == "plasma";
+        isWaylandDE = wm == "plasma" || wm == "gnome";
         # isX = !wm;
         linkConfig = config: name: {
           source = config.lib.file.mkOutOfStoreSymlink

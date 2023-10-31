@@ -53,13 +53,18 @@
     xserver = {
       layout = "us,de";
       enable = true;
-      displayManager.sddm = {
-        enable = true;
-        theme = "${import ./sddm-themes/sugar-dark.nix { inherit pkgs; }}";
-        # wayland.enable = userConfig.isWaylandWM || userConfig.isWaylandDE;
-        wayland.enable = userConfig.isWaylandWM;
+      displayManager = {
+        sddm = {
+          enable = userConfig.isWaylandWM || userConfig.wm == "plasma";
+          theme = "${import ./sddm-themes/sugar-dark.nix { inherit pkgs; }}";
+          wayland.enable = userConfig.isWaylandWM;
+        };
+        gdm = { enable = userConfig.wm == "gnome"; };
       };
-      desktopManager.plasma5.enable = userConfig.wm == "plasma";
+      desktopManager = {
+        gnome.enable = userConfig.wm == "gnome";
+        plasma5.enable = userConfig.wm == "plasma";
+      };
     };
     openssh.enable = true;
     pipewire = {
@@ -72,12 +77,29 @@
       jack.enable = true;
     };
   };
-  environment.plasma5.excludePackages = lib.mkIf (userConfig.wm == "plasma") [
-    pkgs.libsForQt5.elisa
-    pkgs.libsForQt5.khelpcenter
-    pkgs.libsForQt5.konsole
-    pkgs.libsForQt5.plasma-browser-integration
-  ];
+  environment = {
+    plasma5.excludePackages = lib.mkIf (userConfig.wm == "plasma") [
+      pkgs.libsForQt5.elisa
+      pkgs.libsForQt5.khelpcenter
+      pkgs.libsForQt5.konsole
+      pkgs.libsForQt5.plasma-browser-integration
+    ];
+    gnome.excludePackages = lib.mkIf (userConfig.wm == "gnome") [
+      pkgs.gnome-photos
+      pkgs.gnome-tour
+      pkgs.gnome.cheese
+      pkgs.gnome.gnome-terminal
+      pkgs.gnome.gnome-music
+      pkgs.gnome.gedit
+      pkgs.gnome.epiphany
+      pkgs.gnome.geary
+      pkgs.gnome.totem
+      pkgs.gnome.tali
+      pkgs.gnome.iagno
+      pkgs.gnome.hitori
+      pkgs.gnome.atomix
+    ];
+  };
 
   # systemd = {
   #   user.services.polkit-kde-authentication-agent-1 = {
@@ -118,18 +140,17 @@
       QT_QPA_PLATFORM =
         if userConfig.wm == "hyprland" then "wayland:xcb" else "xcb";
     };
-    systemPackages = with pkgs; [
-      vim
-      wget
-      curl
-      unzip
-      git
-      killall
+    systemPackages = with pkgs;
+      [ vim wget curl unzip git killall ]
+      ++ (if (userConfig.wm == "plasma" || userConfig.isWaylandWM) then [
 
-      # for sddm themeing
-      libsForQt5.qt5.qtquickcontrols2
-      libsForQt5.qt5.qtgraphicaleffects
-    ];
+        # for sddm themeing
+        libsForQt5.qt5.qtquickcontrols2
+        libsForQt5.qt5.qtgraphicaleffects
+      ] else if userConfig.wm == "gnome" then
+        [ pkgs.gnomeExtensions.appindicator ]
+      else
+        [ ]);
   };
 
   sound.enable = true;
