@@ -44,10 +44,10 @@ in {
 
       # shell scripts
       (pkgs.writeShellScriptBin "up" ''
-        set -euo pipefail
         source ~/.bashrc
         pushd ${config.home.homeDirectory}/dots
         function up-nix {
+            echo -e "\n\033[1;32m[ up-nix ]\033[0m"
             nix flake update
             if [[ -n $(git status -s) ]]; then
                 git add flake.lock && git commit -m "update flake.lock"
@@ -55,21 +55,23 @@ in {
             sudo nixos-rebuild switch --flake .
         }
         function up-nvim {
+            echo -e "\n\033[1;32m[ up-nvim ]\033[0m"
             nvim --headless "+Lazy! sync" +qa
         }
         function up-protonge {
-            # make temp working directory
+            echo -e "\n\033[1;32m[ up-protonge ]\033[0m"
             mkdir -p ~/tmp/proton-ge-custom
             cd ~/tmp/proton-ge-custom
-            curl -sLOJ "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep .tar.gz)"
-            curl -sLOJ "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep .sha512sum)"
-            if [ sha512sum -c ./*.sha512sum ]; then
+            curl -LOJ "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep .tar.gz)"
+            curl -LOJ "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep .sha512sum)"
+            if [[ $(sha512sum -c ./*.sha512sum) ]]; then
                 mkdir -p ~/.steam/root/compatibilitytools.d
                 tar -xf GE-Proton*.tar.gz -C ~/.steam/root/compatibilitytools.d/
                 echo "All done :)"
             else
                 echo "Error: protonge sha512sum did not match!"
             fi
+            rm -fr ~/tmp/proton-ge-custom
         }
         function up-all {
             up-nix
