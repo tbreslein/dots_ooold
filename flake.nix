@@ -52,7 +52,18 @@
       darwinConfigurations.Tommys-MacBook-Pro = darwin.lib.darwinSystem rec {
         system = "aarch64-darwin";
         pkgs = import nixpkgs { inherit system; };
-        modules = [ ./nix-darwin ];
+        modules = [
+          ./nix-darwin
+          home-manager.darwinModules.home-manager
+          {
+            home-manager = {
+              extraSpecialArgs = { inherit userConfig; };
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.tommy = import ./hm/mac.nix;
+            };
+          }
+        ];
       };
     };
 }
