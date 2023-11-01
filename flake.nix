@@ -29,7 +29,7 @@
       };
       theme = "gruvbox-material";
       colors = if theme == "gruvbox-material" then rec {
-        background = black;
+        background = "1d2021";
         foreground = white;
         bright_foreground = brightWhite;
         black = "32302f";
