@@ -1,6 +1,8 @@
 { config, pkgs, userConfig, ... }: {
-  imports = [ ./home.nix ];
+  # imports = [ ./home.nix ];
   home = {
+    username = userConfig.name;
+    stateVersion = "23.05";
     homeDirectory = "/Users/${userConfig.name}";
     packages = [
       (pkgs.writeShellScriptBin "up" ''
