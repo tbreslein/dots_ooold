@@ -53,13 +53,14 @@
   services = {
     xremap = {
       userName = userConfig.name;
+      # serviceMode = if userConfig.wm == "hyprland" then "user" else "system";
       serviceMode = "user";
       withHypr = userConfig.wm == "hyprland";
       withX11 = userConfig.isXWM;
       config = {
         modmap = [{
           name = "Global";
-          remap = { CapsLock = "Esc"; };
+          remap = { "CapsLock" = "Esc"; };
         }];
         keymap = [{
           name = "apps";
@@ -145,7 +146,7 @@
 
   users.users.tommy = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ];
+    extraGroups = [ "wheel" "networkmanager" "input" ];
     initialPassword = "qwert";
     packages = with pkgs; [ alacritty kitty ];
     shell = pkgs.zsh;

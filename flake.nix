@@ -14,7 +14,7 @@
     xremap-flake.url = "github:xremap/nix-flake";
   };
 
-  outputs = { self, nixpkgs, home-manager, darwin, ... }@inputs:
+  outputs = inputs@{ self, nixpkgs, home-manager, darwin, ... }:
     let
       userConfig = rec {
         name = "tommy";
@@ -67,7 +67,7 @@
     in {
       nixosConfigurations.moebius = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
-        specialArgs = { inherit userConfig; };
+        specialArgs = { inherit userConfig inputs; };
         modules = [
           ./nixos/moebius.nix
           ./nixos/moebius-hardware.nix
@@ -75,7 +75,7 @@
           home-manager.nixosModules.home-manager
           {
             home-manager = {
-              extraSpecialArgs = { inherit userConfig inputs; };
+              extraSpecialArgs = { inherit userConfig; };
               useGlobalPkgs = true;
               useUserPackages = true;
               users.tommy = import ./hm/moebius.nix;
