@@ -27,41 +27,8 @@
           target = "${config.home.homeDirectory}/.config/${name}";
         };
       };
-      theme = "onedark";
-      colors = if theme == "onedark" then rec {
-        background = black;
-        foreground = "abb2bf";
-        bright_foreground = brightWhite;
-        black = "1e2127";
-        red = "e06c75";
-        green = "98c379";
-        yellow = "d19a66";
-        blue = "61afef";
-        magenta = "c678dd";
-        cyan = "56b6c2";
-        white = "828791";
-
-        brightBlack = "5c6370";
-        brightRed = "e06c75";
-        brightGreen = "98c379";
-        brightYellow = "d19a66";
-        brightBlue = "61afef";
-        brightMagenta = "c678dd";
-        brightCyan = "56b6c2";
-        brightWhite = "e6efff";
-
-        dimBlack = black;
-        dimRed = red;
-        dimGreen = green;
-        dimYellow = yellow;
-        dimBlue = blue;
-        dimMagenta = magenta;
-        dimCyan = cyan;
-        dimWhite = white;
-
-        accent = cyan;
-        border = blue;
-      } else if theme == "gruvbox-material" then rec {
+      theme = "gruvbox-material";
+      colors = if theme == "gruvbox-material" then rec {
         background = black;
         foreground = white;
         bright_foreground = brightWhite;
