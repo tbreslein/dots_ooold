@@ -61,7 +61,6 @@
           wayland.enable = userConfig.isWaylandWM;
         };
       };
-      windowManager.bspwm.enable = userConfig.wm == "bspwm";
       windowManager.dk.enable = userConfig.wm == "dk";
     };
     openssh.enable = true;
@@ -101,11 +100,11 @@
     };
   };
 
-  # xdg.portal = {
-  #   enable = userConfig.isWaylandWM;
-  #   extraPortals = lib.mkIf (userConfig.wm == "hyprland")
-  #     [ pkgs.xdg-desktop-portal-hyprland ];
-  # };
+  xdg.portal = {
+    enable = userConfig.isWaylandWM;
+    extraPortals = lib.mkIf (userConfig.wm == "hyprland")
+      [ pkgs.xdg-desktop-portal-hyprland ];
+  };
 
   environment = {
     sessionVariables = {

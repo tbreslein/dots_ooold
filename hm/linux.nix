@@ -112,13 +112,8 @@ in {
       hypr = userConfig.linkConfig config "hypr";
       tofi = userConfig.linkConfig config "tofi";
       waybar = userConfig.linkConfig config "waybar";
-    } else if userConfig.wm == "bspwm" then {
-      bspwm = userConfig.linkConfig config "bspwm";
-      sxhkd = userConfig.linkConfig config "sxhkd";
-      polybar = userConfig.linkConfig config "polybar";
     } else if userConfig.wm == "dk" then {
       dk = userConfig.linkConfig config "dk";
-      # sxhkd = userConfig.linkConfig config "sxhkd";
       polybar = userConfig.linkConfig config "polybar";
     } else
       { });

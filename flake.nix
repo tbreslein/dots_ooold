@@ -14,7 +14,7 @@
       userConfig = rec {
         name = "tommy";
         linuxShell = "bash";
-        # options: hyprland, bspwm
+        # options: hyprland, dk
         wm = "dk";
         isWaylandWM = wm == "hyprland";
         isXWM = !isWaylandWM;
