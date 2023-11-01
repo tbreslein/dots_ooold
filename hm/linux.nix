@@ -1,4 +1,4 @@
-{ config, pkgs, userConfig, my-colors, ... }:
+{ config, pkgs, userConfig, colors, ... }:
 let gtkGruvboxPlus = import ./gtk-themes/gruvbox-plus.nix { inherit pkgs; };
 in {
   fonts.fontconfig.enable = true;
@@ -154,20 +154,20 @@ in {
       enable = userConfig.isXWM;
       settings = {
         global = {
-          background = "#${my-colors.background}";
-          foreground = "#${my-colors.foreground}";
-          frame_color = "#${my-colors.accent}";
+          background = "#${colors.background}";
+          foreground = "#${colors.foreground}";
+          frame_color = "#${colors.accent}";
           font = "Noto Sans 11";
         };
-        urgency_critical = { frame_color = "#${my-colors.brightRed}"; };
+        urgency_critical = { frame_color = "#${colors.brightRed}"; };
       };
     };
     mako = {
       enable = userConfig.isWaylandWM;
       borderRadius = 5;
-      backgroundColor = "#${my-colors.background}";
-      textColor = "#${my-colors.foreground}";
-      borderColor = "#${my-colors.accent}";
+      backgroundColor = "#${colors.background}";
+      textColor = "#${colors.foreground}";
+      borderColor = "#${colors.accent}";
       defaultTimeout = 20;
     };
     wlsunset = {

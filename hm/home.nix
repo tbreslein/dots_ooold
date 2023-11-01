@@ -1,6 +1,4 @@
-{ config, pkgs, userConfig, nix-colors, my-colors, ... }: {
-  imports = [ nix-colors.homeManagerModules.default ];
-  colorScheme = my-colors.base;
+{ config, pkgs, userConfig, colors, ... }: {
   nixpkgs.config.allowUnfree = true;
   home = {
     username = userConfig.name;
@@ -93,28 +91,38 @@
         # onedark
         colors = {
           primary = {
-            background = "0x${my-colors.background}";
-            foreground = "0x${my-colors.foreground}";
+            background = "0x${colors.background}";
+            foreground = "0x${colors.foreground}";
           };
           normal = {
-            black = "0x${my-colors.black}";
-            red = "0x${my-colors.red}";
-            green = "0x${my-colors.green}";
-            yellow = "0x${my-colors.yellow}";
-            blue = "0x${my-colors.blue}";
-            magenta = "0x${my-colors.magenta}";
-            cyan = "0x${my-colors.cyan}";
-            white = "0x${my-colors.white}";
+            black = "0x${colors.black}";
+            red = "0x${colors.red}";
+            green = "0x${colors.green}";
+            yellow = "0x${colors.yellow}";
+            blue = "0x${colors.blue}";
+            magenta = "0x${colors.magenta}";
+            cyan = "0x${colors.cyan}";
+            white = "0x${colors.white}";
           };
           bright = {
-            black = "0x${my-colors.brightBlack}";
-            red = "0x${my-colors.brightRed}";
-            green = "0x${my-colors.brightGreen}";
-            yellow = "0x${my-colors.brightYellow}";
-            blue = "0x${my-colors.brightBlue}";
-            magenta = "0x${my-colors.brightMagenta}";
-            cyan = "0x${my-colors.brightCyan}";
-            white = "0x${my-colors.brightWhite}";
+            black = "0x${colors.brightBlack}";
+            red = "0x${colors.brightRed}";
+            green = "0x${colors.brightGreen}";
+            yellow = "0x${colors.brightYellow}";
+            blue = "0x${colors.brightBlue}";
+            magenta = "0x${colors.brightMagenta}";
+            cyan = "0x${colors.brightCyan}";
+            white = "0x${colors.brightWhite}";
+          };
+          dim = {
+            black = "0x${colors.dimBlack}";
+            red = "0x${colors.dimRed}";
+            green = "0x${colors.dimGreen}";
+            yellow = "0x${colors.dimYellow}";
+            blue = "0x${colors.dimBlue}";
+            magenta = "0x${colors.dimMagenta}";
+            cyan = "0x${colors.dimCyan}";
+            white = "0x${colors.dimWhite}";
           };
         };
       };
