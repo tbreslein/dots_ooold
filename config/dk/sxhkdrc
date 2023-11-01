@@ -1,6 +1,9 @@
-# control sxhkd
 super + Escape
     pkill -USR1 -x sxhkd
+super + Return
+    alacritty
+super + @space
+    dmenu_run
 
 # # media
 # super + shift + {_,alt + }@Print
