@@ -7,9 +7,13 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    darwin = {
+      url = "github:lnl7/nix-darwin";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+  outputs = { self, nixpkgs, home-manager, darwin, ... }:
     let
       userConfig = rec {
         name = "tommy";
@@ -44,6 +48,11 @@
             }
           ];
         };
+      };
+      darwinConfigurations.Tommys-MacBook-Pro = darwin.lib.darwinSystem rec {
+        system = "aarch64-darwin";
+        pkgs = import nixpkgs { inherit system; };
+        modules = [ ./nix-darwin ];
       };
     };
 }
