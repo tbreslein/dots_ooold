@@ -3,6 +3,7 @@
   environment = {
     shells = with pkgs; [ bash zsh ];
     loginShell = pkgs.zsh;
+    systemPackages = [ pkgs.coreutils ];
   };
   nix = {
     useDaemon = true;
@@ -10,7 +11,6 @@
       experimental-features = nix-command flakes
     '';
   };
-  systemPackages = [ pkgs.coreutils ];
   system = {
     keyboard = {
       enableKeyMapping = true;
