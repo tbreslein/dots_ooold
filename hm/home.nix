@@ -1,4 +1,6 @@
-{ config, pkgs, userConfig, colors, ... }: {
+{ config, pkgs, userConfig, ... }:
+let inherit (userConfig) colors;
+in {
   nixpkgs.config.allowUnfree = true;
   home = {
     username = userConfig.name;

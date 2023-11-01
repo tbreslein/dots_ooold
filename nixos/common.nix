@@ -1,5 +1,5 @@
-{ pkgs, lib, userConfig, ... }: {
-
+{ pkgs, lib, userConfig, inputs, ... }: {
+  imports = [ inputs.xremap-flake.nixosModules.default ];
   nixpkgs.config.allowUnfree = true;
   nix = {
     gc = {
@@ -51,6 +51,22 @@
   };
 
   services = {
+    xremap = {
+      userName = userConfig.name;
+      serviceMode = "user";
+      withHypr = userConfig.wm == "hyprland";
+      withX11 = userConfig.isXWM;
+      config = {
+        modmap = [{
+          name = "Global";
+          remap = { CapsLock = "Esc"; };
+        }];
+        keymap = [{
+          name = "apps";
+          remap = { super-alt-b = { launch = [ "brave" ]; }; };
+        }];
+      };
+    };
     xserver = {
       enable = true;
       layout = "us,de";

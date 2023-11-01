@@ -1,5 +1,7 @@
-{ config, pkgs, userConfig, colors, ... }:
-let gtkGruvboxPlus = import ./gtk-themes/gruvbox-plus.nix { inherit pkgs; };
+{ config, pkgs, userConfig, ... }:
+let
+  gtkGruvboxPlus = import ./gtk-themes/gruvbox-plus.nix { inherit pkgs; };
+  inherit (userConfig) colors;
 in {
   fonts.fontconfig.enable = true;
   home = {

@@ -3,8 +3,8 @@ super + @space
     dmenu_run -i -p 'dmenu_run' -fn 'Hack:size=19' -nb '#1b1b1b' -nf '#d4be98' -sb '#5a524c' -sf '#d8a657'
 super + Return
     alacritty
-super + alt + b
-    brave
+#super + alt + b
+#    brave
 
 # control sxhkd
 super + Escape
