@@ -99,6 +99,7 @@
       enable = userConfig.wm == "hyprland";
       xwayland.enable = true;
     };
+    zsh.enable = true;
   };
 
   xdg.portal = {
@@ -131,6 +132,7 @@
     extraGroups = [ "wheel" "networkmanager" ];
     initialPassword = "qwert";
     packages = with pkgs; [ alacritty kitty ];
+    shell = pkgs.zsh;
   };
 
   system.stateVersion = "23.05";

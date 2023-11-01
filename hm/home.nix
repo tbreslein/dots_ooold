@@ -121,27 +121,24 @@
 
     direnv = {
       enable = true;
-      enableBashIntegration = true;
       enableZshIntegration = true;
       nix-direnv.enable = true;
     };
 
     fzf = {
       enable = true;
-      enableBashIntegration = true;
       enableZshIntegration = true;
       defaultOptions = [ "--height 40%" ];
     };
 
     starship = {
       enable = true;
-      enableBashIntegration = true;
       enableZshIntegration = true;
       settings = {
         character = {
           success_symbol = "[λ](bold yellow)";
           error_symbol = "[λ](bold red)";
-          vicmd_symbol = "[λ](bold gree)";
+          vicmd_symbol = "[λ](bold green)";
         };
         directory = {
           truncate_to_repo = true;
@@ -214,8 +211,30 @@
 
     zoxide = {
       enable = true;
-      enableBashIntegration = true;
       enableZshIntegration = true;
+    };
+
+    zsh = {
+      enable = true;
+      enableCompletion = true;
+      enableAutosuggestions = true;
+      syntaxHighlighting.enable = true;
+      initExtra = ''
+        export KEYTIMEOUT=1
+        export DISABLE_AUTO_TITLE=true
+        bindkey -v
+
+        setopt extendedglob nomatch menucomplete
+        unsetopt BEEP
+        stty stop undef # disable ctrl-s freezing the terminal
+        zle_highlight=('paste:none') # stop highlighting pasted text
+      '';
+      history = {
+        ignoreAllDups = true;
+        ignoreSpace = true;
+        save = 1000;
+        size = 1000;
+      };
     };
   };
 }

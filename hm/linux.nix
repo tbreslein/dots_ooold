@@ -21,8 +21,10 @@ in {
 
       # shell scripts
       (pkgs.writeShellScriptBin "up" ''
-        source ~/.bashrc
+        #!/usr/bin/env zsh
+        source ~/.zshrc
         pushd ${config.home.homeDirectory}/dots
+
         function up-nix {
             echo -e "\n\033[1;32m[ up-nix ]\033[0m"
             nix flake update
@@ -31,10 +33,12 @@ in {
             fi
             sudo nixos-rebuild switch --flake .
         }
+
         function up-nvim {
             echo -e "\n\033[1;32m[ up-nvim ]\033[0m"
             nvim --headless "+Lazy! sync" +qa
         }
+
         function up-protonge {
             echo -e "\n\033[1;32m[ up-protonge ]\033[0m"
             mkdir -p ~/tmp/proton-ge-custom
@@ -50,6 +54,7 @@ in {
             fi
             rm -fr ~/tmp/proton-ge-custom
         }
+
         function up-all {
             up-nix
             up-nvim
@@ -123,39 +128,6 @@ in {
 
   programs = {
     alacritty.settings.font.size = 12;
-    bash = {
-      enable = userConfig.linuxShell == "bash";
-      enableCompletion = true;
-      historyControl = [ "ignoredups" "ignorespace" ];
-      historyFile = "${config.home.homeDirectory}/.bash_history";
-      shellOptions = [ "histappend" "globstar" "checkwinsize" ];
-      bashrcExtra = ''
-        # make less more friendly for non-text input files, see lesspipe(1)
-        [ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-        PS1='\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-      '';
-      profileExtra = ''
-        # if running bash
-        if [ -n "$BASH_VERSION" ]; then
-            # include .bashrc if it exists
-            if [ -f "$HOME/.bashrc" ]; then
-                . "$HOME/.bashrc"
-            fi
-        fi
-
-        # set PATH so it includes user's private bin if it exists
-        if [ -d "$HOME/bin" ]; then
-            PATH="$HOME/bin:$PATH"
-        fi
-
-        # set PATH so it includes user's private bin if it exists
-        if [ -d "$HOME/.local/bin" ]; then
-            PATH="$HOME/.local/bin:$PATH"
-        fi
-        export XDG_DATA_DIRS=$XDG_DATA_DIRS:/usr/share:/var/lib/flatpak/exports/share:$HOME/.local/share/flatpak/exports/share
-      '';
-    };
-
     git = {
       userName = "Tommy Breslein";
       userEmail = "tommy.breslein@protonmail.com";

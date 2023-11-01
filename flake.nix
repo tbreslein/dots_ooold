@@ -17,7 +17,6 @@
     let
       userConfig = rec {
         name = "tommy";
-        linuxShell = "bash";
         # options: hyprland, dk
         wm = "dk";
         isWaylandWM = wm == "hyprland";
