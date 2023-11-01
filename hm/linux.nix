@@ -8,20 +8,21 @@ in {
     homeDirectory = "/home/${userConfig.name}";
 
     packages = [
-      # desktop
+      pkgs.playerctl
       pkgs.brave
       pkgs.microsoft-edge
       pkgs.discord
       pkgs.telegram-desktop
       pkgs.vlc
+      pkgs.zathura
+      pkgs.pavucontrol
+      pkgs.nwg-look
 
-      # fonts
       (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
       pkgs.noto-fonts
       pkgs.noto-fonts-cjk
       pkgs.noto-fonts-emoji
 
-      # shell scripts
       (pkgs.writeShellScriptBin "up" ''
         pushd ${config.home.homeDirectory}/dots
 
@@ -78,9 +79,6 @@ in {
       # cli
       pkgs.imv
       pkgs.mpv
-      pkgs.playerctl
-
-      # desktop
       pkgs.waybar
       pkgs.eww
       pkgs.mako
@@ -93,19 +91,12 @@ in {
       pkgs.wlsunset
       pkgs.grim
       pkgs.slurp
-
-      # apps
-      pkgs.zathura
-      pkgs.nwg-look
-      pkgs.pavucontrol
     ] else if userConfig.isXWM then [
       pkgs.libnotify
       pkgs.dmenu
       pkgs.arandr
       pkgs.feh
       pkgs.zathura
-      pkgs.pavucontrol
-      pkgs.nitrogen
       pkgs.polybar
       pkgs.flameshot
       pkgs.gammastep

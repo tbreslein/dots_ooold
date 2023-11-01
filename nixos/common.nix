@@ -54,7 +54,8 @@
     xremap = {
       userName = userConfig.name;
       # serviceMode = if userConfig.wm == "hyprland" then "user" else "system";
-      serviceMode = "user";
+      # serviceMode = "user";
+      serviceMode = "system";
       withHypr = userConfig.wm == "hyprland";
       withX11 = userConfig.isXWM;
       config = {
@@ -62,76 +63,59 @@
           name = "Global";
           remap = { "CapsLock" = "Esc"; };
         }];
-        keymap = [
-          {
-            name = "apps";
-            remap = {
-              SUPER-ALT-b = { launch = [ "${pkgs.brave}/bin/brave" ]; };
-              SUPER-space = {
-                launch = [
-                  "${pkgs.dmenu}/bin/dmenu_run"
-                  "-i"
-                  "-p"
-                  "dmenu_run"
-                  "-fn"
-                  "Hack:size=19"
-                  "-nb"
-                  "#${userConfig.colors.background}"
-                  "-nf"
-                  "#${userConfig.colors.foreground}"
-                  "-sb"
-                  "#${userConfig.colors.brightBlack}"
-                  "-sf"
-                  "#${userConfig.colors.accent}"
-                ];
-              };
-              SUPER-enter = { launch = [ "${pkgs.alacritty}/bin/alacritty" ]; };
-            };
-          }
-          {
-            name = "window managment";
-            remap = {
-              SUPER-SHIFT-j.launch =
-                # [ "${pkgs.dk}/bin/dkcmd" "win" "focus" "next" ];
-                [
-                  "/usr/bin/env"
-                  "zsh"
-                  "--interactive"
-                  "--login"
-                  "-c"
-                  "dkcmd win focus next"
-                ];
-              SUPER-SHIFT-k.launch =
-                [ "${pkgs.dk}/bin/dkcmd" "win" "focus" "prev" ];
-              SUPER-CTRL-j.launch =
-                [ "${pkgs.dk}/bin/dkcmd" "win" "mvstack" "next" ];
-              SUPER-CTRL-k.launch =
-                [ "${pkgs.dk}/bin/dkcmd" "win" "mvstack" "prev" ];
-              SUPER-CTRL-q.launch = [ "${pkgs.dk}/bin/dkcmd" "win" "kill" ];
-              SUPER-CTRL-g.launch = [ "${pkgs.dk}/bin/dkcmd" "win" "swap" ];
-              SUPER-SHIFT-f.launch =
-                [ "${pkgs.dk}/bin/dkcmd" "win" "fakefull" ];
-              SUPER-CTRL-f.launch = [ "${pkgs.dk}/bin/dkcmd" "win" "full" ];
-              SUPER-SHIFT-v.launch = [ "${pkgs.dk}/bin/dkcmd" "win" "stick" ];
-              SUPER-CTRL-v.launch = [ "${pkgs.dk}/bin/dkcmd" "win" "float" ];
-              SUPER-ALT-h.launch =
-                [ "${pkgs.dk}/bin/dkcmd" "win" "resize" "x=-20" ];
-              SUPER-ALT-j.launch =
-                [ "${pkgs.dk}/bin/dkcmd" "win" "resize" "y=+20" ];
-              SUPER-ALT-k.launch =
-                [ "${pkgs.dk}/bin/dkcmd" "win" "resize" "y=-20" ];
-              SUPER-ALT-l.launch =
-                [ "${pkgs.dk}/bin/dkcmd" "win" "resize" "x=+20" ];
-            };
-            # # workspaces / monitors
-            # super + {_,ctrl + }{1-6}
-            #     dkcmd ws {view,send} {1-6}
-            # super + {shift,ctrl} + {comma,period}
-            #     dkcmd mon {view,send} {prev,next}
-            # super + alt + {t,r,m,v}
-            #     dkcmd set layout {tile,rtile,mono,none}
-          }
-        ];
+        keymap = [{
+          name = "apps";
+          remap = {
+            SUPER-SHIFT-j.launch =
+              [ "${pkgs.dk}/bin/dkcmd" "win" "focus" "next" ];
+            SUPER-SHIFT-k.launch =
+              [ "${pkgs.dk}/bin/dkcmd" "win" "focus" "prev" ];
+            SUPER-ALT-b.launch = [ "${pkgs.brave}/bin/brave" ];
+            SUPER-space.launch = [
+              "${pkgs.dmenu}/bin/dmenu_run"
+              "-i"
+              "-p"
+              "dmenu_run"
+              "-fn"
+              "Hack:size=19"
+              "-nb"
+              "#${userConfig.colors.background}"
+              "-nf"
+              "#${userConfig.colors.foreground}"
+              "-sb"
+              "#${userConfig.colors.brightBlack}"
+              "-sf"
+              "#${userConfig.colors.accent}"
+            ];
+            SUPER-enter.launch = [ "${pkgs.alacritty}/bin/alacritty" ];
+            PRINT.launch = [ "" ];
+            PLAYPAUSE.launch =
+              [ "${pkgs.playerctl}/bin/playerctl" "play-pause" ];
+            NEXTSONG.launch = [ "${pkgs.playerctl}/bin/playerctl" "next" ];
+            PREVIOUSSONG.launch =
+              [ "${pkgs.playerctl}/bin/playerctl" "previous" ];
+            BRIGHTNESSUP.launch = [ "${pkgs.light}/bin/light" "-A" "5" ];
+            BRIGHTNESSDOWN.launch = [ "${pkgs.light}/bin/light" "-U" "5" ];
+            MUTE.launch = [
+              "${pkgs.wireplumber}/bin/wpctl"
+              "set-mute"
+              "@DEFAULT_SINK@"
+              "toggle"
+            ];
+            VOLUMEUP.launch = [
+              "${pkgs.wireplumber}/bin/wpctl"
+              "set-volume"
+              "@DEFAULT_SINK@"
+              "5%+"
+            ];
+            VOLUMEDOWN.launch = [
+              "${pkgs.wireplumber}/bin/wpctl"
+              "set-volume"
+              "@DEFAULT_SINK@"
+              "5%-"
+            ];
+          };
+        }];
       };
     };
     xserver = {
