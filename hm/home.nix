@@ -1,4 +1,6 @@
-{ config, pkgs, userConfig, ... }: {
+{ config, pkgs, userConfig, nix-colors, my-colors, ... }: {
+  imports = [ nix-colors.homeManagerModules.default ];
+  colorScheme = my-colors.base;
   nixpkgs.config.allowUnfree = true;
   home = {
     username = userConfig.name;
@@ -18,7 +20,6 @@
       pkgs.nixfmt
 
       # cli
-      pkgs.bat
       pkgs.duf
       pkgs.go-task
       pkgs.jq
@@ -88,7 +89,40 @@
           blinking = "Never";
         };
         mouse.hide_when_typing = true;
+
+        # onedark
+        colors = {
+          primary = {
+            background = "0x${my-colors.background}";
+            foreground = "0x${my-colors.foreground}";
+          };
+          normal = {
+            black = "0x${my-colors.black}";
+            red = "0x${my-colors.red}";
+            green = "0x${my-colors.green}";
+            yellow = "0x${my-colors.yellow}";
+            blue = "0x${my-colors.blue}";
+            magenta = "0x${my-colors.magenta}";
+            cyan = "0x${my-colors.cyan}";
+            white = "0x${my-colors.white}";
+          };
+          bright = {
+            black = "0x${my-colors.brightBlack}";
+            red = "0x${my-colors.brightRed}";
+            green = "0x${my-colors.brightGreen}";
+            yellow = "0x${my-colors.brightYellow}";
+            blue = "0x${my-colors.brightBlue}";
+            magenta = "0x${my-colors.brightMagenta}";
+            cyan = "0x${my-colors.brightCyan}";
+            white = "0x${my-colors.brightWhite}";
+          };
+        };
       };
+    };
+
+    bat = {
+      enable = true;
+      config.theme = "base16";
     };
 
     eza = {
@@ -115,7 +149,11 @@
       };
       delta = {
         enable = true;
-        options = { line-numbers = true; };
+        options = {
+          line-numbers = true;
+          true-color = "always";
+          features = "base16";
+        };
       };
     };
 
