@@ -28,6 +28,5 @@
       mingwSupport = true;
     })
     winetricks
-    lutris
   ];
 }
