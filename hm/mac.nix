@@ -50,7 +50,7 @@
     # };
   };
   programs = {
-    alacritty.settings.font.size = 12;
+    alacritty.settings.font.size = 15;
     # wezterm = {
     #   enable = true;
     #   extraConfig = ''
