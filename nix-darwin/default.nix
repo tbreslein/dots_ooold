@@ -24,7 +24,7 @@
       dock.autohide = true;
       NSGlobalDomain = {
         AppleShowAllExtensions = true;
-        InitialKeyRepeat = 14;
+        InitialKeyRepeat = 10;
       };
     };
   };
@@ -32,4 +32,11 @@
     fontDir.enable = true;
     fonts = [ (pkgs.nerdfonts.override { fonts = [ "Meslo" "Hack" ]; }) ];
   };
+  # homebrew = {
+  #     enable = true;
+  #     caskArgs.no_quarantine = true;
+  #     global.brewfile = true;
+  #     macApps = {};
+  #     casks = [ "amethyst" ];
+  # };
 }

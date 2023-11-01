@@ -105,22 +105,21 @@
       enableCompletion = true;
       enableAutosuggestions = true;
       syntaxHighlighting.enable = true;
-      defaultKeymap = "vicmd";
       initExtra = ''
         export KEYTIMEOUT=1
         export DISABLE_AUTO_TITLE=true
-        bindkey -v '^?' backward-delete-char
+        bindkey -v
 
-        setopt extendedglob nomatch menucomplete
-        unsetopt BEEP
-        stty stop undef # disable ctrl-s freezing the terminal
-        zle_highlight=('paste:none') # stop highlighting pasted text
-
-        zstyle :compinstall filename "$ZDOTDIR/.zshrc"
-        zstyle ':completion:*' menu select
-        autoload -Uz compinit
-        _comp_options+=(globdots)
-        compinit
+        # setopt extendedglob nomatch menucomplete
+        # unsetopt BEEP
+        # stty stop undef # disable ctrl-s freezing the terminal
+        # zle_highlight=('paste:none') # stop highlighting pasted text
+        #
+        # zstyle :compinstall filename "$ZDOTDIR/.zshrc"
+        # zstyle ':completion:*' menu select
+        # autoload -Uz compinit
+        # _comp_options+=(globdots)
+        # compinit
       '';
       shellAliases = {
         twork = "smug dots --detach; smug planning";
@@ -129,8 +128,8 @@
       history = {
         ignoreAllDups = true;
         ignoreSpace = true;
-        save = 100000;
-        size = 100000;
+        save = 1000;
+        size = 1000;
       };
     };
   };
