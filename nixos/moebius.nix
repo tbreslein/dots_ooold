@@ -22,11 +22,17 @@
     corectrl.enable = true;
   };
   networking.hostName = "moebius";
-  users.users.tommy.packages = with pkgs; [
-    (wineWowPackages.full.override {
-      wineRelease = "staging";
-      mingwSupport = true;
-    })
-    winetricks
-  ];
+  # users.users.tommy.packages = with pkgs; [
+  #   (wineWowPackages.full.override {
+  #     wineRelease = "staging";
+  #     mingwSupport = true;
+  #   })
+  #   winetricks
+  # ];
+  # users.users.tommy.packages = [ pkgs.flatpak ];
+  services.flatpak.enable = true;
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+  };
 }

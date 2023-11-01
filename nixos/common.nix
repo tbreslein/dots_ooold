@@ -101,7 +101,6 @@
   };
 
   xdg.portal = {
-    enable = userConfig.isWaylandWM;
     extraPortals = lib.mkIf (userConfig.wm == "hyprland")
       [ pkgs.xdg-desktop-portal-hyprland ];
   };
