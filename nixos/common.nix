@@ -64,7 +64,7 @@
         }];
         keymap = [{
           name = "apps";
-          remap = { super-alt-b = { launch = [ "brave" ]; }; };
+          remap = { SUPER-ALT-b = { launch = [ "brave" ]; }; };
         }];
       };
     };
