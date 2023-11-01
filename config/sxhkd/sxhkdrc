@@ -2,13 +2,12 @@
 # wm independent hotkeys
 #
 
-# terminal emulator
 super + Return
 	alacritty
-
-# program launcher
 super + @space
 	dmenu_run -i -p 'dmenu_run' -fn 'Hack:size=15' -nb '#1b1b1b' -nf '#d4be98' -sb '#5a524c' -sf '#d8a657'
+super + alt + b
+    brave
 
 # make sxhkd reload its configuration files:
 super + Escape

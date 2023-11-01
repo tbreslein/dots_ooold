@@ -196,11 +196,16 @@ in {
     picom = {
       enable = userConfig.isXWM;
       settings = {
-        fading = true;
-        fade-in-step = 0.12;
-        fade-out-step = 0.12;
-        corner-radius = 7;
         backend = "glx";
+        blur = {
+          method = "gaussian";
+          size = 10;
+          deviation = 5.0;
+        };
+        corner-radius = 7;
+        fading = true;
+        fade-in-step = 2.8e-2;
+        fade-out-step = 2.8e-2;
       };
     };
   };
