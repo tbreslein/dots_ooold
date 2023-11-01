@@ -94,7 +94,9 @@ in {
       pkgs.nwg-look
       pkgs.pavucontrol
     ] else if userConfig.isXWM then [
+      pkgs.libnotify
       pkgs.dmenu
+      pkgs.arandr
       pkgs.feh
       pkgs.zathura
       pkgs.pavucontrol
@@ -103,6 +105,8 @@ in {
       pkgs.flameshot
       pkgs.gammastep
       pkgs.sxhkd
+      pkgs.xclip
+      pkgs.xsel
     ] else
       [ ]);
 
@@ -176,6 +180,18 @@ in {
 
   services = {
     kanshi = { enable = userConfig.isWaylandWM; };
+    dunst = {
+      enable = userConfig.isXWM;
+      settings = {
+        global = {
+          background = "#32302f";
+          foreground = "#ddc7a1";
+          frame_color = "#d8a654";
+          font = "Noto Sans 11";
+        };
+        urgency_critical = { frame_color = "#ea6962"; };
+      };
+    };
     mako = {
       enable = userConfig.isWaylandWM;
       borderRadius = 5;

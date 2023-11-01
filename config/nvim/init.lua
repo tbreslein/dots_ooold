@@ -17,30 +17,21 @@ end
 vim.opt.rtp:prepend(lazy_path)
 require("lazy").setup({
     -- common dependencies
-    { "nvim-lua/plenary.nvim", lazy = true },
+    { "nvim-lua/plenary.nvim",       lazy = true },
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
     -- [[ UI ]]
-    -- {
-    --     "sainnhe/gruvbox-material",
-    --     lazy = false,
-    --     priority = 1000,
-    --     config = function()
-    --         vim.o.background = "dark"
-    --         vim.g.gruvbox_material_transparent_background = 1
-    --         vim.g.gruvbox_material_dim_inactive_windows = 1
-    --         vim.g.gruvbox_material_ui_contrast = "high"
-    --         vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
-    --         vim.cmd("colorscheme gruvbox-material")
-    --     end,
-    -- },
     {
-        "AlexvZyl/nordic.nvim",
+        "sainnhe/gruvbox-material",
         lazy = false,
         priority = 1000,
         config = function()
-            require("nordic").setup({ transparent_bg = true })
-            require("nordic").load()
+            vim.o.background = "dark"
+            vim.g.gruvbox_material_transparent_background = 1
+            vim.g.gruvbox_material_dim_inactive_windows = 1
+            vim.g.gruvbox_material_ui_contrast = "high"
+            vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
+            vim.cmd("colorscheme gruvbox-material")
         end,
     },
     {
@@ -83,10 +74,10 @@ require("lazy").setup({
         event = "VeryLazy",
         opts = { menu = { width = 80 }, mark_branch = true },
         keys = {
-            { "<m-u>", ":lua require('harpoon-core.ui').nav_file(1)<cr>" },
-            { "<m-i>", ":lua require('harpoon-core.ui').nav_file(2)<cr>" },
-            { "<m-o>", ":lua require('harpoon-core.ui').nav_file(3)<cr>" },
-            { "<m-p>", ":lua require('harpoon-core.ui').nav_file(4)<cr>" },
+            { "<m-u>",     ":lua require('harpoon-core.ui').nav_file(1)<cr>" },
+            { "<m-i>",     ":lua require('harpoon-core.ui').nav_file(2)<cr>" },
+            { "<m-o>",     ":lua require('harpoon-core.ui').nav_file(3)<cr>" },
+            { "<m-p>",     ":lua require('harpoon-core.ui').nav_file(4)<cr>" },
             { "<leader>a", ":lua require('harpoon-core.mark').add_file()<cr>" },
             { "<leader>e", ":lua require('harpoon-core.ui').toggle_quick_menu()<cr>" },
         },
@@ -113,8 +104,8 @@ require("lazy").setup({
     },
 
     -- [[ Editing ]]
-    { "mbbill/undotree", event = "BufEnter" },
-    { "numtostr/Comment.nvim", event = "BufEnter", opts = {} },
+    { "mbbill/undotree",           event = "BufEnter" },
+    { "numtostr/Comment.nvim",     event = "BufEnter", opts = {} },
     { "echasnovski/mini.surround", event = "BufEnter", opts = {} },
     {
         "nvim-treesitter/nvim-treesitter",

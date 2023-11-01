@@ -1,6 +1,6 @@
 # launch stuff
 super + @space
-    dmenu_run
+    dmenu_run -i -p 'dmenu_run' -fn 'Hack:size=19' -nb '#1b1b1b' -nf '#d4be98' -sb '#5a524c' -sf '#d8a657'
 super + Return
     alacritty
 super + alt + b
@@ -29,7 +29,7 @@ super + shift + {j,k}
     dkcmd win focus {next,prev}
 super + ctrl + {j,k}
     dkcmd win mvstack {down,up}
-super + shift + {q,g}
+super + ctrl + {q,g}
     dkcmd win {kill,swap}
 super + {shift,ctrl} + f
     dkcmd win {fakefull,full}
@@ -39,7 +39,7 @@ super + alt + {h,j,k,l}
     dkcmd win resize {x=-20,y=+20,y=-20,x=+20}
 
 # workspaces / monitors
-super + {shift,ctrl} + {1-6}
+super + {_,ctrl + }{1-6}
     dkcmd ws {view,send} {1-6}
 super + {shift,ctrl} + {comma,period}
     dkcmd mon {view,send} {prev,next}

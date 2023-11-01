@@ -7,7 +7,7 @@ window:
 font:
   normal:
     family: Hack Nerd Font
-  size: 14
+  size: 12
 use_thin_strokes: true
 draw_bold_text_with_bright_colors: true
 schemes:
@@ -60,34 +60,7 @@ schemes:
     indexed_colors:
       - { index: 16, color: "0xc9826b" }
       - { index: 17, color: "0xbf88bc" }
-  nordic: &nordic
-    primary:
-      background: "0x191d24"
-      foreground: "0xcdcecf"
-    # Normal colors
-    normal:
-      black: "0x3b4252"
-      red: "0xbf616a"
-      green: "0xa3be8c"
-      yellow: "0xebcb8b"
-      blue: "0x81a1c1"
-      magenta: "0xb48ead"
-      cyan: "0x88c0d0"
-      white: "0xe5e9f0"
-    # Bright colors
-    bright:
-      black: "0x465780"
-      red: "0xd06f79"
-      green: "0xb1d196"
-      yellow: "0xf0d399"
-      blue: "0x8cafd2"
-      magenta: "0xc895bf"
-      cyan: "0x93ccdc"
-      white: "0xe7ecf4"
-    indexed_colors:
-      - { index: 16, color: "0xc9826b" }
-      - { index: 17, color: "0xbf88bc" }
-colors: *nordfox
+colors: *gruvbox_material
 cursor:
   style:
     shape: Block
