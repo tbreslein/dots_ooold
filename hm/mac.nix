@@ -1,5 +1,5 @@
 { config, pkgs, lib, userConfig, ... }: {
-  # imports = [ ./home.nix ];
+  imports = [ ./home.nix ];
   home = {
     # username = userConfig.name;
     # stateVersion = "23.05";
