@@ -29,29 +29,26 @@
         };
       };
     in {
-      nixosConfigurations = {
-        moebius = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit userConfig; };
-          modules = [
-            ./nixos/moebius.nix
-            ./nixos/moebius-hardware.nix
+      nixosConfigurations.moebius = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        specialArgs = { inherit userConfig; };
+        modules = [
+          ./nixos/moebius.nix
+          ./nixos/moebius-hardware.nix
 
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                extraSpecialArgs = { inherit userConfig; };
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.tommy = import ./hm/moebius.nix;
-              };
-            }
-          ];
-        };
+          home-manager.nixosModules.home-manager
+          {
+            home-manager = {
+              extraSpecialArgs = { inherit userConfig; };
+              useGlobalPkgs = true;
+              useUserPackages = true;
+              users.tommy = import ./hm/moebius.nix;
+            };
+          }
+        ];
       };
-      darwinConfigurations.Tommys-MacBook-Pro = darwin.lib.darwinSystem rec {
+      darwinConfigurations.Tommys-MacBook-Pro = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        pkgs = import nixpkgs { inherit system; };
         modules = [
           ./nix-darwin
           home-manager.darwinModules.home-manager
