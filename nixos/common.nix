@@ -84,8 +84,8 @@
                 "#${userConfig.colors.accent}"
               ];
             };
+            SUPER-enter = { launch = [ "${pkgs.alacritty}/bin/alacritty" ]; };
           };
-          #    dmenu_run -i -p 'dmenu_run' -fn 'Hack:size=19' -nb '#1b1b1b' -nf '#d4be98' -sb '#5a524c' -sf '#d8a657'
         }];
       };
     };
