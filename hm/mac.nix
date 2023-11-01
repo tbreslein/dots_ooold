@@ -1,4 +1,5 @@
 { config, pkgs, userConfig, ... }: {
+  imports = [ ./home.nix ];
   home = {
     homeDirectory = "/Users/${userConfig.name}";
     packages = [
