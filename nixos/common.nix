@@ -65,10 +65,6 @@
         keymap = [{
           name = "apps";
           remap = {
-            SUPER-SHIFT-j.launch =
-              [ "${pkgs.dk}/bin/dkcmd" "win" "focus" "next" ];
-            SUPER-SHIFT-k.launch =
-              [ "${pkgs.dk}/bin/dkcmd" "win" "focus" "prev" ];
             SUPER-ALT-b.launch = [ "${pkgs.brave}/bin/brave" ];
             SUPER-space.launch = [
               "${pkgs.dmenu}/bin/dmenu_run"
