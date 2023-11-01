@@ -66,8 +66,26 @@
           name = "apps";
           remap = {
             SUPER-ALT-b = { launch = [ "${pkgs.brave}/bin/brave" ]; };
-            SUPER-space = { launch = [ "${pkgs.dmenu}/bin/dmenu_run" ]; };
+            SUPER-space = {
+              launch = [
+                "${pkgs.dmenu}/bin/dmenu_run"
+                "-i"
+                "-p"
+                "dmenu_run"
+                "-fn"
+                "Hack:size=19"
+                "-nb"
+                "#${userConfig.colors.background}"
+                "-nf"
+                "#${userConfig.colors.foreground}"
+                "-sb"
+                "#${userConfig.colors.brightBlack}"
+                "-sf"
+                "#${userConfig.colors.accent}"
+              ];
+            };
           };
+          #    dmenu_run -i -p 'dmenu_run' -fn 'Hack:size=19' -nb '#1b1b1b' -nf '#d4be98' -sb '#5a524c' -sf '#d8a657'
         }];
       };
     };
