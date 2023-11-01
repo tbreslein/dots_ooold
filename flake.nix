@@ -50,7 +50,7 @@
       darwinConfigurations.Tommys-MacBook-Pro = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = [
-          ./nix-darwin
+          ./nix-darwin/default.nix
           home-manager.darwinModules.home-manager
           {
             home-manager = {
