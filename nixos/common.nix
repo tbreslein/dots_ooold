@@ -66,6 +66,7 @@
           name = "apps";
           remap = {
             SUPER-ALT-b = { launch = [ "${pkgs.brave}/bin/brave" ]; };
+            SUPER-space = { launch = [ "${pkgs.dmenu}/bin/dmenu_run" ]; };
           };
         }];
       };
