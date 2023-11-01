@@ -3,7 +3,7 @@
   environment = {
     shells = with pkgs; [ bash dash ksh tcsh zsh ];
     loginShell = pkgs.zsh;
-    systemPackages = [ pkgs.coreutils ];
+    systemPackages = [ pkgs.coreutils pkgs.alacritty ];
   };
   nix = {
     useDaemon = true;
