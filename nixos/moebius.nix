@@ -22,4 +22,12 @@
     corectrl.enable = true;
   };
   networking.hostName = "moebius";
+  users.users.tommy.packages = with pkgs; [
+    (wineWowPackages.full.override {
+      wineRelease = "staging";
+      mingwSupport = true;
+    })
+    winetricks
+    lutris
+  ];
 }
