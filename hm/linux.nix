@@ -21,8 +21,6 @@ in {
 
       # shell scripts
       (pkgs.writeShellScriptBin "up" ''
-        #!/usr/bin/env zsh
-        source ~/.zshrc
         pushd ${config.home.homeDirectory}/dots
 
         function up-nix {
