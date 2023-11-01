@@ -64,7 +64,9 @@
         }];
         keymap = [{
           name = "apps";
-          remap = { SUPER-ALT-b = { launch = [ "brave" ]; }; };
+          remap = {
+            SUPER-ALT-b = { launch = [ "${pkgs.brave}/bin/brave" ]; };
+          };
         }];
       };
     };
