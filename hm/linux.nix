@@ -110,6 +110,23 @@ in {
       hypr = userConfig.linkConfig config "hypr";
       tofi = userConfig.linkConfig config "tofi";
       waybar = userConfig.linkConfig config "waybar";
+      electron13-flags = {
+        text = ''
+          --enable-features=UseOzonePlatform
+          --ozone-platform=wayland
+        '';
+        target =
+          "${config.home.homeDirectory}/.config/electron13/electron13-flags.conf";
+      };
+      electron-flags = {
+        text = ''
+          --ozone-platform-hint=auto
+          --enable-webrtc-pipewire-capturer
+          --gtk-version=4
+        '';
+        target =
+          "${config.home.homeDirectory}/.config/electron/electron-flags.conf";
+      };
     } else if userConfig.wm == "dk" then {
       dk = userConfig.linkConfig config "dk";
       polybar = userConfig.linkConfig config "polybar";
