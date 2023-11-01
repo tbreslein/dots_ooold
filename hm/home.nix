@@ -72,6 +72,25 @@
   programs = {
     home-manager.enable = true;
 
+    alacritty = {
+      enable = true;
+      settings = {
+        window = {
+          dynamic_padding = true;
+          opacity = 0.92;
+          option_as_alt = "OnlyLeft";
+        };
+        font.normal.family = "Hack Nerd Font";
+        use_thin_strokes = true;
+        draw_bold_text_with_bright_colors = true;
+        cursor.style = {
+          shape = "Block";
+          blinking = "Never";
+        };
+        mouse.hide_when_typing = true;
+      };
+    };
+
     eza = {
       enable = true;
       enableAliases = true;

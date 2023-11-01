@@ -110,9 +110,7 @@ in {
     ] else
       [ ]);
 
-    file = {
-      alacritty = userConfig.linkConfig config "alacritty";
-    } // (if userConfig.isWaylandWM then {
+    file = { } // (if userConfig.isWaylandWM then {
       hypr = userConfig.linkConfig config "hypr";
       tofi = userConfig.linkConfig config "tofi";
       waybar = userConfig.linkConfig config "waybar";
@@ -124,6 +122,7 @@ in {
   };
 
   programs = {
+    alacritty.settings.font.size = 12;
     bash = {
       enable = userConfig.linuxShell == "bash";
       enableCompletion = true;

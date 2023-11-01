@@ -1,5 +1,6 @@
-{ config, pkgs, userConfig, ... }: {
+{ ... }: {
   imports = [ ./home.nix ./linux.nix ];
+  programs.alacritty.settings.font.size = 12;
   services = {
     kanshi = {
       profiles = {
