@@ -195,7 +195,7 @@
 
   users.users.tommy = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "input" ];
+    extraGroups = [ "wheel" "networkmanager" ];
     initialPassword = "qwert";
     packages = with pkgs; [ alacritty kitty ];
     shell = pkgs.zsh;
