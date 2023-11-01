@@ -24,7 +24,6 @@
       pkgs.jq
       pkgs.lazygit
       pkgs.most
-      pkgs.nitch
       pkgs.ripgrep
       pkgs.rm-improved
       pkgs.rsync

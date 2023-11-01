@@ -1,8 +1,6 @@
 { config, pkgs, lib, userConfig, ... }: {
   imports = [ ./home.nix ];
   home = {
-    # username = userConfig.name;
-    # stateVersion = "23.05";
     homeDirectory = lib.mkForce "/Users/${userConfig.name}";
     packages = [
       (pkgs.writeShellScriptBin "up" ''
