@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   programs.zsh.enable = true;
   environment = {
-    shells = with pkgs; [ bash zsh ];
+    shells = with pkgs; [ bash csh dash ksh sh tcsh zsh ];
     loginShell = pkgs.zsh;
     systemPackages = [ pkgs.coreutils ];
   };
