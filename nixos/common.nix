@@ -1,5 +1,5 @@
 { pkgs, lib, userConfig, inputs, ... }: {
-  imports = [ inputs.xremap-flake.nixosModules.default ];
+  # imports = [ inputs.xremap-flake.nixosModules.default ];
   nixpkgs.config.allowUnfree = true;
   nix = {
     gc = {
@@ -51,68 +51,68 @@
   };
 
   services = {
-    xremap = {
-      userName = userConfig.name;
-      # serviceMode = if userConfig.wm == "hyprland" then "user" else "system";
-      serviceMode = "user";
-      withHypr = userConfig.wm == "hyprland";
-      withX11 = userConfig.isXWM;
-      config = {
-        # modmap = [{
-        #   name = "Global";
-        #   remap = { "CapsLock" = "Esc"; };
-        # }];
-        keymap = [{
-          name = "apps";
-          remap = {
-            SUPER-ALT-b.launch = [ "${pkgs.brave}/bin/brave" ];
-            SUPER-space.launch = [
-              "${pkgs.dmenu}/bin/dmenu_run"
-              "-i"
-              "-p"
-              "dmenu_run"
-              "-fn"
-              "Hack:size=19"
-              "-nb"
-              "#${userConfig.colors.background}"
-              "-nf"
-              "#${userConfig.colors.foreground}"
-              "-sb"
-              "#${userConfig.colors.brightBlack}"
-              "-sf"
-              "#${userConfig.colors.accent}"
-            ];
-            SUPER-enter.launch = [ "${pkgs.alacritty}/bin/alacritty" ];
-            PRINT.launch = [ "" ];
-            PLAYPAUSE.launch =
-              [ "${pkgs.playerctl}/bin/playerctl" "play-pause" ];
-            NEXTSONG.launch = [ "${pkgs.playerctl}/bin/playerctl" "next" ];
-            PREVIOUSSONG.launch =
-              [ "${pkgs.playerctl}/bin/playerctl" "previous" ];
-            BRIGHTNESSUP.launch = [ "${pkgs.light}/bin/light" "-A" "5" ];
-            BRIGHTNESSDOWN.launch = [ "${pkgs.light}/bin/light" "-U" "5" ];
-            MUTE.launch = [
-              "${pkgs.wireplumber}/bin/wpctl"
-              "set-mute"
-              "@DEFAULT_SINK@"
-              "toggle"
-            ];
-            VOLUMEUP.launch = [
-              "${pkgs.wireplumber}/bin/wpctl"
-              "set-volume"
-              "@DEFAULT_SINK@"
-              "5%+"
-            ];
-            VOLUMEDOWN.launch = [
-              "${pkgs.wireplumber}/bin/wpctl"
-              "set-volume"
-              "@DEFAULT_SINK@"
-              "5%-"
-            ];
-          };
-        }];
-      };
-    };
+    # xremap = {
+    #   userName = userConfig.name;
+    #   # serviceMode = if userConfig.wm == "hyprland" then "user" else "system";
+    #   serviceMode = "user";
+    #   withHypr = userConfig.wm == "hyprland";
+    #   withX11 = userConfig.isXWM;
+    #   config = {
+    #     # modmap = [{
+    #     #   name = "Global";
+    #     #   remap = { "CapsLock" = "Esc"; };
+    #     # }];
+    #     keymap = [{
+    #       name = "apps";
+    #       remap = {
+    #         SUPER-ALT-b.launch = [ "${pkgs.brave}/bin/brave" ];
+    #         SUPER-space.launch = [
+    #           "${pkgs.dmenu}/bin/dmenu_run"
+    #           "-i"
+    #           "-p"
+    #           "dmenu_run"
+    #           "-fn"
+    #           "Hack:size=19"
+    #           "-nb"
+    #           "#${userConfig.colors.background}"
+    #           "-nf"
+    #           "#${userConfig.colors.foreground}"
+    #           "-sb"
+    #           "#${userConfig.colors.brightBlack}"
+    #           "-sf"
+    #           "#${userConfig.colors.accent}"
+    #         ];
+    #         SUPER-enter.launch = [ "${pkgs.alacritty}/bin/alacritty" ];
+    #         PRINT.launch = [ "" ];
+    #         PLAYPAUSE.launch =
+    #           [ "${pkgs.playerctl}/bin/playerctl" "play-pause" ];
+    #         NEXTSONG.launch = [ "${pkgs.playerctl}/bin/playerctl" "next" ];
+    #         PREVIOUSSONG.launch =
+    #           [ "${pkgs.playerctl}/bin/playerctl" "previous" ];
+    #         BRIGHTNESSUP.launch = [ "${pkgs.light}/bin/light" "-A" "5" ];
+    #         BRIGHTNESSDOWN.launch = [ "${pkgs.light}/bin/light" "-U" "5" ];
+    #         MUTE.launch = [
+    #           "${pkgs.wireplumber}/bin/wpctl"
+    #           "set-mute"
+    #           "@DEFAULT_SINK@"
+    #           "toggle"
+    #         ];
+    #         VOLUMEUP.launch = [
+    #           "${pkgs.wireplumber}/bin/wpctl"
+    #           "set-volume"
+    #           "@DEFAULT_SINK@"
+    #           "5%+"
+    #         ];
+    #         VOLUMEDOWN.launch = [
+    #           "${pkgs.wireplumber}/bin/wpctl"
+    #           "set-volume"
+    #           "@DEFAULT_SINK@"
+    #           "5%-"
+    #         ];
+    #       };
+    #     }];
+    #   };
+    # };
 
     xserver = {
       enable = true;

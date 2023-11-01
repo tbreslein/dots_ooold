@@ -11,7 +11,7 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    xremap-flake.url = "github:xremap/nix-flake";
+    # xremap-flake.url = "github:xremap/nix-flake";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, darwin, ... }:
