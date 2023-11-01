@@ -15,7 +15,7 @@
         name = "tommy";
         linuxShell = "bash";
         # options: hyprland, bspwm
-        wm = "bspwm";
+        wm = "dk";
         isWaylandWM = wm == "hyprland";
         isXWM = !isWaylandWM;
         linkConfig = config: name: {

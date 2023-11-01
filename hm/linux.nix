@@ -115,7 +115,10 @@ in {
     } else if userConfig.wm == "bspwm" then {
       bspwm = userConfig.linkConfig config "bspwm";
       sxhkd = userConfig.linkConfig config "sxhkd";
-      # picom = userConfig.linkConfig config "picom";
+      polybar = userConfig.linkConfig config "polybar";
+    } else if userConfig.wm == "dk" then {
+      dk = userConfig.linkConfig config "dk";
+      # sxhkd = userConfig.linkConfig config "sxhkd";
       polybar = userConfig.linkConfig config "polybar";
     } else
       { });

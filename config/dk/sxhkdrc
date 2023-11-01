@@ -1,0 +1,47 @@
+# launch stuff
+super + @space
+    dmenu_run
+super + Return
+    alacritty
+super + alt + b
+    brave
+
+# control sxhkd
+super + Escape
+    pkill -USR1 -x sxhkd
+
+# media
+super + shift + {_,alt + }@Print
+    scrot {_,-s}
+{XF86AudioRaiseVolume,XF86AudioLowerVolume}
+    pamixer {-i,-d} 5
+{XF86MonBrightnessUp,XF86MonBrightnessDown}
+    xbacklight {+10,-10}
+
+# control dkwm
+super + shift + ctrl + {q,r}
+    dkcmd {exit,restart}
+super + shift + ctrl + r
+    $HOME/.config/dk/dkrc
+
+# window control
+super + shift + {j,k}
+    dkcmd win focus {next,prev}
+super + ctrl + {j,k}
+    dkcmd win mvstack {down,up}
+super + shift + {q,g}
+    dkcmd win {kill,swap}
+super + {shift,ctrl} + f
+    dkcmd win {fakefull,full}
+super + {shift,ctrl} + v
+    dkcmd win {stick,float}
+super + alt + {h,j,k,l}
+    dkcmd win resize {x=-20,y=+20,y=-20,x=+20}
+
+# workspaces / monitors
+super + {shift,ctrl} + {1-6}
+    dkcmd ws {view,send} {1-6}
+super + {shift,ctrl} + {comma,period}
+    dkcmd mon {view,send} {prev,next}
+super + alt + {t,r,m,v}
+    dkcmd set layout {tile,rtile,mono,none}

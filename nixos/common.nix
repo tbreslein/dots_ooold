@@ -61,7 +61,8 @@
           wayland.enable = userConfig.isWaylandWM;
         };
       };
-      windowManager.bspwm = { enable = userConfig.wm == "bspwm"; };
+      windowManager.bspwm.enable = userConfig.wm == "bspwm";
+      windowManager.dk.enable = userConfig.wm == "dk";
     };
     openssh.enable = true;
     pipewire = {
