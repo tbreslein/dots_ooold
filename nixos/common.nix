@@ -1,5 +1,4 @@
 { pkgs, lib, userConfig, inputs, ... }: {
-  # imports = [ inputs.xremap-flake.nixosModules.default ];
   nixpkgs.config.allowUnfree = true;
   nix = {
     gc = {

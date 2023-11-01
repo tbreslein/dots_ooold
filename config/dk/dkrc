@@ -9,7 +9,8 @@ if [ "$(cat /etc/hostname)" = "moebius" ]; then
 fi
 
 dunst &
-pgrep -x sxhkd >/dev/null || sxhkd -c "$HOME/.config/dk/sxhkdrc" &
+# pgrep -x sxhkd >/dev/null || sxhkd -c "$HOME/.config/dk/sxhkdrc" &
+pgrep -x sxhkd >/dev/null || sxhkd &
 pkill picom
 picom -b --experimental-backends
 gammastep -l 54.0:10.0 &
