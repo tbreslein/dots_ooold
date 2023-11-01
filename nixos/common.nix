@@ -1,4 +1,5 @@
-{ config, pkgs, lib, userConfig, ... }: {
+{ pkgs, lib, userConfig, ... }: {
+
   nixpkgs.config.allowUnfree = true;
   nix = {
     gc = {
@@ -101,6 +102,7 @@
   };
 
   xdg.portal = {
+    enable = userConfig.isWaylandWM;
     extraPortals = lib.mkIf (userConfig.wm == "hyprland")
       [ pkgs.xdg-desktop-portal-hyprland ];
   };
