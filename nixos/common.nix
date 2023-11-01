@@ -54,8 +54,7 @@
     xremap = {
       userName = userConfig.name;
       # serviceMode = if userConfig.wm == "hyprland" then "user" else "system";
-      # serviceMode = "user";
-      serviceMode = "system";
+      serviceMode = "user";
       withHypr = userConfig.wm == "hyprland";
       withX11 = userConfig.isXWM;
       config = {
