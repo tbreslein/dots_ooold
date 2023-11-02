@@ -12,7 +12,7 @@
       yamllint
       prettierd
       statix
-      nix
+      nil
       nixfmt
 
       # cli tools
