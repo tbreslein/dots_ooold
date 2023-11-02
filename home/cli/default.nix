@@ -6,6 +6,8 @@
     packages = with pkgs; [
       # compilers
       gcc
+      cmake
+      gnumake
 
       # formatters / linters / language servers
       shellcheck
@@ -17,6 +19,7 @@
       nixfmt
 
       # cli tools
+      fd
       go-task
       htop
       jq

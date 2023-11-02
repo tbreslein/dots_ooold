@@ -36,7 +36,8 @@ in {
 
         function up-nvim {
             echo -e "\n\033[1;32m[ up-nvim ]\033[0m"
-            nvim --headless "+Lazy! sync" +qa
+            #nvim --headless "+Lazy! sync" +qa
+            nvim --headless -u NONE -c "lua require('bootstrap').headless_paq()"
         }
 
         function up-protonge {
@@ -61,17 +62,19 @@ in {
             up-protonge
         }
 
-        if [[ -n $(git status -s) ]]; then
-            echo "Error: git tree is dirty"
-        else
-            case "$1" in
-              nix) up-nix;;
-              nvim) up-nvim;;
-              pge) up-protonge;;
-              all) up-all;;
-              *) echo "Error: unknown command";;
-            esac
-        fi
+        case "$1" in
+          nix)
+            if [[ -n $(git status -s) ]]; then
+                echo "Error: git tree is dirty"
+            else
+              up-nix
+            fi
+            ;;
+          nvim) up-nvim;;
+          pge) up-protonge;;
+          all) up-all;;
+          *) echo "Error: unknown command";;
+        esac
         popd
       '')
     ];

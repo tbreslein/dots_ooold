@@ -2,9 +2,9 @@
 
 {
   home = {
-    packages = with pkgs; [ neovim lua-language-server stylua ];
+    packages = with pkgs; [ neovim stylua ];
     file.nvim = {
-      source = ./nvim;
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/dots/home/editor/nvim";
       target = "${config.home.homeDirectory}/.config/nvim";
     };
     shellAliases = { vim = "nvim"; };
