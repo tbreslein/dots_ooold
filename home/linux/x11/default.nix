@@ -20,12 +20,13 @@ in {
         # this restart currently doesn't work, it just doesn't do anything.
         # probably because this call doesn't actually interact with the running
         # dk session?
-        onChange = "${pkgs.dk}/bin/dkcmd restart";
+        onChange =
+          "DKSOCK=$(find /tmp -maxdepth 1 -name 'dk__*.socket') ${pkgs.dk}/bin/dkcmd restart";
         target = "${config.home.homeDirectory}/.config/dk/dkrc";
         text = ''
           #!/usr/bin/env sh
-          logfile="$HOME/.dkrc.log"
-          [ -d "$HOME/.local/share/xorg" ] && logfile="$HOME/.local/share/xorg/dkrc.log"
+          logfile="${config.home.homeDirectory}/.dkrc.log"
+          [ -d "${config.home.homeDirectory}/.local/share/xorg" ] && logfile="${config.home.homeDirectory}/.local/share/xorg/dkrc.log"
           : >"$logfile"
 
           if [ "$(cat /etc/hostname)" = "moebius" ]; then
@@ -36,9 +37,10 @@ in {
           pgrep -x sxhkd >/dev/null || sxhkd &
           pgrep -x picom >/dev/null || picom -b --experimental-backends
           pgreg -f "$(which gammastep)" >/dev/null || gammastep -l 54.0:10.0 &
-          feh --bg-fill /home/tommy/dots/wallpapers/moebius.jpg
 
-          /home/tommy/.config/polybar/launch.sh
+          feh --bg-fill ${config.home.homeDirectory}/dots/wallpapers/moebius.jpg
+
+          ${config.home.homeDirectory}/.config/polybar/launch.bash
 
           if [ "$(cat /etc/hostname)" = "moebius" ]; then
               xrandr --output DisplayPort-2 --mode 3440x1440 --rate 120
@@ -84,8 +86,14 @@ in {
         '';
       };
       polybar = {
-        source = ./polybar;
-        target = "${config.home.homeDirectory}/.config/polybar";
+        executable = true;
+        target = "${config.home.homeDirectory}/.config/polybar/launch.bash";
+        text = ''
+          #!/usr/bin/env bash
+          killall -q polybar
+          polybar main 2>&1 | tee -a /tmp/polybar.main.log &
+          disown
+        '';
       };
     };
   };
@@ -153,6 +161,109 @@ in {
         "super + {shift,ctrl} + {comma,period}" =
           "dkcmd mon {view,send} {prev,next}";
         "super + alt + {t,r,m,v}" = "dkcmd set layout {tile,rtile,mono,none}";
+      };
+    };
+
+    polybar = {
+      enable = true;
+      script = "polybar main &"; # irrelevant, isn't used
+      config = {
+        settings = {
+          screenchange-reload = true;
+          pseudo-transparency = true;
+        };
+        "bar/main" = {
+          width = "100%";
+          height = "3%";
+          radius = 6;
+          background = "#${colors.background}";
+          foreground = "#${colors.foreground}";
+          line-size = "3pt";
+          border-size = "4pt";
+          border-color = "#00000000";
+          padding-left = 0;
+          padding-right = 1;
+          module-margin = 1;
+          separator = "|";
+          separator-foreground = "#${colors.black}";
+          font-0 = "Hack Nerd Font; 2";
+          modules-left = "workspaces";
+          modules-center = "date";
+          modules-right = "xkeyboard memory cpu wlan eth";
+          cursor-click = "pointer";
+          enable-ipc = true;
+          tray-spacing = "16pt";
+          tray-position = "right";
+        };
+        "module/workspaces" = {
+          type = "internal/xworkspaces";
+          pin-workspaces = false;
+          pin-click = true;
+          label-active = "%name%";
+          label-active-underline = "#${colors.accent}";
+          label-active-background = "#${colors.black}";
+          label-active-padding = 1;
+          label-occupied = "%name%";
+          label-occupied-background = "#${colors.black}";
+          label-occupied-padding = 1;
+          label-urgent = "%name%";
+          label-urgent-background = "#${colors.brightRed}";
+          label-urgent-padding = 1;
+          label-empty = "%name%";
+          label-empty-background = "#${colors.background}";
+          label-empty-padding = 1;
+        };
+        "module/date" = {
+          type = "internal/date";
+          interval = 10;
+          date = "%H:%M";
+          date-alt = "%d-%m-%Y %H:%M:%S";
+          label = "%date%";
+          label-foreground = "#${colors.accent}";
+        };
+        "module/xkeyboard" = {
+          type = "internal/xkeyboard";
+          blacklist-0 = "num lock";
+          label-layout = "%layout%";
+          label-layout-foreground = "#${colors.accent}";
+          label-indicator-padding = 2;
+          label-indicator-margin = 1;
+          label-indicator-background = "#${colors.background}";
+          label-indicator-foreground = "#${colors.foreground}";
+        };
+        "module/memory" = {
+          type = "internal/memory";
+          interval = 2;
+          format-prefix = "RAM ";
+          format-prefix-foreground = "#${colors.accent}";
+          label = "%percentage_used:2%%";
+        };
+        "module/cpu" = {
+          type = "internal/cpu";
+          interval = 2;
+          format-prefix = "CPU ";
+          format-prefix-foreground = "#${colors.accent}";
+          label = "%percentage:2%%";
+        };
+        "network-base" = {
+          type = "internal/network";
+          interval = 5;
+          format-connected = "<label-connected>";
+          format-disconnected = "<label-disconnected>";
+          label-disconnected =
+            "%{F#${colors.accent}}%ifname%%{F#${colors.brightRed}} disconnected";
+        };
+        "module/wlan" = {
+          "inherit" = "network-base";
+          interface-type = "wireless";
+          label-connected =
+            "%{F#${colors.accent}}%ifname%%{F-} %essis% %local_ip%";
+        };
+        "module/eth" = {
+          "inherit" = "network-base";
+          interface-type = "wired";
+          label-connected = "%{F#${colors.accent}}%ifname%%{F-} %local_ip%";
+        };
       };
     };
   };
