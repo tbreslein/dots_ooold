@@ -12,15 +12,13 @@
     };
   };
 
-  programs = {
-    vim.enable = true;
-    zsh.enable = true;
-  };
+  programs.zsh.enable = true;
   environment = {
     shells = with pkgs; [ bash dash ksh tcsh zsh ];
     systemPackages = with pkgs; [
-      coreutils
       alacritty
+      vim
+      coreutils
       wget
       curl
       unzip

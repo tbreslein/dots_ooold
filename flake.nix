@@ -11,7 +11,6 @@
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    # xremap-flake.url = "github:xremap/nix-flake";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, darwin, ... }:
@@ -69,8 +68,9 @@
         system = "x86_64-linux";
         specialArgs = { inherit userConfig inputs; };
         modules = [
-          ./nixos/moebius.nix
-          ./nixos/moebius-hardware.nix
+          ./system/common
+          ./system/linux
+          ./system/moebius
 
           home-manager.nixosModules.home-manager
           {
