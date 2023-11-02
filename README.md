@@ -35,11 +35,11 @@ my nix+dotfiles setup
 
   - [ ] move these configs into home manager:
 
-    - [ ] dk
+    - [x] dk
     - [ ] hypr
     - [ ] tofi
     - [ ] waybar
-    - [ ] polybar
+    - [x] polybar
     - [ ] smug (not because of colors, but because I can abstract it a lot)
 
   - [ ] check out [nixvim](https://github.com/nix-community/nixvim)
