@@ -11,9 +11,7 @@ local function bootstrap_paq(packages)
     local first_install = clone_paq()
     vim.cmd.packadd("paq-nvim")
     local paq = require("paq")
-    if first_install then
-        vim.notify("Installing plugins... If prompted, hit Enter to continue.")
-    end
+    if first_install then vim.notify("Installing plugins... If prompted, hit Enter to continue.") end
     paq(packages)
     paq.clean()
     paq.install()
@@ -33,13 +31,13 @@ local packages = {
     "alexghergh/nvim-tmux-navigation",
     "MeanderingProgrammer/harpoon-core.nvim",
     "nvim-telescope/telescope.nvim",
-    { "nvim-telescope/telescope-fzf-native.nvim", build = 'make' },
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
     -- Editing
     "mbbill/undotree",
     "numtostr/Comment.nvim",
     "echasnovski/mini.surround",
-    { "nvim-treesitter/nvim-treesitter", build = ':TSUpdate' },
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
     "nvim-treesitter/nvim-treesitter-context",
     "nvim-treesitter/nvim-treesitter-textobjects",
     "windwp/nvim-ts-autotag",
