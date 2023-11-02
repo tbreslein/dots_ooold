@@ -233,6 +233,7 @@ require("conform").setup({
         zig = { "zigfmt" },
         python = { "black" },
         lua = { "stylua" },
+        markdown = { "prettierd" },
         javascript = { "prettierd" },
         javascriptreact = { "prettierd" },
         typescript = { "prettierd" },

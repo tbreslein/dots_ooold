@@ -5,9 +5,7 @@ my nix+dotfiles setup
 ## todo
 
 - [ ] mac:
-
   - [ ] clean up these programs currently installed on the system level:
-
     - [ ] alacritty
     - [ ] wezterm
     - [ ] amethyst
@@ -17,7 +15,6 @@ my nix+dotfiles setup
     - [ ] whatsapp
     - [ ] firefox
     - [ ] brave
-
   - [ ] add packages back in through nix / nix.homebrew
   - [ ] completely remove homebrew and all of its packages
   - [ ] completely remove macports and all of its packages

@@ -18,6 +18,7 @@
       nil
       nixfmt
       marksman
+      prettierd
 
       # cli tools
       fd
