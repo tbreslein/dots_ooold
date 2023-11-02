@@ -92,7 +92,10 @@ kmap("n", "<m-p>", ":lua require('harpoon-core.ui').nav_file(4)<cr>")
 kmap("n", "<leader>a", require("harpoon-core.mark").add_file)
 kmap("n", "<leader>e", require("harpoon-core.ui").toggle_quick_menu)
 
-require("telescope").setup({ defaults = { layout_config = { vertical = { width = 0.8 } } } })
+require("telescope").setup({ defaults = {
+    layout_strategy = "vertical",
+    layout_config = { height = 0.95 },
+} })
 require("telescope").load_extension("fzf")
 kmap("n", "<leader>pf", function()
     vim.fn.system("git rev-parse --is-inside-work-tree")
