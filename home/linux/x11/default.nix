@@ -29,10 +29,7 @@ in {
           [ -d "${config.home.homeDirectory}/.local/share/xorg" ] && logfile="${config.home.homeDirectory}/.local/share/xorg/dkrc.log"
           : >"$logfile"
 
-          # if [ "$(cat /etc/hostname)" = "moebius" ]; then
-          #     xrandr --output DisplayPort-2 --mode 3440x1440 --rate 120
-          # fi
-
+          autorandr -c
           pgrep -f "$(which dunst)" >/dev/null || dunst &
           pgrep -x sxhkd >/dev/null || sxhkd &
           pgrep -x picom >/dev/null || picom -b --experimental-backends
@@ -41,10 +38,6 @@ in {
           feh --bg-fill ${config.home.homeDirectory}/dots/wallpapers/moebius.jpg
 
           ${config.home.homeDirectory}/.config/polybar/launch.bash
-
-          if [ "$(cat /etc/hostname)" = "moebius" ]; then
-              xrandr --output DisplayPort-2 --mode 3440x1440 --rate 120
-          fi
 
           {
               dkcmd set numws=6

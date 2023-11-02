@@ -29,4 +29,3 @@ my nix+dotfiles setup
 - [ ] nix in general:
   - [ ] check out [nixvim](https://github.com/nix-community/nixvim)
     - [ ] go back to telescope
-  - [ ] autorandr
