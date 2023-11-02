@@ -16,8 +16,72 @@ in {
 
     file = {
       dk = {
-        source = ./dk;
-        target = "${config.home.homeDirectory}/.config/dk";
+        executable = true;
+        # this restart currently doesn't work, it just doesn't do anything.
+        # probably because this call doesn't actually interact with the running
+        # dk session?
+        onChange = "${pkgs.dk}/bin/dkcmd restart";
+        target = "${config.home.homeDirectory}/.config/dk/dkrc";
+        text = ''
+          #!/usr/bin/env sh
+          logfile="$HOME/.dkrc.log"
+          [ -d "$HOME/.local/share/xorg" ] && logfile="$HOME/.local/share/xorg/dkrc.log"
+          : >"$logfile"
+
+          if [ "$(cat /etc/hostname)" = "moebius" ]; then
+              xrandr --output DisplayPort-2 --mode 3440x1440 --rate 120
+          fi
+
+          pgrep -f "$(which dunst)" >/dev/null || dunst &
+          pgrep -x sxhkd >/dev/null || sxhkd &
+          pgrep -x picom >/dev/null || picom -b --experimental-backends
+          pgreg -f "$(which gammastep)" >/dev/null || gammastep -l 54.0:10.0 &
+          feh --bg-fill /home/tommy/dots/wallpapers/moebius.jpg
+
+          /home/tommy/.config/polybar/launch.sh
+
+          if [ "$(cat /etc/hostname)" = "moebius" ]; then
+              xrandr --output DisplayPort-2 --mode 3440x1440 --rate 120
+          fi
+
+          {
+              dkcmd set numws=6
+              dkcmd set ws=1 name="dev"
+              dkcmd set ws=2 name="web"
+              dkcmd set ws=3 name="misc"
+              dkcmd set ws=4 name="launchers"
+              dkcmd set ws=5 name="games"
+              dkcmd set ws=6 name="comms"
+
+              # default layout
+              dkcmd set ws=_ apply layout=rtile master=1 stack=4 gap=8 msplit=0.66
+
+              dkcmd set focus_open=true focus_mouse=true
+              dkcmd set mouse mod=super move=button1 resize=button3
+
+              dkcmd set border width=2 outer_width=0 \
+                  colour \
+                  focus='#${colors.accent}' \
+                  unfocus='#${colors.background}' \
+                  urgent='#${colors.brightRed}'
+
+              dkcmd rule class="^gimp$" ws=3
+              dkcmd rule class="^(pavucontrol|transmission-gtk|lxappearance)$" float=true
+              dkcmd rule title="^(Picture in picture|Picture-in-picture)$" float=true stick=true
+              dkcmd rule class="^(steam|lutris|battle.net.exe)$" float=true ws=4
+              dkcmd rule title="^(Wine System Tray)$" float=true ws=4 x=3250 y=1350
+
+              dkcmd rule apply '*' # reapplies rules on dk restart
+          } >>"$logfile" 2>&1
+
+          if grep -q 'error:' "$logfile"; then
+              hash notify-send && notify-send -t 0 -u critical "dkrc has errors" \
+                  "$(awk '/error:/ {sub(/^error: /, ""); gsub(/</, "\<"); print)' "$logfile")"
+              exit 1
+          fi
+
+          exit 0
+        '';
       };
       polybar = {
         source = ./polybar;
