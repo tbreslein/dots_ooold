@@ -1,31 +1,37 @@
-# setup on debian
+# dots
 
-run base install without a desktop env
-
-```bash
-# log into root
-
-apt install sudo curl ufw wget htop vim awesome awesome-extra xinit git alacritty picom wireplumber pipewire-pulse pipewire-alsa network-manager
-systemctl disable networking.service
-systemctl enable NetworkManager
-ufw enable && ufw default deny incoming && ufw default allow outgoing && ufw allow ssh
-usermod -a -G sudo tommy
-
-# log in as tommy and install nix
-sh <(curl -L https://nixos.org/nix/install) --daemon
-source ~/.bashrc
-
-# back to root
-echo "experimental-features = nix-command flakes" >> /etc/nix/nix.conf
-systemctl restart nix-daemon.service
-
-# back to tommy
-nix-channel --add https://nixos.org/channels/nixpkgs-unstable unstable
-nix-channel --update
-
-# clone my dots and home-manager switch --flake on it
-```
+my nix+dotfiles setup
 
 ## todo
 
-- on mac: save dots/{zsh,pypoetry,wezterm} before changing dots
+- [ ] mac:
+
+  - [ ] clean up these programs currently installed on the system level:
+    - [ ] alacritty
+    - [ ] wezterm
+    - [ ] amethyst
+    - [ ] rectangle
+    - [ ] megacmd
+    - [ ] telegram
+    - [ ] whatsapp
+    - [ ] firefox
+    - [ ] brave
+  - [ ] add packages back in through nix / nix.homebrew
+  - [ ] completely remove homebrew and all of its packages
+  - [ ] completely remove macports and all of its packages
+  - [ ] finish the work flake
+  - [ ] go through and apply darwin options
+  - [ ] syncthing
+
+- [ ] nix in general:
+  - [ ] [new repo structure](https://nixos-and-flakes.thiscute.world/nixos-with-flakes/modularize-the-configuration)
+    - [ ] proper modules
+    - [ ] move plain file configurations to their respective nix modules
+  - [ ] move these configs into home manager:
+    - [ ] dk
+    - [ ] hypr
+    - [ ] tofi
+    - [ ] waybar
+    - [ ] polybar
+    - [ ] smug (not because of colors, but because I can abstract it a lot)
+  - [ ] check out [nixvim](https://github.com/nix-community/nixvim)
