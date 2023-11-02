@@ -1,6 +1,7 @@
-{ config, pkgs, ... }:
+{ pkgs, ... }:
 
 {
+  imports = [ ./smug ];
   home = {
     packages = with pkgs; [
       # compilers
@@ -25,12 +26,9 @@
       rsync
       scc
       sd
+      smug
       tealdeer
     ];
-    file.smug = {
-      source = ./smug;
-      target = "${config.home.homeDirectory}/.config/smug";
-    };
 
     shellAliases = {
       lg = "lazygit";

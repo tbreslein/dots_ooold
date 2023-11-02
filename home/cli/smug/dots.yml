@@ -1,8 +1,0 @@
----
-session: dots
-root: ~/dots/
-windows:
-  - name: dev
-    layout: main-horizontal
-    commands:
-      - clear
