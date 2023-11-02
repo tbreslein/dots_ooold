@@ -354,7 +354,7 @@ vim.opt.isfname:append("@-@")
 vim.opt.updatetime = 50
 vim.opt.completeopt = { "menu", "menuone", "noselect" }
 vim.opt.foldenable = false
-vim.opt.conceallevel = 2
+vim.opt.conceallevel = 1
 vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
