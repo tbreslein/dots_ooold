@@ -17,6 +17,7 @@
       statix
       nil
       nixfmt
+      marksman
 
       # cli tools
       fd
@@ -24,6 +25,7 @@
       htop
       jq
       lazygit
+      pandoc
       ripgrep
       rm-improved
       rsync

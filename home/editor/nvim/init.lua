@@ -19,7 +19,7 @@ vim.opt.swapfile = false
 vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.local/share/vim/undodir"
 vim.opt.undofile = true
-vim.opt.wrap = false
+vim.opt.linebreak = true
 vim.o.ignorecase = true
 vim.o.smartcase = true
 vim.o.mouse = "a"
@@ -161,6 +161,7 @@ local servers = {
     "cmake",
     "gopls",
     "html",
+    "marksman",
     "nil_ls",
     "svelte",
     "tsserver",
@@ -219,7 +220,6 @@ cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })
-
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.hover, { border = "rounded" })
 
 -- {{ Formatting + Linting }}

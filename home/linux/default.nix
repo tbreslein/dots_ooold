@@ -56,12 +56,6 @@ in {
             rm -fr ~/tmp/proton-ge-custom
         }
 
-        function up-all {
-            up-nix
-            up-nvim
-            up-protonge
-        }
-
         case "$1" in
           nix)
             if [[ -n $(git status -s) ]]; then
@@ -72,7 +66,7 @@ in {
             ;;
           nvim) up-nvim;;
           pge) up-protonge;;
-          all) up-all;;
+          all) up-nix && up-nvim && up-protonge;;
           *) echo "Error: unknown command";;
         esac
         popd
