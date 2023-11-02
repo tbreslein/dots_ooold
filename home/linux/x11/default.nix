@@ -8,7 +8,7 @@ in {
       feh
       polybar
       flameshot
-      gammastep
+      redshift
       sxhkd
       xclip
       xsel
@@ -36,7 +36,7 @@ in {
           pgrep -f "$(which dunst)" >/dev/null || dunst &
           pgrep -x sxhkd >/dev/null || sxhkd &
           pgrep -x picom >/dev/null || picom -b --experimental-backends
-          pgreg -f "$(which gammastep)" >/dev/null || gammastep -l 54.0:10.0 &
+          pgreg -f "$(which redshift)" >/dev/null || redshift -l 54.0:10.0 &
 
           feh --bg-fill ${config.home.homeDirectory}/dots/wallpapers/moebius.jpg
 
