@@ -30,7 +30,7 @@
   };
   fonts = {
     fontDir.enable = true;
-    fonts = [ (pkgs.nerdfonts.override { fonts = [ "Meslo" "Hack" ]; }) ];
+    fonts = [ (pkgs.nerdfonts.override { fonts = [ "Hack" ]; }) ];
   };
   # homebrew = {
   #     enable = true;

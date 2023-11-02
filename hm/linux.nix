@@ -18,11 +18,6 @@ in {
       pkgs.pavucontrol
       pkgs.nwg-look
 
-      (pkgs.nerdfonts.override { fonts = [ "Hack" ]; })
-      pkgs.noto-fonts
-      pkgs.noto-fonts-cjk
-      pkgs.noto-fonts-emoji
-
       (pkgs.writeShellScriptBin "up" ''
         pushd ${config.home.homeDirectory}/dots
 

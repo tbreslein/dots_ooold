@@ -20,8 +20,9 @@ my nix+dotfiles setup
   - [ ] completely remove homebrew and all of its packages
   - [ ] completely remove macports and all of its packages
   - [ ] finish the work flake
-  - [ ] go through and apply darwin options
+  - [x] go through and apply darwin options
   - [ ] syncthing
+  - [ ] put mococlient into a launchd service
 
 - [ ] nix in general:
   - [ ] [new repo structure](https://nixos-and-flakes.thiscute.world/nixos-with-flakes/modularize-the-configuration)
