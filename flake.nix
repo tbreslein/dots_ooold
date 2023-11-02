@@ -68,7 +68,7 @@
         system = "x86_64-linux";
         specialArgs = { inherit userConfig inputs; };
         modules = [
-          ./system/common
+          ./system
           ./system/linux
           ./system/moebius
 
@@ -86,7 +86,9 @@
       darwinConfigurations.Tommys-MacBook-Pro = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         modules = [
-          ./nix-darwin/default.nix
+          ./system
+          ./system/mac
+
           home-manager.darwinModules.home-manager
           {
             home-manager = {

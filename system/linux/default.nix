@@ -1,4 +1,4 @@
-{ pkgs, lib, userConfig, inputs, ... }:
+{ pkgs, lib, userConfig, ... }:
 
 {
   nix = {
