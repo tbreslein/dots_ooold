@@ -36,7 +36,7 @@ my nix+dotfiles setup
   - [ ] move these configs into home manager:
 
     - [x] dk
-    - [ ] hypr
+    - [x] hypr
     - [ ] tofi
     - [ ] waybar
     - [x] polybar
