@@ -1,6 +1,8 @@
 { config, pkgs, userConfig, ... }:
 
-let gtkGruvboxPlus = import ./gtk-themes/gruvbox-plus.nix { inherit pkgs; };
+let
+  gtkGruvboxPlus = import ./gtk-themes/gruvbox-plus.nix { inherit pkgs; };
+  inherit (userConfig) colors;
 in {
   home = {
     homeDirectory = "/home/${userConfig.name}";
@@ -18,6 +20,7 @@ in {
       playerctl
       pavucontrol
       nwg-look
+      dunst
 
       (writeShellScriptBin "up" ''
         pushd ${config.home.homeDirectory}/dots
@@ -90,5 +93,19 @@ in {
   #   };
   # };
 
-  services.syncthing.enable = true;
+  services = {
+    syncthing.enable = true;
+    dunst = {
+      enable = true;
+      settings = {
+        global = {
+          background = "#${colors.background}";
+          foreground = "#${colors.foreground}";
+          frame_color = "#${colors.accent}";
+          font = "Noto Sans 11";
+        };
+        urgency_critical = { frame_color = "#${colors.brightRed}"; };
+      };
+    };
+  };
 }

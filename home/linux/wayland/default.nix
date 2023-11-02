@@ -5,12 +5,10 @@ in {
   home = {
     packages = with pkgs; [
       waybar
-      eww
-      mako
       wl-clipboard
       swww
       kanshi
-      tofi
+      tofi # replace this with SOMETHING
       wdisplays
       wlsunset
       grim
@@ -18,10 +16,6 @@ in {
     ];
 
     file = {
-      tofi = {
-        sources = ./tofi;
-        target = "${config.home.homeDirectory}/.config/tofi";
-      };
       waybar = {
         sources = ./waybar;
         target = "${config.home.homeDirectory}/.config/waybar";
@@ -48,19 +42,128 @@ in {
 
   services = {
     kanshi.enable = true;
-    mako = {
-      enable = true;
-      borderRadius = 5;
-      backgroundColor = "#${colors.background}";
-      textColor = "#${colors.foreground}";
-      borderColor = "#${colors.accent}";
-      defaultTimeout = 20;
-    };
     wlsunset = {
       enable = true;
       latitude = "54.2";
       longitude = "10.5";
     };
+  };
+
+  programs.waybar = {
+    enable = true;
+    settings = {
+      layer = "top";
+      position = "top";
+      height = 30;
+      modules-left = [ "hyprland/workspaces" ];
+      modules-center = [ "clock" ];
+      modules-right = [
+        "network"
+        "separator"
+        "wireplumber"
+        "separator"
+        "battery"
+        "separator"
+        "tray"
+      ];
+      clock.format = "{:%H:%M}";
+      "custom/separator".format = " | ";
+      battery = {
+        bat = "BAT0";
+        states = {
+          full = 99;
+          good = 98;
+          normal = 98;
+          warning = 20;
+          critical = 20;
+        };
+        format = "{icon}   {capacity}%";
+        format-good = "{icon}   {capacity}%";
+        format-full = "   {capacity}%";
+        format-icons = [ "" "" "" "" "" ];
+        interval = 30;
+      };
+      network = {
+        format-ethernet = "󰈀 ";
+        format-wifi = "  ";
+        format-disconnected = " ";
+      };
+      wireplumber = {
+        format = "{icon} {volume}%";
+        format-bluetooth = " {volume}%";
+        format-muted = "󰝟 ";
+        max-volume = 150.0;
+        format-icons = { default = [ "" ]; };
+      };
+    };
+    style = ''
+      * {
+        font-family: "Hack Nerd Font";
+        font-size: 18px;
+      }
+
+      window#waybar {
+        background-color: #${colors.background};
+        color: #${colors.foreground};
+      }
+
+      .modules-left {
+        background-color: #${colors.background};
+        padding: 0px 0px 0px 0px;
+      }
+
+      .modules-right {
+        background-color: #${colors.background};
+        padding: 0px 5px 0px 0px;
+      }
+
+      #workspaces button {
+        padding: 0px 11px 0px 11px;
+        min-width: 1px;
+        color: #${colors.foreground};
+      }
+
+      #workspaces button.active {
+        padding: 0px 11px 0px 11px;
+        background-color: #${colors.black};
+        color: #${colors.accent};
+      }
+
+      #window {
+        background-color: #${colors.background};
+        padding: 0px 10px 0px 10px;
+      }
+
+      #custom-separator,
+      #network,
+      #temperature,
+      #backlight,
+      #pulseudio,
+      #battery {
+        padding: 0px 15px 0px 15px;
+      }
+
+      #custom-separator {
+          color: #${colors.black};
+      }
+
+      #clock {
+        margin: 0px 15px 0px 15px;
+      }
+
+      #tray {
+        padding: 0px 8px 0px 5px;
+        margin: 0px 5px 0px 5px;
+      }
+
+      #battery.critical {
+        color: #${colors.brightRed};
+      }
+
+      #network.disconnected {
+        color: #${colors.brightRed};
+      }
+    '';
   };
 
   wayland.windowManager.hyprland = {

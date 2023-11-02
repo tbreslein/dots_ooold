@@ -99,19 +99,6 @@ in {
   };
 
   services = {
-    dunst = {
-      enable = true;
-      settings = {
-        global = {
-          background = "#${colors.background}";
-          foreground = "#${colors.foreground}";
-          frame_color = "#${colors.accent}";
-          font = "Noto Sans 11";
-        };
-        urgency_critical = { frame_color = "#${colors.brightRed}"; };
-      };
-    };
-
     picom = {
       enable = true;
       settings = {

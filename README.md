@@ -37,8 +37,8 @@ my nix+dotfiles setup
 
     - [x] dk
     - [x] hypr
-    - [ ] tofi
-    - [ ] waybar
+    - [x] tofi (skipped it, because I want to replace it)
+    - [x] waybar
     - [x] polybar
     - [ ] smug (not because of colors, but because I can abstract it a lot)
 
