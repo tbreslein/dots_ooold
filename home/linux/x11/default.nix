@@ -29,9 +29,9 @@ in {
           [ -d "${config.home.homeDirectory}/.local/share/xorg" ] && logfile="${config.home.homeDirectory}/.local/share/xorg/dkrc.log"
           : >"$logfile"
 
-          if [ "$(cat /etc/hostname)" = "moebius" ]; then
-              xrandr --output DisplayPort-2 --mode 3440x1440 --rate 120
-          fi
+          # if [ "$(cat /etc/hostname)" = "moebius" ]; then
+          #     xrandr --output DisplayPort-2 --mode 3440x1440 --rate 120
+          # fi
 
           pgrep -f "$(which dunst)" >/dev/null || dunst &
           pgrep -x sxhkd >/dev/null || sxhkd &
@@ -98,7 +98,9 @@ in {
     };
   };
 
+  programs.autorandr = { enable = true; };
   services = {
+    autorandr.enable = true;
     picom = {
       enable = true;
       settings = {
