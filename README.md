@@ -25,7 +25,3 @@ my nix+dotfiles setup
   - [x] go through and apply darwin options
   - [ ] syncthing
   - [ ] put mococlient into a launchd service
-
-- [ ] nix in general:
-  - [ ] check out [nixvim](https://github.com/nix-community/nixvim)
-    - [ ] go back to telescope
