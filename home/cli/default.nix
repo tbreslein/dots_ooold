@@ -21,6 +21,7 @@
       jq
       lazygit
       ripgrep
+      rm-improved
       rsync
       scc
       sd
