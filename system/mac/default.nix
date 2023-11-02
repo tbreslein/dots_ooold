@@ -8,6 +8,7 @@
       interval.Week = 1;
       options = "--delete-older-than 1w";
     };
+    settings.auto-optimise-store = true;
     extraOptions = "experimental-features = nix-command flakes";
   };
 

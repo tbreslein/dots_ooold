@@ -7,12 +7,10 @@ if [ "$(cat /etc/hostname)" = "moebius" ]; then
     xrandr --output DisplayPort-2 --mode 3440x1440 --rate 120
 fi
 
-pgrep -x dunst >/dev/null || dunst &
+pgrep -f "$(which dunst)" >/dev/null || dunst &
 pgrep -x sxhkd >/dev/null || sxhkd &
-
-pkill picom
-picom -b --experimental-backends
-pgregp -x gammastep >/dev/null || gammastep -l 54.0:10.0 &
+pgrep -x picom >/dev/null || picom -b --experimental-backends
+pgreg -f "$(which gammastep)" >/dev/null || gammastep -l 54.0:10.0 &
 feh --bg-fill /home/tommy/dots/wallpapers/moebius.jpg
 
 /home/tommy/.config/polybar/launch.sh
@@ -20,9 +18,6 @@ feh --bg-fill /home/tommy/dots/wallpapers/moebius.jpg
 if [ "$(cat /etc/hostname)" = "moebius" ]; then
     xrandr --output DisplayPort-2 --mode 3440x1440 --rate 120
 fi
-
-border_width=2
-border_outer_width=0
 
 {
     dkcmd set numws=6
@@ -39,7 +34,7 @@ border_outer_width=0
     dkcmd set focus_open=true focus_mouse=true
     dkcmd set mouse mod=super move=button1 resize=button3
 
-    dkcmd set border width=$border_width outer_width=$border_outer_width \
+    dkcmd set border width=2 outer_width=0 \
         colour \
         focus='#d8a657' \
         unfocus='#5a524c' \

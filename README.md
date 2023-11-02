@@ -36,3 +36,4 @@ my nix+dotfiles setup
     - [ ] polybar
     - [ ] smug (not because of colors, but because I can abstract it a lot)
   - [ ] check out [nixvim](https://github.com/nix-community/nixvim)
+  - [ ] autorandr

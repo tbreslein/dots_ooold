@@ -2,6 +2,7 @@
 
 {
   nix = {
+    optimise.automatic = true;
     gc = {
       automatic = true;
       dates = "weekly";
@@ -91,16 +92,15 @@
 
   programs = {
     dconf.enable = true;
-    hyprland = {
-      enable = userConfig.wm == "hyprland";
+    hyprland = lib.mkIf (userConfig.wm == "hyprland") {
+      enable = true;
       xwayland.enable = true;
     };
   };
   environment = {
-    sessionVariables = {
+    sessionVariables = lib.mkIf userConfig.isWaylandWM {
       NIXOS_OZONE_WL = "1";
-      QT_QPA_PLATFORM =
-        if userConfig.wm == "hyprland" then "wayland:xcb" else "xcb";
+      QT_QPA_PLATFORM = "wayland:xcb";
     };
     systemPackages = with pkgs;
       (if userConfig.isWaylandWM then [

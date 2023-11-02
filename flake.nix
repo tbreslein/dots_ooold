@@ -20,12 +20,6 @@
         # options: hyprland, dk
         wm = "dk";
         isWaylandWM = wm == "hyprland";
-        isXWM = !isWaylandWM;
-        linkConfig = config: name: {
-          source = config.lib.file.mkOutOfStoreSymlink
-            "${config.home.homeDirectory}/dots/config/${name}";
-          target = "${config.home.homeDirectory}/.config/${name}";
-        };
         theme = "gruvbox-material";
         colors = if theme == "gruvbox-material" then rec {
           background = "1d2021";
@@ -70,7 +64,7 @@
         modules = [
           ./system
           ./system/linux
-          ./system/moebius
+          ./system/hosts/moebius
 
           home-manager.nixosModules.home-manager
           {
@@ -78,7 +72,19 @@
               extraSpecialArgs = { inherit userConfig; };
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.tommy = import ./hm/moebius.nix;
+              # users.tommy = import ./hm/moebius.nix;
+              users.tommy.imports = [
+                ./home
+                ./home/cli
+                ./home/editor
+                ./home/hosts/moebius
+                ./home/private
+                ./home/linux
+                (if userConfig.isWaylandWM then
+                  ./home/linux/wayland
+                else
+                  ./home/linux/x11)
+              ];
             };
           }
         ];

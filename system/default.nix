@@ -4,7 +4,6 @@
   nixpkgs.config.allowUnfree = true;
   nix = {
     settings = {
-      auto-optimise-store = true;
       trusted-users = [ "tommy" ];
       substituters = [ "https://cachix.cachix.org" ];
       trusted-public-keys =
