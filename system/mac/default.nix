@@ -5,7 +5,7 @@
     useDaemon = true;
     gc = {
       automatic = true;
-      interval.Week = 1;
+      #interval.Weeks = 1;
       options = "--delete-older-than 1w";
     };
     settings.auto-optimise-store = true;

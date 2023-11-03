@@ -101,7 +101,13 @@
               extraSpecialArgs = { inherit userConfig; };
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.tommy = import ./hm/mac.nix;
+              users.tommy.imports = [
+                ./home
+                ./home/cli
+                ./home/editor
+                ./home/mac
+                ./home/work
+              ];
             };
           }
         ];

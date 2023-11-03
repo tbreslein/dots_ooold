@@ -1,3 +1,4 @@
+--require("paq")(require("bootstrap").packages)
 -- {{ Vim Settings }}
 vim.g.mapleader = " "
 vim.opt.guicursor = ""
