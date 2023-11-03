@@ -27,6 +27,7 @@
       jq
       lazygit
       pandoc
+      pfetch-rs
       ripgrep
       rm-improved
       rsync
@@ -154,8 +155,8 @@
         #    set -g default-terminal "alacritty"
         #    set -ag terminal-overrides ",alacritty:RGB"
         #}
-        set -g default-terminal "xterm-256color"
-        set -ag terminal-overrides ",xterm-256color:RGB"
+        set -g default-terminal "alacritty"
+        set -ag terminal-overrides ",alacritty:RGB"
 
         set-option -g renumber-windows on
         setw -g main-pane-height 60
