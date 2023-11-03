@@ -22,7 +22,7 @@ in {
       nwg-look
       dunst
 
-      (writeShellScriptBin "up-protenge" ''
+      (writeShellScriptBin "up-protonge" ''
         echo -e "\n\033[1;32m[ $(basename $0) ]\033[0m"
         mkdir -p ~/tmp/proton-ge-custom
         pushd ~/tmp/proton-ge-custom
