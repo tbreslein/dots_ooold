@@ -20,5 +20,5 @@ my nix+dotfiles setup
   - [ ] completely remove macports and all of its packages
   - [ ] finish the work flake
   - [x] go through and apply darwin options
-  - [ ] syncthing
+  - [x] syncthing
   - [ ] put mococlient into a launchd service
