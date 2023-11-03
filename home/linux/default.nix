@@ -58,7 +58,7 @@ in {
   # };
 
   services = {
-    syncthing.enable = true;
+    # syncthing.enable = true;
     dunst = {
       enable = true;
       settings = {

@@ -14,7 +14,7 @@
     ];
   };
   programs = {
-    alacritty.settings.font.size = 15;
+    alacritty.settings.font.size = 18;
     zsh.shellAliases.twork = "smug dots --detach; smug planning";
   };
 }
