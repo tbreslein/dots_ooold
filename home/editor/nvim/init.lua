@@ -298,3 +298,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     callback = function() require("lint").try_lint() end,
 })
+
+-- {{ Statusline }}
+function statusline()
+    local function lsp_status()
+        local nums = {
+            #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR }),
+            #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN }),
+            #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO }),
+            #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT }),
+        }
+        local out = ""
+        if nums[1] > 0 then out = out .. "  " .. nums[1] end
+        if nums[2] > 0 then out = out .. "  " .. nums[2] end
+        if nums[3] > 0 then out = out .. "  " .. nums[3] end
+        if nums[4] > 0 then out = out .. "  " .. nums[4] end
+        return out
+    end
+    return table.concat({ "%f", "%m", " | ", lsp_status(), "%=", "%p%% %l:%c" })
+end
+vim.cmd([[ set statusline=%!luaeval('statusline()') ]])
