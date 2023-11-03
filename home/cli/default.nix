@@ -200,8 +200,8 @@
 
     zsh = {
       enable = true;
-      enableCompletion = true;
-      enableAutosuggestions = true;
+      enableCompletion = false;
+      enableAutosuggestions = false;
       syntaxHighlighting.enable = true;
       initExtra = ''
         export KEYTIMEOUT=1
