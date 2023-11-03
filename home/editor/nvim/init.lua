@@ -313,8 +313,9 @@ function statusline()
         if nums[2] > 0 then out = out .. "  " .. nums[2] end
         if nums[3] > 0 then out = out .. "  " .. nums[3] end
         if nums[4] > 0 then out = out .. "  " .. nums[4] end
+        if out:len() > 0 then out = out .. " | " end
         return out
     end
-    return table.concat({ "%f", "%m", " | ", lsp_status(), "%=", "%p%% %l:%c" })
+    return table.concat({ lsp_status(), "%f", "%m", "%=", "%p%% %l:%c" })
 end
 vim.cmd([[ set statusline=%!luaeval('statusline()') ]])
