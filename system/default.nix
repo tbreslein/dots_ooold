@@ -14,16 +14,7 @@
   programs.zsh.enable = true;
   environment = {
     shells = with pkgs; [ bash dash ksh tcsh zsh ];
-    systemPackages = with pkgs; [
-      alacritty
-      vim
-      coreutils
-      wget
-      curl
-      unzip
-      git
-      killall
-    ];
+    systemPackages = with pkgs; [ vim coreutils wget curl unzip git killall ];
   };
 
   time.timeZone = "Europe/Berlin";

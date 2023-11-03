@@ -103,7 +103,7 @@
       QT_QPA_PLATFORM = "wayland:xcb";
     };
     systemPackages = with pkgs;
-      (if userConfig.isWaylandWM then [
+      [ alacritty ] ++ (if userConfig.isWaylandWM then [
         libsForQt5.qt5.qtquickcontrols2
         libsForQt5.qt5.qtgraphicaleffects
       ] else
