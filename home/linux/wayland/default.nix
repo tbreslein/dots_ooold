@@ -173,12 +173,6 @@ in {
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-    extraConfig = ''
-      exec-once = mako
-      exec-once = swww init & swww img ${config.home.homeDirectory}/dots/wallpapers/moebius.jpg
-      exec = kanshi
-      exec = wlsunset
-    '';
     settings = {
       exec-once = [
         "waybar"
