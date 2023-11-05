@@ -8,7 +8,7 @@ in {
       wl-clipboard
       swww
       kanshi
-      dmenu-wayland
+      bemenu
       wdisplays
       wlsunset
       grim
@@ -51,7 +51,7 @@ in {
       mainBar = {
         layer = "top";
         position = "top";
-        # height = 30;
+        height = 30;
         modules-left = [ "hyprland/workspaces" ];
         modules-center = [ "clock" ];
         modules-right = [
@@ -211,8 +211,7 @@ in {
       "$mod" = "SUPER";
       bind = [
         "$mod, Return, exec, alacritty"
-        "$mod, Space, exec, dmenu-wl_run -i -fn 'Hack:size=19' -nb '#${colors.background}' -nf '#${colors.foreground}' -sb '#${colors.brightBlack}' -sf '#${colors.accent}'"
-        # "$mod, Space, exec, dmenu-wl_run -i -fn 'Hack:size=19' -nb '#${colors.background}' -nf '#${colors.foreground}' -sb '#${colors.brightBlack}' -sf '#${colors.accent}' | xargs hyprctl dispatch exec --"
+        "$mod, Space, exec, bemenu-run -i -c -p '' -W 0.3 -l 20 --fn 'Hack 18' --fb '##${colors.black}' --ff '##${colors.foreground}' --nb '##${colors.background}' --nf '##${colors.foreground}' --ab '##${colors.background}' --af '##${colors.foreground}' --hb '##${colors.background}' --hf '##${colors.accent}'"
         "$mod ALT, b, exec, brave"
         "$mod CTRL, q, killactive,"
         "$mod CTRL, m, exit,"
