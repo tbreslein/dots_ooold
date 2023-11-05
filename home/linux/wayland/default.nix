@@ -172,7 +172,6 @@ in {
     enable = true;
     xwayland.enable = true;
     extraConfig = ''
-      exec-once = waybar
       exec-once = mako
       exec-once = swww init & swww img ${config.home.homeDirectory}/dots/wallpapers/moebius.jpg
       exec = kanshi
