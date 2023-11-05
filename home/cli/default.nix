@@ -14,6 +14,7 @@
       shfmt
       yamllint
       prettierd
+      eslint_d
       statix
       nil
       nixfmt

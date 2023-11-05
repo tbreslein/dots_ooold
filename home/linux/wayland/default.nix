@@ -46,7 +46,10 @@ in {
     };
   };
 
-  programs.ags = { enable = true; };
+  programs.ags = {
+    enable = true;
+    configDir = ./ags;
+  };
 
   programs.waybar = {
     enable = true;
