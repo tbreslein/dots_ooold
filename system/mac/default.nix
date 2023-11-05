@@ -67,13 +67,17 @@
   };
 
   environment.loginShell = pkgs.zsh;
-  # homebrew = {
-  #   enable = true;
-  #   caskArgs.no_quarantine = true;
-  #   global.brewfile = true;
-  #   macApps = {};
-  #   casks = [ "amethyst" ];
-  # };
+  homebrew = {
+    onActivation = {
+      autoUpdate = true;
+      upgrade = true;
+    };
+    enable = true;
+    caskArgs.no_quarantine = true;
+    global.brewfile = true;
+    # macApps = {};
+    casks = [ "amethyst" "alacritty" ];
+  };
   # launchd = {
   #   ...
   # };
