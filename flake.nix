@@ -101,13 +101,8 @@
               extraSpecialArgs = { inherit userConfig; };
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.tommy.imports = [
-                ./home
-                ./home/cli
-                ./home/editor
-                ./home/mac
-                ./home/work
-              ];
+              users.tommy.imports =
+                [ ./home ./home/cli ./home/editor ./home/mac ./home/work ];
             };
           }
         ];
