@@ -8,7 +8,7 @@ in {
       wl-clipboard
       swww
       kanshi
-      tofi # replace this with SOMETHING
+      dmenu-wayland
       wdisplays
       wlsunset
       grim
@@ -16,10 +16,6 @@ in {
     ];
 
     file = {
-      # waybar = {
-      #   sources = ./waybar;
-      #   target = "${config.home.homeDirectory}/.config/waybar";
-      # };
       electron13-flags = {
         text = ''
           --enable-features=UseOzonePlatform
@@ -215,7 +211,8 @@ in {
       "$mod" = "SUPER";
       bind = [
         "$mod, Return, exec, alacritty"
-        "$mod, Space, exec, tofi-run | xargs hyprctl dispatch exec --"
+        "$mod, Space, exec, dmenu-wl_run -i -fn 'Hack:size=19' -nb '#${colors.background}' -nf '#${colors.foreground}' -sb '#${colors.brightBlack}' -sf '#${colors.accent}'"
+        # "$mod, Space, exec, dmenu-wl_run -i -fn 'Hack:size=19' -nb '#${colors.background}' -nf '#${colors.foreground}' -sb '#${colors.brightBlack}' -sf '#${colors.accent}' | xargs hyprctl dispatch exec --"
         "$mod ALT, b, exec, brave"
         "$mod CTRL, q, killactive,"
         "$mod CTRL, m, exit,"
