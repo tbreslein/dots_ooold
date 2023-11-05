@@ -18,13 +18,33 @@
       remapCapsLockToEscape = true;
     };
     defaults = {
+      CustomUserPreferences = {
+        "com.apple.finder" = {
+          ShowExternalHardDrivesOnDesktop = true;
+          ShowHardDrivesOnDesktop = true;
+          ShowMountedServersOnDesktop = true;
+          ShowRemovableMediaOnDesktop = true;
+          _FXSortFoldersFirst = true;
+          # When performing a search, search the current folder by default
+          FXDefaultSearchScope = "SCcf";
+        };
+      };
       finder = {
         AppleShowAllExtensions = true;
         _FXShowPosixPathInTitle = true;
       };
       dock = {
         autohide = true;
+        autohide-delay = 0.0;
+        autohide-time-modifier = 0.2;
+        expose-animation-duration = 0.2;
+        launchanim = false;
+        orientation = "bottom";
+        showhidden = true;
+        show-process-indicators = true;
+        show-recents = false;
         static-only = true;
+        tile-size = 48;
       };
       NSGlobalDomain = {
         AppleInterfaceStyle = "Dark";
