@@ -7,6 +7,7 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    ags.url = "github:Aylur/ags";
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -69,7 +70,7 @@
           home-manager.nixosModules.home-manager
           {
             home-manager = {
-              extraSpecialArgs = { inherit userConfig; };
+              extraSpecialArgs = { inherit userConfig inputs; };
               useGlobalPkgs = true;
               useUserPackages = true;
               # users.tommy = import ./hm/moebius.nix;

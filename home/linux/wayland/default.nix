@@ -1,7 +1,8 @@
-{ config, pkgs, userConfig, ... }:
+{ config, pkgs, userConfig, inputs, ... }:
 
 let inherit (userConfig) colors;
 in {
+  imports = [ inputs.ags.homeManagerModules.default ];
   home = {
     packages = with pkgs; [
       waybar
@@ -44,6 +45,8 @@ in {
       longitude = "10.5";
     };
   };
+
+  programs.ags = { enable = true; };
 
   programs.waybar = {
     enable = true;
