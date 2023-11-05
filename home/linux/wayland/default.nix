@@ -180,7 +180,10 @@ in {
         "swww init & swww img ${config.home.homeDirectory}/dots/wallpapers/moebius.jpg"
       ];
       exec = [ "kanshi" "wlsunset" ];
-      input.kb_layout = "us,de";
+      input = {
+        kb_layout = "us,de";
+        kb_options = "grp:alt_space_toggle";
+      };
       general = {
         border_size = 2;
         "col.active_border" = "rgba(${colors.accent}ee)";
