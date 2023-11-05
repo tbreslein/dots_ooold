@@ -16,10 +16,10 @@ in {
     ];
 
     file = {
-      waybar = {
-        sources = ./waybar;
-        target = "${config.home.homeDirectory}/.config/waybar";
-      };
+      # waybar = {
+      #   sources = ./waybar;
+      #   target = "${config.home.homeDirectory}/.config/waybar";
+      # };
       electron13-flags = {
         text = ''
           --enable-features=UseOzonePlatform
@@ -52,48 +52,50 @@ in {
   programs.waybar = {
     enable = true;
     settings = {
-      layer = "top";
-      position = "top";
-      height = 30;
-      modules-left = [ "hyprland/workspaces" ];
-      modules-center = [ "clock" ];
-      modules-right = [
-        "network"
-        "separator"
-        "wireplumber"
-        "separator"
-        "battery"
-        "separator"
-        "tray"
-      ];
-      clock.format = "{:%H:%M}";
-      "custom/separator".format = " | ";
-      battery = {
-        bat = "BAT0";
-        states = {
-          full = 99;
-          good = 98;
-          normal = 98;
-          warning = 20;
-          critical = 20;
+      mainBar = {
+        layer = "top";
+        position = "top";
+        # height = 30;
+        modules-left = [ "hyprland/workspaces" ];
+        modules-center = [ "clock" ];
+        modules-right = [
+          "battery"
+          "separator"
+          "wireplumber"
+          "separator"
+          "network"
+          "separator"
+          "tray"
+        ];
+        clock.format = "{:%H:%M}";
+        "custom/separator".format = " | ";
+        battery = {
+          bat = "BAT0";
+          states = {
+            full = 99;
+            good = 98;
+            normal = 98;
+            warning = 20;
+            critical = 20;
+          };
+          format = "{icon}   {capacity}%";
+          format-good = "{icon}   {capacity}%";
+          format-full = "   {capacity}%";
+          format-icons = [ "" "" "" "" "" ];
+          interval = 30;
         };
-        format = "{icon}   {capacity}%";
-        format-good = "{icon}   {capacity}%";
-        format-full = "   {capacity}%";
-        format-icons = [ "" "" "" "" "" ];
-        interval = 30;
-      };
-      network = {
-        format-ethernet = "󰈀 ";
-        format-wifi = "  ";
-        format-disconnected = " ";
-      };
-      wireplumber = {
-        format = "{icon} {volume}%";
-        format-bluetooth = " {volume}%";
-        format-muted = "󰝟 ";
-        max-volume = 150.0;
-        format-icons = { default = [ "" ]; };
+        network = {
+          format-ethernet = "󰈀 ";
+          format-wifi = "  ";
+          format-disconnected = " ";
+        };
+        wireplumber = {
+          format = "{icon} {volume}%";
+          format-bluetooth = " {volume}%";
+          format-muted = "󰝟 ";
+          max-volume = 150.0;
+          format-icons = { default = [ "" ]; };
+        };
       };
     };
     style = ''

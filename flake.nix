@@ -18,7 +18,7 @@
       userConfig = rec {
         name = "tommy";
         # options: hyprland, dk
-        wm = "dk";
+        wm = "hyprland";
         isWaylandWM = wm == "hyprland";
         theme = "gruvbox-material";
         colors = if theme == "gruvbox-material" then rec {
