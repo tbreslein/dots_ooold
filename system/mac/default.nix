@@ -44,7 +44,7 @@
         show-process-indicators = true;
         show-recents = false;
         static-only = true;
-        tile-size = 48;
+        tilesize = 48;
       };
       NSGlobalDomain = {
         AppleInterfaceStyle = "Dark";
