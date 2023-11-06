@@ -244,7 +244,8 @@ require("conform").setup({
         zsh = { "shfmt" },
         nix = { "nixfmt" },
     },
-    format_on_save = { timeout_ms = 500, lsp_fallback = false },
+    format_after_save = { lsp_fallback = false },
+    notify_on_error = false,
 })
 require("lint").linters_by_ft = {
     c = { "cppcheck" },
