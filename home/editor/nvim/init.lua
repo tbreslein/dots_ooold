@@ -315,13 +315,13 @@ function statusline()
             #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT }),
         }
         local out = ""
-        if nums[1] > 0 then out = out .. "  " .. nums[1] end
-        if nums[2] > 0 then out = out .. "  " .. nums[2] end
-        if nums[3] > 0 then out = out .. "  " .. nums[3] end
-        if nums[4] > 0 then out = out .. "  " .. nums[4] end
-        if out:len() > 0 then out = out .. " | " end
+        if nums[1] > 0 then out = out .. " %#Red# " .. nums[1] end
+        if nums[2] > 0 then out = out .. " %#Yellow# " .. nums[2] end
+        if nums[3] > 0 then out = out .. " %#Green# " .. nums[3] end
+        if nums[4] > 0 then out = out .. " %#Blue# " .. nums[4] end
+        if out:len() > 0 then out = " |" .. out end
         return out
     end
-    return table.concat({ lsp_status(), "%f", "%m", "%=", "%p%% %l:%c" })
+    return table.concat({ "%f", "%m", "%=", "%p%% %l:%c", lsp_status() })
 end
 vim.cmd([[ set statusline=%!luaeval('statusline()') ]])
