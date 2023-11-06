@@ -1,18 +1,7 @@
-{ config, pkgs, lib, userConfig, ... }:
+{ lib, userConfig, ... }:
 
 {
-  home = {
-    homeDirectory = lib.mkForce "/Users/${userConfig.name}";
-    packages = [
-      (pkgs.writeShellScriptBin "up-brew" ''
-        echo -e "\n\033[1;32m[ $(basename $0) ]\033[0m"
-        #export HOMEBREW_NO_INSTALL_CLEANUP=1
-        #brew update && brew upgrade && brew cleanup
-        #axbrew update && axbrew upgrade && axbrew cleanup
-        #poetry self update
-      '')
-    ];
-  };
+  home.homeDirectory = lib.mkForce "/Users/${userConfig.name}";
   programs = {
     alacritty.settings.font.size = 18;
     zsh.shellAliases.twork =

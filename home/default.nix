@@ -37,10 +37,9 @@ in {
       (pkgs.writeShellScriptBin "up" ''
         up-nix
         up-nvim
-        case "$(uname -s)" in
-            Linux*) up-protonge;;
-            Darwin*) up-brew;;
-            *) echo "Error: unknown uname";;
+        case "$(cat /etc/hostname)" in
+            moebius) up-protonge;;
+            *);;
         esac
       '')
     ];
