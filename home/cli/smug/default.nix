@@ -7,7 +7,7 @@ let
   };
   rustDev = {
     name = "dev";
-    panes = [ "-" "- bacon" ];
+    panes = [ "-" "- commands: [bacon]" ];
   };
   plainSh = {
     name = "sh";
@@ -15,7 +15,7 @@ let
   };
   npmRunServe = {
     name = "server";
-    panes = [ "- npm run serve" ];
+    panes = [ "- commands: [npm run serve]" ];
   };
   defaultWindows = [ plainDev plainSh ];
 
@@ -47,7 +47,7 @@ in {
     smug_planning = mkSmug "planning" "work/planning" (defaultWindows ++ [{
       name = "moco";
       root = "../MocoTrackingClient";
-      panes = [ "- poetry run python moco_client.py" ];
+      panes = [ "- commands: [poetry run python moco_client.py]" ];
     }]);
   };
 }
