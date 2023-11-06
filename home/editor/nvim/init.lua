@@ -185,6 +185,9 @@ lspconfig.pyright.setup({
 local cmp = require("cmp")
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
+    snippet = {
+        expand = function(args) require("luasnip").lsp_expand(args.body) end,
+    },
     window = { documentation = cmp.config.window.bordered() },
     mapping = cmp.mapping.preset.insert({
         ["<c-u>"] = cmp.mapping.scroll_docs(-4),
@@ -211,6 +214,7 @@ cmp.setup({
         { name = "path" },
         { name = "nvim_lsp", keyword_length = 1 },
         { name = "buffer", keyword_length = 3 },
+        { name = "luasnip" },
     },
 })
 cmp.setup.cmdline({ "/", "?" }, {
