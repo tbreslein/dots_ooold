@@ -72,6 +72,7 @@ vim.opt.smartcase = true
 vim.opt.mouse = "a"
 vim.opt.background = "dark"
 vim.opt.fileencoding = "utf-8"
+vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
 vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
