@@ -1,6 +1,52 @@
---require("paq")(require("bootstrap").packages)
--- {{ Vim Settings }}
 vim.g.mapleader = " "
+
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        "--branch=stable", -- latest stable release
+        lazypath,
+    })
+end
+vim.opt.rtp:prepend(lazypath)
+require("lazy").setup({
+    -- common deps
+    "nvim-lua/plenary.nvim",
+    "nvim-tree/nvim-web-devicons",
+
+    "alexghergh/nvim-tmux-navigation",
+    "MeanderingProgrammer/harpoon-core.nvim",
+    "nvim-telescope/telescope.nvim",
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+
+    "sainnhe/gruvbox-material",
+    "mbbill/undotree",
+    "numtostr/Comment.nvim",
+    "echasnovski/mini.surround",
+    { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+    "nvim-treesitter/nvim-treesitter-context",
+    "nvim-treesitter/nvim-treesitter-textobjects",
+    "windwp/nvim-ts-autotag",
+    "akinsho/git-conflict.nvim",
+
+    { "j-hui/fidget.nvim", branch = "legacy" },
+    "neovim/nvim-lspconfig",
+    "hrsh7th/nvim-cmp",
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+    "hrsh7th/cmp-cmdline",
+    "L3MON4D3/LuaSnip",
+    "saadparwaiz1/cmp_luasnip",
+    "onsails/lspkind.nvim",
+    "stevearc/conform.nvim",
+    "mfussenegger/nvim-lint",
+})
+
+-- {{ Vim Settings }}
 vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -229,7 +275,7 @@ cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.hover, { border = "rounded" })
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
 -- {{ Formatting + Linting }}
 require("conform").setup({
