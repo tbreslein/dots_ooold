@@ -36,7 +36,7 @@ let
 in {
   home.file = {
     smug_notes = mkSmug "notes" "syncthing/notes" [ plainDev ];
-    smug_dots = mkSmug "dots" "dots" defaultWindows;
+    smug_dots = mkSmug "dots" "dots" [ plainDev ];
     smug_corries = mkSmug "corries" "coding/corries" [ rustDev plainSh ];
     smug_tdos = mkSmug "tdos" "coding/tdos" [ rustDev plainSh ];
     smug_frankenrepo = mkSmug "frankenrepo" "coding/frankenrepo" defaultWindows;
