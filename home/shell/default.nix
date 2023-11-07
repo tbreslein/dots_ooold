@@ -81,9 +81,9 @@
           style = "bold blue";
         };
         username.format = "[$user]($style)@";
-        hostname.format = "[$ssh_symbol$hostname]($style)";
+        hostname.format = "[$ssh_symbol$hostname]($style): ";
         format =
-          "$directory$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$line_break$username$hostname: $nix_shell$battery$character";
+          "$directory$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$line_break$username$hostname$nix_shell$battery$character";
         nix_shell.format = "[$symbol]($style)";
       };
     };
