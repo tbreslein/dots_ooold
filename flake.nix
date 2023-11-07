@@ -83,10 +83,11 @@
                   ./home/private
                   ./home/linux
                   ./home/desktop
+                  ./home/linux-desktop
                   (if userConfig.isWaylandWM then
-                    ./home/desktop/wayland
+                    ./home/linux-desktop/wayland
                   else
-                    ./home/desktop/x11)
+                    ./home/linux-desktop/x11)
                 ];
               };
             }
@@ -142,10 +143,11 @@
                   ./home/private
                   ./home/linux
                   ./home/desktop
+                  ./home/linux-desktop
                   (if userConfig.isWaylandWM then
-                    ./home/desktop/wayland
+                    ./home/linux-desktop/wayland
                   else
-                    ./home/desktop/x11)
+                    ./home/linux-desktop/x11)
                 ];
               };
             }
