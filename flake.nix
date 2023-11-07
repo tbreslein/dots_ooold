@@ -113,7 +113,7 @@
                   ./home/editor
                   ./home/hosts/moebius-win
                   ./home/private
-                  ./home/wsl
+                  ./home/linux
                 ];
               };
             }
