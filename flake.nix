@@ -112,7 +112,7 @@
                   ./home
                   ./home/shell
                   ./home/coding
-                  ./home/hosts/moebius-win
+                  #./home/hosts/moebius-win
                   ./home/private
                   ./home/linux
                 ];
