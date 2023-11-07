@@ -36,7 +36,6 @@
         up-nvim
         case "$(cat /etc/hostname)" in
             moebius) up-protonge;;
-            moebius-win) sudo apt update && sudo apt upgrade;;
             *);;
         esac
       '')
