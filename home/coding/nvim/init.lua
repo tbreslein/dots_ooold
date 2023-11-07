@@ -21,14 +21,17 @@ vim.opt.backup = false
 vim.opt.undodir = os.getenv("HOME") .. "/.local/share/vim/undodir"
 vim.opt.undofile = true
 vim.opt.linebreak = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.mouse = "a"
-vim.o.background = "dark"
-vim.g.gruvbox_material_transparent_background = 1
-vim.g.gruvbox_material_dim_inactive_windows = 1
-vim.g.gruvbox_material_ui_contrast = "high"
+vim.opt.ignorecase = true
+vim.opt.smartcase = true
+vim.opt.mouse = "a"
+vim.opt.background = "dark"
+vim.opt.fileencoding = "utf-8"
+vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
 vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
+vim.g.gruvbox_material_dim_inactive_windows = 1
+vim.g.gruvbox_material_transparent_background = 1
+vim.g.gruvbox_material_ui_contrast = "high"
 vim.cmd("colorscheme gruvbox-material")
 
 -- {{ Keymaps }}
@@ -44,7 +47,10 @@ local function kmap(modes, bindings, action, opts)
     end
 end
 
+kmap("i", { "jk", "kj" }, "<esc>")
 kmap("n", "<leader>w", ":w<cr>", { silent = false })
+kmap("v", "<leader>r", '"hy:%s/<c-r>h//g<left><left>', { silent = false })
+kmap("v", "<leader>s", ":sort<cr>")
 kmap("n", "<esc>", ":noh<cr>")
 kmap({ "n", "v" }, "Q", "<nop>")
 kmap({ "n", "v", "x" }, "<leader>y", '"+y')
@@ -63,10 +69,8 @@ kmap({ "n", "v" }, "n", "nzzzv")
 kmap({ "n", "v" }, "N", "Nzzzv")
 kmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 kmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
-kmap("n", "<leader>fk", ":cprev<cr>zz")
-kmap("n", "<leader>fj", ":cnext<cr>zz")
-kmap("n", "<F11>", ":cprev<cr>zz")
-kmap("n", "<F12>", ":cnext<cr>zz")
+kmap("n", { "<leader>fk", "<F11>" }, ":cprev<cr>zz")
+kmap("n", { "<leader>fj", "<F12>" }, ":cnext<cr>zz")
 kmap("n", "<leader>ft", function()
     local qf_exists = false
     for _, win in pairs(vim.fn.getwininfo()) do
