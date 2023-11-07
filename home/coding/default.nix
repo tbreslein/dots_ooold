@@ -32,6 +32,10 @@
       smug
     ];
 
+    sessionVariables = {
+      CC = "gcc";
+      CXX = "g++";
+    };
     file.nvim = {
       source = config.lib.file.mkOutOfStoreSymlink
         "${config.home.homeDirectory}/dots/home/coding/nvim";
