@@ -79,7 +79,6 @@
                   ./home
                   ./home/shell
                   ./home/coding
-                  ./home/editor
                   ./home/hosts/moebius
                   ./home/private
                   ./home/linux
@@ -112,7 +111,6 @@
                   ./home
                   ./home/shell
                   ./home/coding
-                  ./home/editor
                   ./home/hosts/moebius-win
                   ./home/private
                   ./home/linux
@@ -140,7 +138,6 @@
                   ./home
                   ./home/shell
                   ./home/coding
-                  ./home/editor
                   ./home/hosts/audron
                   ./home/private
                   ./home/linux
@@ -196,7 +193,6 @@
                 ./home
                 ./home/shell
                 ./home/coding
-                ./home/editor
                 ./home/mac
                 ./home/work
                 ./home/desktop
