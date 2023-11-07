@@ -151,6 +151,34 @@
             }
           ];
         };
+        vorador = nixpkgs.lib.nixosSystem {
+          system = "aarch64-linux";
+          specialArgs = { inherit userConfig inputs; };
+          modules = [
+            ./system
+            ./system/linux
+            ./system/hosts/vorador
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                extraSpecialArgs = { inherit userConfig inputs; };
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.tommy.imports = [
+                  ./home
+                  # ./home/cli # better modules would fix this, because a couple
+                  # of these are actually useful for vorador
+
+                  ./home/editor
+                  ./home/hosts/vorador
+                  ./home/private
+                  ./home/linux
+                ];
+              };
+            }
+          ];
+        };
       };
       darwinConfigurations.Tommys-MacBook-Pro = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
