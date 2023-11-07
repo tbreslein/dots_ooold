@@ -59,36 +59,66 @@
           { };
       };
     in {
-      nixosConfigurations.moebius = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit userConfig inputs; };
-        modules = [
-          ./system
-          ./system/linux
-          ./system/hosts/moebius
+      nixosConfigurations = {
+        moebius = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit userConfig inputs; };
+          modules = [
+            ./system
+            ./system/linux
+            ./system/linux-desktop
+            ./system/hosts/moebius
 
-          home-manager.nixosModules.home-manager
-          {
-            home-manager = {
-              extraSpecialArgs = { inherit userConfig inputs; };
-              useGlobalPkgs = true;
-              useUserPackages = true;
-              # users.tommy = import ./hm/moebius.nix;
-              users.tommy.imports = [
-                ./home
-                ./home/cli
-                ./home/editor
-                ./home/hosts/moebius
-                ./home/private
-                ./home/linux
-                (if userConfig.isWaylandWM then
-                  ./home/linux/wayland
-                else
-                  ./home/linux/x11)
-              ];
-            };
-          }
-        ];
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                extraSpecialArgs = { inherit userConfig inputs; };
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.tommy.imports = [
+                  ./home
+                  ./home/cli
+                  ./home/editor
+                  ./home/hosts/moebius
+                  ./home/private
+                  ./home/linux
+                  ./home/desktop
+                  (if userConfig.isWaylandWM then
+                    ./home/desktop/wayland
+                  else
+                    ./home/desktop/x11)
+                ];
+              };
+            }
+          ];
+        };
+        moebius-win = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit userConfig inputs; };
+          modules = [
+            ./system
+            ./system/linux
+            ./system/wsl
+            ./system/hosts/moebius-win
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                extraSpecialArgs = { inherit userConfig inputs; };
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.tommy.imports = [
+                  ./home
+                  ./home/cli
+                  ./home/editor
+                  ./home/hosts/moebius-win
+                  ./home/private
+                  ./home/wsl
+                ];
+              };
+            }
+          ];
+        };
       };
       darwinConfigurations.Tommys-MacBook-Pro = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
@@ -102,8 +132,14 @@
               extraSpecialArgs = { inherit userConfig; };
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.tommy.imports =
-                [ ./home ./home/cli ./home/editor ./home/mac ./home/work ];
+              users.tommy.imports = [
+                ./home
+                ./home/cli
+                ./home/editor
+                ./home/mac
+                ./home/work
+                ./home/desktop
+              ];
             };
           }
         ];
