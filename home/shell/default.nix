@@ -4,10 +4,15 @@
   home = {
     packages = with pkgs; [
       # cli tools
+      fd
       htop
+      jq
+      pfetch-rs
+      ripgrep
       rm-improved
       rsync
       sd
+      tealdeer
     ];
 
     shellAliases = {

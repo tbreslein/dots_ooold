@@ -77,7 +77,8 @@
                 useUserPackages = true;
                 users.tommy.imports = [
                   ./home
-                  ./home/cli
+                  ./home/shell
+                  ./home/coding
                   ./home/editor
                   ./home/hosts/moebius
                   ./home/private
@@ -109,7 +110,8 @@
                 useUserPackages = true;
                 users.tommy.imports = [
                   ./home
-                  ./home/cli
+                  ./home/shell
+                  ./home/coding
                   ./home/editor
                   ./home/hosts/moebius-win
                   ./home/private
@@ -136,7 +138,8 @@
                 useUserPackages = true;
                 users.tommy.imports = [
                   ./home
-                  ./home/cli
+                  ./home/shell
+                  ./home/coding
                   ./home/editor
                   ./home/hosts/audron
                   ./home/private
@@ -167,12 +170,9 @@
                 useUserPackages = true;
                 users.tommy.imports = [
                   ./home
-                  # ./home/cli # better modules would fix this, because a couple
-                  # of these are actually useful for vorador
-
-                  ./home/editor
                   ./home/hosts/vorador
                   ./home/private
+                  ./home/shell
                   ./home/linux
                 ];
               };
@@ -194,7 +194,8 @@
               useUserPackages = true;
               users.tommy.imports = [
                 ./home
-                ./home/cli
+                ./home/shell
+                ./home/coding
                 ./home/editor
                 ./home/mac
                 ./home/work
