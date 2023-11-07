@@ -119,6 +119,38 @@
             }
           ];
         };
+        audron = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit userConfig inputs; };
+          modules = [
+            ./system
+            ./system/linux
+            ./system/linux-desktop
+            ./system/hosts/audron
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                extraSpecialArgs = { inherit userConfig inputs; };
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.tommy.imports = [
+                  ./home
+                  ./home/cli
+                  ./home/editor
+                  ./home/hosts/audron
+                  ./home/private
+                  ./home/linux
+                  ./home/desktop
+                  (if userConfig.isWaylandWM then
+                    ./home/desktop/wayland
+                  else
+                    ./home/desktop/x11)
+                ];
+              };
+            }
+          ];
+        };
       };
       darwinConfigurations.Tommys-MacBook-Pro = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
