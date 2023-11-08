@@ -9,7 +9,7 @@
     packages = [
       (pkgs.writeShellScriptBin "up-nvim" ''
         echo -e "\n\033[1;32m[ $(basename $0) ]\033[0m"
-        nvim --headless -u NONE -c "lua require('bootstrap').headless_paq()"
+        CC=gcc CXX=g++ nvim --headless "+Lazy! sync" "+TSUpdateSync" +qa
       '')
 
       (pkgs.writeShellScriptBin "up-nix" ''
