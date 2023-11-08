@@ -197,10 +197,7 @@ in {
         key_press_enables_dpms = true;
       };
       decoration.rounding = 5;
-      master = {
-        mfact = 0.66;
-        orientation = "right";
-      };
+      master.orientation = "right";
       windowrulev2 = [
         "float,title:^(Picture(.)in(.)picture)$"
         "pin,title:^(Picture(.)in(.)picture)$"

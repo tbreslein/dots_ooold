@@ -60,4 +60,5 @@ _:
   #     };
   #   };
   # };
+  wayland.windowManager.hyprland.master.mfact = 0.5;
 }
