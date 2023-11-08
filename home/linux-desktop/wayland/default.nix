@@ -174,11 +174,7 @@ in {
     enable = true;
     xwayland.enable = true;
     settings = {
-      exec-once = [
-        "waybar"
-        "mako"
-        "swww init & swww img ${config.home.homeDirectory}/dots/wallpapers/moebius.jpg"
-      ];
+      exec-once = [ "waybar" "mako" "swww init" ];
       exec = [ "kanshi" "wlsunset" ];
       input = {
         kb_layout = "us,de";

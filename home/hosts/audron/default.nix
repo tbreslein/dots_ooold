@@ -48,17 +48,17 @@ _:
     #   };
     # };
   };
-  # services = {
-  #   kanshi = {
-  #     profiles = {
-  #       def = {
-  #         outputs = [{
-  #           criteria = "DP-3";
-  #           mode = "3440x1440@144.000";
-  #         }];
-  #       };
-  #     };
-  #   };
-  # };
+  services = {
+    kanshi = {
+      profiles = {
+        def = {
+          outputs = [{
+            criteria = "eDP-1";
+            mode = "2256x1504@59.999";
+          }];
+        };
+      };
+    };
+  };
   wayland.windowManager.hyprland.settings.master.mfact = 0.5;
 }
