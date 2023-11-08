@@ -1,12 +1,13 @@
 { pkgs }:
 
-let
-  image = pkgs.fetchurl {
-    url =
-      "https://github.com/tbreslein/wallpapers/blob/master/gruvbox/penguin.jpg?raw=true";
-    sha256 = "rTE57xA9FD6AuUCRH3HKJhXDNwm5fu4WMBeW9ocUM+A=";
-  };
-in pkgs.stdenv.mkDerivation {
+#let
+#  image = pkgs.fetchurl {
+#    url =
+#      "https://github.com/tbreslein/wallpapers/blob/master/gruvbox/penguin.jpg?raw=true";
+#    sha256 = "rTE57xA9FD6AuUCRH3HKJhXDNwm5fu4WMBeW9ocUM+A=";
+#  };
+#in
+pkgs.stdenv.mkDerivation {
   name = "sddm-sugar-candy";
   src = pkgs.fetchFromGitHub {
     owner = "MarianArlt";
@@ -17,8 +18,8 @@ in pkgs.stdenv.mkDerivation {
   installPhase = ''
     mkdir -p $out
     cp -R ./* $out/
-    cd $out/
-    rm Background.jpg
-    cp -r ${image} $out/Background.jpg
+    #cd $out/
+    #rm Background.jpg
+    #cp -r ${image} $out/Background.jpg
   '';
 }
