@@ -2,7 +2,7 @@ _:
 
 {
   programs = {
-    alacritty.settings.font.size = 14;
+    alacritty.settings.font.size = 10;
     # autorandr.profiles = {
     #   "home" = {
     #     fingerprint = {
@@ -60,5 +60,5 @@ _:
   #     };
   #   };
   # };
-  wayland.windowManager.hyprland.master.mfact = 0.5;
+  wayland.windowManager.hyprland.settings.master.mfact = 0.5;
 }

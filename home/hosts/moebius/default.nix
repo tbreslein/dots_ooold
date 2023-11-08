@@ -60,5 +60,5 @@ _:
       };
     };
   };
-  wayland.windowManager.hyprland.master.mfact = 0.66;
+  wayland.windowManager.hyprland.settings.master.mfact = 0.66;
 }
