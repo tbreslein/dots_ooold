@@ -58,7 +58,7 @@
         } else
           { };
       };
-      confModules = [
+      homeConfModules = [
         ./modules/cli
         ./modules/coding
         ./modules/colors
@@ -67,10 +67,29 @@
         ./modules/desktop/wayland.nix
         ./modules/desktop/x11.nix
         ./modules/home
-        ./modules/system
-        ./modules/system/desktop.nix
         ./modules/up
       ];
+      systemConfModules = [ ./modules/system ./modules/system/desktop.nix ];
+      mkNixos = name: system:
+        nixpkgs.lib.nixosSystem {
+          inherit system;
+          specialArgs = { inherit inputs; };
+          modules = systemConfModules ++ [
+            (./hosts + "/${name}/configuration.nix")
+
+            home-manager.nixosModules.home-manager
+            {
+              home-manager = {
+                extraSpecialArgs = { inherit inputs; };
+                useGlobalPkgs = true;
+                useUserPackages = true;
+                users.tommy.imports = homeConfModules
+                  # ++ [ (./hosts + ("/" + name + "/home.nix")) ];
+                  ++ [ (./hosts + "/${name}/home.nix") ];
+              };
+            }
+          ];
+        };
     in {
       nixosConfigurations = {
         moebius = nixpkgs.lib.nixosSystem {
@@ -133,11 +152,27 @@
             }
           ];
         };
-        audron = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit inputs; };
-          modules = confModules ++ [ ];
-        };
+        audron = mkNixos "audron" "x86_64-linux";
+        # ONLY KINDA OLD
+        # audron = nixpkgs.lib.nixosSystem {
+        #   system = "x86_64-linux";
+        #   specialArgs = { inherit inputs; };
+        #   modules = systemConfModules ++ [
+        #     ./hosts/audron/configuration.nix
+        #
+        #     home-manager.nixosModules.home-manager
+        #     {
+        #       home-manager = {
+        #         extraSpecialArgs = { inherit inputs; };
+        #         useGlobalPkgs = true;
+        #         useUserPackages = true;
+        #         users.tommy.imports = homeConfModules
+        #           ++ [ ./hosts/audron/home.nix ];
+        #       };
+        #     }
+        #   ];
+        # };
+        # VERY OLD
         # audron = nixpkgs.lib.nixosSystem {
         #   system = "x86_64-linux";
         #   specialArgs = { inherit userConfig inputs; };
