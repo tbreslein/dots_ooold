@@ -70,11 +70,11 @@
         ./modules/up
       ];
       systemConfModules = [ ./modules/system ./modules/system/desktop.nix ];
-      mkNixos = name: system:
+      mkNixos = name: system: systemModules:
         nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = { inherit inputs; };
-          modules = systemConfModules ++ [
+          modules = systemConfModules ++ systemModules ++ [
             (./hosts + "/${name}/configuration.nix")
 
             home-manager.nixosModules.home-manager
@@ -152,7 +152,7 @@
             }
           ];
         };
-        audron = mkNixos "audron" "x86_64-linux";
+        audron = mkNixos "audron" "x86_64-linux" [ ./modules/system/linux.nix ];
         # ONLY KINDA OLD
         # audron = nixpkgs.lib.nixosSystem {
         #   system = "x86_64-linux";
