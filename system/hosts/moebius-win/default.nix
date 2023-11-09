@@ -15,7 +15,7 @@
 
   wsl.enable = true;
   wsl.defaultUser = "tommy";
-  
+
   environment.systemPackages = with pkgs; [ git vim ];
   users.users.tommy = {
     isNormalUser = true;

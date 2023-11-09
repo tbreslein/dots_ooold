@@ -1,10 +1,8 @@
 { pkgs, userConfig, ... }:
 
-let
-  inherit (userConfig) colors;
+let inherit (userConfig) colors;
 in {
   home.sessionVariables.BROWSER = "brave";
-
   programs.alacritty = {
     enable = true;
     settings = {

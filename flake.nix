@@ -58,6 +58,19 @@
         } else
           { };
       };
+      confModules = [
+        ./modules/cli
+        ./modules/coding
+        ./modules/colors
+        ./modules/desktop
+        ./modules/desktop/linux.nix
+        ./modules/desktop/wayland.nix
+        ./modules/desktop/x11.nix
+        ./modules/home
+        ./modules/system
+        ./modules/system/desktop.nix
+        ./modules/up
+      ];
     in {
       nixosConfigurations = {
         moebius = nixpkgs.lib.nixosSystem {
@@ -122,37 +135,42 @@
         };
         audron = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
-          specialArgs = { inherit userConfig inputs; };
-          modules = [
-            ./system
-            ./system/linux
-            ./system/linux-desktop
-            ./system/hosts/audron
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                extraSpecialArgs = { inherit userConfig inputs; };
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.tommy.imports = [
-                  ./home
-                  ./home/shell
-                  ./home/coding
-                  ./home/hosts/audron
-                  ./home/private
-                  ./home/linux
-                  ./home/desktop
-                  ./home/linux-desktop
-                  (if userConfig.isWaylandWM then
-                    ./home/linux-desktop/wayland
-                  else
-                    ./home/linux-desktop/x11)
-                ];
-              };
-            }
-          ];
+          specialArgs = { inherit inputs; };
+          modules = confModules ++ [ ];
         };
+        # audron = nixpkgs.lib.nixosSystem {
+        #   system = "x86_64-linux";
+        #   specialArgs = { inherit userConfig inputs; };
+        #   modules = [
+        #     ./system
+        #     ./system/linux
+        #     ./system/linux-desktop
+        #     ./system/hosts/audron
+        #
+        #     home-manager.nixosModules.home-manager
+        #     {
+        #       home-manager = {
+        #         extraSpecialArgs = { inherit userConfig inputs; };
+        #         useGlobalPkgs = true;
+        #         useUserPackages = true;
+        #         users.tommy.imports = [
+        #           ./home
+        #           ./home/shell
+        #           ./home/coding
+        #           ./home/hosts/audron
+        #           ./home/private
+        #           ./home/linux
+        #           ./home/desktop
+        #           ./home/linux-desktop
+        #           (if userConfig.isWaylandWM then
+        #             ./home/linux-desktop/wayland
+        #           else
+        #             ./home/linux-desktop/x11)
+        #         ];
+        #       };
+        #     }
+        #   ];
+        # };
         vorador = nixpkgs.lib.nixosSystem {
           system = "aarch64-linux";
           specialArgs = { inherit userConfig inputs; };
