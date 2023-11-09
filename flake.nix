@@ -120,7 +120,6 @@
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.tommy.imports = homeConfModules
-                  # ++ [ (./hosts + ("/" + name + "/home.nix")) ];
                   ++ [ (./hosts + "/${name}/home.nix") ];
               };
             }
@@ -128,87 +127,78 @@
         };
     in {
       nixosConfigurations = {
-        moebius = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit userConfig inputs; };
-          modules = [
-            ./system
-            ./system/linux
-            ./system/linux-desktop
-            ./system/hosts/moebius
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                extraSpecialArgs = { inherit userConfig inputs; };
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.tommy.imports = [
-                  ./home
-                  ./home/shell
-                  ./home/coding
-                  ./home/hosts/moebius
-                  ./home/private
-                  ./home/linux
-                  ./home/desktop
-                  ./home/linux-desktop
-                  (if userConfig.isWaylandWM then
-                    ./home/linux-desktop/wayland
-                  else
-                    ./home/linux-desktop/x11)
-                ];
-              };
-            }
-          ];
-        };
-        moebius-win = nixpkgs.lib.nixosSystem {
-          system = "x86_64-linux";
-          specialArgs = { inherit userConfig inputs; };
-          modules = [
-            ./system
-            ./system/linux
-            ./system/wsl
-            ./system/hosts/moebius-win
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                extraSpecialArgs = { inherit userConfig inputs; };
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.tommy.imports = [
-                  ./home
-                  ./home/shell
-                  ./home/coding
-                  #./home/hosts/moebius-win
-                  ./home/private
-                  ./home/linux
-                ];
-              };
-            }
-          ];
-        };
+        moebius =
+          mkNixos "moebius" "x86_64-linux" [ ./modules/system/linux.nix ];
         audron = mkNixos "audron" "x86_64-linux" [ ./modules/system/linux.nix ];
-        # ONLY KINDA OLD
-        # audron = nixpkgs.lib.nixosSystem {
+        moebius-win = mkNixos "moebius-win" "x86_64-linux" [
+          ./modules/system/linux.nix
+          ./modules/system/wsl.nix
+        ];
+        vorador = mkNixos "vorador" "aarch64-linux" [
+          ./modules/system/linux.nix
+          ./modules/system/aarch64-linux.nix
+        ];
+        # OLD
+        # moebius = nixpkgs.lib.nixosSystem {
         #   system = "x86_64-linux";
-        #   specialArgs = { inherit inputs; };
-        #   modules = systemConfModules ++ [
-        #     ./hosts/audron/configuration.nix
+        #   specialArgs = { inherit userConfig inputs; };
+        #   modules = [
+        #     ./system
+        #     ./system/linux
+        #     ./system/linux-desktop
+        #     ./system/hosts/moebius
         #
         #     home-manager.nixosModules.home-manager
         #     {
         #       home-manager = {
-        #         extraSpecialArgs = { inherit inputs; };
+        #         extraSpecialArgs = { inherit userConfig inputs; };
         #         useGlobalPkgs = true;
         #         useUserPackages = true;
-        #         users.tommy.imports = homeConfModules
-        #           ++ [ ./hosts/audron/home.nix ];
+        #         users.tommy.imports = [
+        #           ./home
+        #           ./home/shell
+        #           ./home/coding
+        #           ./home/hosts/moebius
+        #           ./home/private
+        #           ./home/linux
+        #           ./home/desktop
+        #           ./home/linux-desktop
+        #           (if userConfig.isWaylandWM then
+        #             ./home/linux-desktop/wayland
+        #           else
+        #             ./home/linux-desktop/x11)
+        #         ];
         #       };
         #     }
         #   ];
         # };
-        # VERY OLD
+        # moebius-win = nixpkgs.lib.nixosSystem {
+        #   system = "x86_64-linux";
+        #   specialArgs = { inherit userConfig inputs; };
+        #   modules = [
+        #     ./system
+        #     ./system/linux
+        #     ./system/wsl
+        #     ./system/hosts/moebius-win
+        #
+        #     home-manager.nixosModules.home-manager
+        #     {
+        #       home-manager = {
+        #         extraSpecialArgs = { inherit userConfig inputs; };
+        #         useGlobalPkgs = true;
+        #         useUserPackages = true;
+        #         users.tommy.imports = [
+        #           ./home
+        #           ./home/shell
+        #           ./home/coding
+        #           #./home/hosts/moebius-win
+        #           ./home/private
+        #           ./home/linux
+        #         ];
+        #       };
+        #     }
+        #   ];
+        # };
         # audron = nixpkgs.lib.nixosSystem {
         #   system = "x86_64-linux";
         #   specialArgs = { inherit userConfig inputs; };
@@ -242,37 +232,55 @@
         #     }
         #   ];
         # };
-        vorador = nixpkgs.lib.nixosSystem {
-          system = "aarch64-linux";
-          specialArgs = { inherit userConfig inputs; };
-          modules = [
-            ./system
-            ./system/linux
-            ./system/hosts/vorador
-
-            home-manager.nixosModules.home-manager
-            {
-              home-manager = {
-                extraSpecialArgs = { inherit userConfig inputs; };
-                useGlobalPkgs = true;
-                useUserPackages = true;
-                users.tommy.imports = [
-                  ./home
-                  ./home/hosts/vorador
-                  ./home/private
-                  ./home/shell
-                  ./home/linux
-                ];
-              };
-            }
-          ];
-        };
+        # vorador = nixpkgs.lib.nixosSystem {
+        #   system = "aarch64-linux";
+        #   specialArgs = { inherit userConfig inputs; };
+        #   modules = [
+        #     ./system
+        #     ./system/linux
+        #     ./system/hosts/vorador
+        #
+        #     home-manager.nixosModules.home-manager
+        #     {
+        #       home-manager = {
+        #         extraSpecialArgs = { inherit userConfig inputs; };
+        #         useGlobalPkgs = true;
+        #         useUserPackages = true;
+        #         users.tommy.imports = [
+        #           ./home
+        #           ./home/hosts/vorador
+        #           ./home/private
+        #           ./home/shell
+        #           ./home/linux
+        #         ];
+        #       };
+        #     }
+        #   ];
+        # };
       };
+      # nixpkgs.lib.nixosSystem {
+      #   inherit system;
+      #   specialArgs = { inherit inputs colors; };
+      #   modules = systemConfModules ++ systemModules ++ [
+      #     (./hosts + "/${name}/configuration.nix")
+      #
+      #     home-manager.nixosModules.home-manager
+      #     {
+      #       home-manager = {
+      #         extraSpecialArgs = { inherit inputs colors; };
+      #         useGlobalPkgs = true;
+      #         useUserPackages = true;
+      #         users.tommy.imports = homeConfModules
+      #           ++ [ (./hosts + "/${name}/home.nix") ];
+      #       };
+      #     }
+      #   ];
+      # };
       darwinConfigurations.Tommys-MacBook-Pro = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
-        modules = [
-          ./system
-          ./system/mac
+        specialArgs = { inherit inputs colors; };
+        modules = systemConfModules ++ [
+          ./modules/system/aarch64-darwin.nix
 
           home-manager.darwinModules.home-manager
           {
@@ -280,17 +288,36 @@
               extraSpecialArgs = { inherit userConfig; };
               useGlobalPkgs = true;
               useUserPackages = true;
-              users.tommy.imports = [
-                ./home
-                ./home/shell
-                ./home/coding
-                ./home/mac
-                ./home/work
-                ./home/desktop
-              ];
+              users.tommy.imports = homeConfModules
+                ++ [ ./hosts/macbook/home.nix ];
             };
           }
         ];
       };
+      # OLD
+      # darwinConfigurations.Tommys-MacBook-Pro = darwin.lib.darwinSystem {
+      #   system = "aarch64-darwin";
+      #   modules = [
+      #     ./system
+      #     ./system/mac
+      #
+      #     home-manager.darwinModules.home-manager
+      #     {
+      #       home-manager = {
+      #         extraSpecialArgs = { inherit userConfig; };
+      #         useGlobalPkgs = true;
+      #         useUserPackages = true;
+      #         users.tommy.imports = [
+      #           ./home
+      #           ./home/shell
+      #           ./home/coding
+      #           ./home/mac
+      #           ./home/work
+      #           ./home/desktop
+      #         ];
+      #       };
+      #     }
+      #   ];
+      # };
     };
 }
