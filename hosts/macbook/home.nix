@@ -11,7 +11,6 @@ _:
       extraShellAliases.twork =
         "smug dots --detach; smug notes --detach; smug planning";
     };
-    colors.enable = true;
     desktop = {
       enable = true;
       terminalFontSize = 18;

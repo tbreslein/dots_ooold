@@ -12,7 +12,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.colors = mkMerge [
+    colors = mkMerge [
       (mkIf (cfg.theme == "gruvbox-material") rec {
         background = "1d2021";
         foreground = white;

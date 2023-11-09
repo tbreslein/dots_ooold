@@ -1,7 +1,6 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, colors, ... }:
 let
   inherit (lib) mkIf mkMerge mkOption types;
-  inherit (config) colors;
   cfg = config.conf.desktop.wayland;
 in {
   options.conf.desktop.wayland = {

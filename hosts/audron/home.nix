@@ -4,7 +4,6 @@ _:
   conf = {
     cli.enable = true;
     coding.enable = true;
-    colors.enable = true;
     desktop = {
       enable = true;
       terminalFontSize = 10;
