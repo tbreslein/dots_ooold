@@ -15,10 +15,12 @@
     enable = true;
     user = userConfig.name;
   };
-  desktop = {
-    enable = true;
-    enableWayland = true;
-    enableX11 = false;
+  conf = {
+    desktop = {
+      enable = true;
+      enableWayland = true;
+      enableX11 = false;
+    };
+    systemDefaults.system = "linux";
   };
-  systemDefaults.system = "linux";
 }

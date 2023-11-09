@@ -2,5 +2,5 @@ _:
 
 {
   networking.hostName = "moebius-win";
-  systemDefaults.system = "wsl";
+  conf.systemDefaults.system = "wsl";
 }

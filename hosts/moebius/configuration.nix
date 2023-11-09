@@ -17,13 +17,15 @@
   };
   networking.hostName = "moebius";
 
-  desktop = {
-    enable = true;
-    enableWayland = true;
-    enableX11 = false;
-  };
-  systemDefaults = {
-    system = "linux";
-    enableGaming = true;
+  conf = {
+    desktop = {
+      enable = true;
+      enableWayland = true;
+      enableX11 = false;
+    };
+    systemDefaults = {
+      system = "linux";
+      enableGaming = true;
+    };
   };
 }
