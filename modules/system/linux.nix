@@ -43,7 +43,7 @@ in {
         extraGroups = [ "wheel" "networkmanager" ];
         initialPassword = "qwert";
         shell = pkgs.zsh;
-        openssh.authorizedKeys.keyFiles = ./id_rsa.pub;
+        openssh.authorizedKeys.keyFiles = [ ./id_rsa.pub ];
       };
 
       system.stateVersion = "23.05";

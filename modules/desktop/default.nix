@@ -1,7 +1,7 @@
-{ config, lib, ... }:
+{ config, lib, colors, ... }:
+
 let
   inherit (lib) mkIf mkOption types;
-  inherit (config) colors;
   cfg = config.conf.desktop;
 in {
   options.conf.desktop = {

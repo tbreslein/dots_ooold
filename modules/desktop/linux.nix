@@ -1,7 +1,6 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, colors, ... }:
 let
   inherit (lib) mkIf mkMerge mkOption types;
-  inherit (config) colors;
   gtkGruvboxPlus = import ./gtk-themes/gruvbox-plus.nix { inherit pkgs; };
   cfg = config.conf.desktop.linux;
 in {

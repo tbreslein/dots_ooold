@@ -1,4 +1,4 @@
-{ userConfig, ... }:
+_:
 
 {
   imports = [ ./hardware-configuration.nix ];
@@ -13,7 +13,7 @@
   networking.hostName = "audron";
   services.xserver.displayManager.autoLogin = {
     enable = true;
-    user = userConfig.name;
+    user = "tommy";
   };
   conf = {
     desktop = {

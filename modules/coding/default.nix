@@ -67,15 +67,15 @@ in {
       type = with types; listOf package;
       default = [ ];
     };
-    defaultShellAliases = {
-      type = with types; attrsOf inferred;
+    defaultShellAliases = mkOption {
+      type = with types; attrsOf str;
       default = {
         lg = "lazygit";
         vim = "nvim";
       };
     };
-    extraShellAliases = {
-      type = with types; attrsOf inferred;
+    extraShellAliases = mkOption {
+      type = with types; attrsOf str;
       default = { };
     };
     nvimConfigSource = mkOption {

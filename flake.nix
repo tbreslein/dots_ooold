@@ -97,13 +97,13 @@
       homeConfModules = [
         ./modules/cli
         ./modules/coding
-        # ./modules/colors
         ./modules/desktop
         ./modules/desktop/linux.nix
         ./modules/desktop/wayland.nix
         ./modules/desktop/x11.nix
         ./modules/home
         ./modules/up
+        inputs.ags.homeManagerModules.default
       ];
       systemConfModules = [ ./modules/system ./modules/system/desktop.nix ];
       mkNixos = name: system: systemModules:

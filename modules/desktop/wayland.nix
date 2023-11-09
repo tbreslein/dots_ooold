@@ -26,7 +26,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    imports = [ inputs.ags.homeManagerModules.default ];
+    # imports = [ inputs.ags.homeManagerModules.default ];
     home = {
       packages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
       file = {
