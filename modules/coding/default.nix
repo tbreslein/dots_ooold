@@ -79,11 +79,11 @@ in {
       default = { };
     };
     nvimConfigSource = mkOption {
-      type = types.string;
+      type = types.str;
       default = "${config.home.homeDirectory}/dots/nvim";
     };
     nvimConfigTarget = mkOption {
-      type = types.string;
+      type = types.str;
       default = "${config.home.homeDirectory}/.config/nvim";
     };
     enableTmux = mkOption {

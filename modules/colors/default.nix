@@ -6,7 +6,7 @@ in {
   options.conf.colors = {
     enable = lib.mkEnableOption "enable desktop apps";
     theme = mkOption {
-      type = with types; enum string [ "gruvbox-material" ];
+      type = with types; enum [ "gruvbox-material" ];
       default = "gruvbox-material";
     };
   };

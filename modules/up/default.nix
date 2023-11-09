@@ -5,11 +5,11 @@ let
 in {
   options.conf.up = {
     system = mkOption {
-      type = with types; enum string [ "darwin" "nixos" ];
+      type = with types; enum [ "darwin" "nixos" ];
       default = null;
     };
     additionalRoles = mkOption {
-      type = with types; listOf (enum string) [ "coding" "gaming" ];
+      type = with types; listOf (enum [ "coding" "gaming" ]);
       default = [ ];
     };
   };

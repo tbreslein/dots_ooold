@@ -4,7 +4,10 @@ let
   cfg = config.conf.systemDefaults;
 in {
   options.conf.systemDefaults = {
-    system = with types; enum string [ "darwin" "linux" "wsl" ];
+    system = mkOption {
+      type = with types; enum [ "darwin" "linux" "wsl" ];
+      # default = [ ];
+    };
     extraPkgs = mkOption {
       type = with types; listOf package;
       default = [ ];

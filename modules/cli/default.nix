@@ -25,7 +25,7 @@ in {
       ];
     };
     gitEmail = mkOption {
-      type = types.string;
+      type = types.str;
       default = "tommy.breslein@protonmail.com";
     };
   };
