@@ -1,10 +1,10 @@
 { config, lib, pkgs, ... }:
 let
-  inherit (lib) mkIf mkMerge mkOption types;
+  inherit (lib) mkIf mkMerge mkEnableOption mkOption types;
   cfg = config.conf.desktop;
 in {
   options.conf.desktop = {
-    enable = lib.mkEnableOption "enable nixos desktop stuff";
+    enable = mkEnableOption "enable nixos desktop stuff";
     defaultSystemPackages = mkOption {
       type = with types; listOf package;
       default = with pkgs; [ alacritty ];
@@ -13,14 +13,8 @@ in {
       type = with types; listOf package;
       default = [ ];
     };
-    enableWayland = mkOption {
-      type = types.boolean;
-      default = true;
-    };
-    enableX11 = mkOption {
-      type = types.boolean;
-      default = false;
-    };
+    enableWayland = mkEnableOption "enable wayland stuff";
+    enableX11 = mkEnableOption "enable x11 stuff";
   };
 
   config = mkIf cfg.enable {

@@ -13,10 +13,7 @@ in {
       type = with types; listOf package;
       default = with pkgs; [ vim coreutils wget curl unzip git killall ];
     };
-    enableGaming = mkOption {
-      type = types.bool;
-      default = false;
-    };
+    enableGaming = lib.mkEnableOption "enable gaming stuff";
   };
 
   config = mkMerge [

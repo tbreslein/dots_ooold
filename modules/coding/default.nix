@@ -86,8 +86,8 @@ in {
       type = types.string;
       default = "${config.home.homeDirectory}/.config/nvim";
     };
-    tmux.enable = mkOption {
-      type = types.boolean;
+    enableTmux = mkOption {
+      type = types.bool;
       default = true;
     };
   };
