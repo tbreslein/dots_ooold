@@ -97,7 +97,7 @@ in {
       packages = mkMerge [
         cfg.defaultPkgs
         cfg.extraPkgs
-        (mkIf cfg.tmux.enable [ pkgs.smug ])
+        (mkIf cfg.enableTmux [ pkgs.smug ])
       ];
       file = mkMerge [
         {
@@ -106,7 +106,7 @@ in {
             target = cfg.nvimConfigTarget;
           };
         }
-        (mkIf cfg.tmux.enable {
+        (mkIf cfg.enableTmux {
           smug_notes = mkSmug "notes" "syncthing/notes" [ plainDev ];
           smug_dots = mkSmug "dots" "dots" [ plainDev ];
           smug_corries = mkSmug "corries" "coding/corries" defaultWindows;
@@ -148,7 +148,7 @@ in {
       };
     };
 
-    programs.tmux = mkIf cfg.tmux.enable {
+    programs.tmux = mkIf cfg.enableTmux {
       enable = true;
       baseIndex = 1;
       clock24 = true;

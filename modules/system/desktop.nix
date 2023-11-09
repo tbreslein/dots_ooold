@@ -78,7 +78,7 @@ in {
       ];
     };
 
-    xdg.portal = cfg.enableWayland {
+    xdg.portal = mkIf cfg.enableWayland {
       enable = true;
       extraPortals = [ pkgs.xdg-desktop-portal-hyprland ];
     };
