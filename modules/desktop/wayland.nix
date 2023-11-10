@@ -189,7 +189,7 @@ in {
         exec = [ "kanshi" "wlsunset" ];
         input = {
           kb_layout = "us,de";
-          kb_options = "grp:alt_space_toggle;ctrl:nocaps";
+          kb_options = "grp:alt_space_toggle,ctrl:nocaps";
         };
         general = {
           border_size = 2;
