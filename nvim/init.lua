@@ -368,6 +368,6 @@ function statusline()
         if out:len() > 0 then out = " |" .. out end
         return out
     end
-    return table.concat({ "%f", "%m", "%=", "%p%% %l:%c", lsp_status() })
+    return table.concat({ "%f", "%m", "%= | ", "%p%% %l:%c", lsp_status() })
 end
 vim.cmd([[ set statusline=%!luaeval('statusline()') ]])
