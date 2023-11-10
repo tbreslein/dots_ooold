@@ -32,7 +32,7 @@ require("lazy").setup({
     "windwp/nvim-ts-autotag",
     "akinsho/git-conflict.nvim",
 
-    { "j-hui/fidget.nvim", branch = "legacy" },
+    "j-hui/fidget.nvim",
     "neovim/nvim-lspconfig",
     "hrsh7th/nvim-cmp",
     "hrsh7th/cmp-nvim-lsp",

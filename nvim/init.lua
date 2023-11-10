@@ -18,21 +18,21 @@ require("lazy").setup({
     "nvim-tree/nvim-web-devicons",
 
     "alexghergh/nvim-tmux-navigation",
-    "MeanderingProgrammer/harpoon-core.nvim",
+    { "MeanderingProgrammer/harpoon-core.nvim", opts = {} },
     "nvim-telescope/telescope.nvim",
     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
 
     "sainnhe/gruvbox-material",
     "mbbill/undotree",
-    "numtostr/Comment.nvim",
-    "echasnovski/mini.surround",
+    { "numtostr/Comment.nvim", opts = {} },
+    { "echasnovski/mini.surround", opts = {} },
     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
     "nvim-treesitter/nvim-treesitter-context",
     "nvim-treesitter/nvim-treesitter-textobjects",
     "windwp/nvim-ts-autotag",
-    "akinsho/git-conflict.nvim",
+    { "akinsho/git-conflict.nvim", opts = { default_mappings = false } },
 
-    { "j-hui/fidget.nvim", branch = "legacy" },
+    { "j-hui/fidget.nvim", opts = {} },
     "neovim/nvim-lspconfig",
     "hrsh7th/nvim-cmp",
     "hrsh7th/cmp-nvim-lsp",
@@ -136,7 +136,6 @@ kmap("n", "<c-j>", require("nvim-tmux-navigation").NvimTmuxNavigateDown)
 kmap("n", "<c-k>", require("nvim-tmux-navigation").NvimTmuxNavigateUp)
 kmap("n", "<c-l>", require("nvim-tmux-navigation").NvimTmuxNavigateRight)
 
-require("harpoon-core").setup()
 kmap("n", "<m-u>", ":lua require('harpoon-core.ui').nav_file(1)<cr>")
 kmap("n", "<m-i>", ":lua require('harpoon-core.ui').nav_file(2)<cr>")
 kmap("n", "<m-o>", ":lua require('harpoon-core.ui').nav_file(3)<cr>")
@@ -162,8 +161,6 @@ kmap("n", "<leader>ps", require("telescope.builtin").live_grep)
 
 -- {{ Editing }}
 kmap("n", "<leader>U", vim.cmd.UndotreeToggle)
-require("Comment").setup()
-require("mini.surround").setup()
 require("nvim-treesitter.configs").setup({
     ensure_installed = { "markdown", "markdown_inline", "lua" },
     auto_install = true,
@@ -194,7 +191,6 @@ require("nvim-treesitter.configs").setup({
     },
 })
 require("treesitter-context").setup({ multiline_threshold = 2 })
-require("git-conflict").setup({ default_mappings = false })
 kmap("n", "<leader>cn", ":GitConflictNextConflict<cr>")
 kmap("n", "<leader>cp", ":GitConflictPrevConflict<cr>")
 kmap("n", "<leader>co", ":GitConflictChooseOurs<cr>")
@@ -204,7 +200,6 @@ kmap("n", "<leader>cv", ":GitConflictChooseNone<cr>")
 kmap("n", "<leader>cl", ":GitConflictChooseListQf<cr>")
 
 -- {{ LSP }}
-require("fidget").setup()
 local lspconfig = require("lspconfig")
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local servers = {
