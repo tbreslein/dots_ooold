@@ -38,6 +38,7 @@ in {
 
       i18n.defaultLocale = "en_US.UTF-8";
 
+      environment.sessionVariables.EDITOR = "nvim";
       users.users.tommy = {
         isNormalUser = true;
         extraGroups = [ "wheel" "networkmanager" ];

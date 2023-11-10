@@ -32,7 +32,6 @@ in {
     environment = {
       systemPackages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
       shellAliases.vim = "nvim";
-      sessionVariables.EDITOR = "nvim";
     };
     programs.zsh.enable = true;
     time.timeZone = "Europe/Berlin";
