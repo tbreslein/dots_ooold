@@ -17,6 +17,7 @@ in {
       {
         username = "tommy";
         stateVersion = "23.05";
+        sessionVariables.EDITOR = "vim";
       }
 
       (mkIf (cfg.system == "darwin") {
