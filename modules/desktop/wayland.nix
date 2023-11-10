@@ -26,7 +26,6 @@ in {
   };
 
   config = mkIf cfg.enable {
-    # imports = [ inputs.ags.homeManagerModules.default ];
     home = {
       packages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
       file = {
@@ -190,7 +189,7 @@ in {
         exec = [ "kanshi" "wlsunset" ];
         input = {
           kb_layout = "us,de";
-          kb_options = "grp:alt_space_toggle";
+          kb_options = "grp:alt_space_toggle;ctrl:nocaps";
         };
         general = {
           border_size = 2;
