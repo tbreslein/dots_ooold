@@ -36,14 +36,10 @@ in {
     defaultPkgs = mkOption {
       type = with types; listOf package;
       default = with pkgs; [
-        neovim
-
-        # compilers
         gcc
         cmake
         gnumake
 
-        # formatters / linters / language servers
         shellcheck
         shfmt
         yamllint
@@ -56,7 +52,6 @@ in {
         prettierd
         stylua
 
-        # cli tools
         go-task
         lazygit
         pandoc
@@ -69,10 +64,7 @@ in {
     };
     defaultShellAliases = mkOption {
       type = with types; attrsOf str;
-      default = {
-        lg = "lazygit";
-        vim = "nvim";
-      };
+      default = { lg = "lazygit"; };
     };
     extraShellAliases = mkOption {
       type = with types; attrsOf str;

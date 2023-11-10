@@ -12,6 +12,7 @@ in {
     defaultPkgs = mkOption {
       type = with types; listOf package;
       default = with pkgs; [
+        neovim
         bat
         fd
         htop
@@ -31,7 +32,11 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home.packages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
+    home = {
+      packages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
+      sessionVariables.EDITOR = "nvim";
+      shellAliases.vim = "nvim";
+    };
     programs = {
       direnv = {
         enable = true;

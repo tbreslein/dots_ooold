@@ -9,6 +9,10 @@ in {
       type = with types; listOf package;
       default = [ ];
     };
+    defaultPkgs = mkOption {
+      type = with types; listOf package;
+      default = [ ];
+    };
   };
 
   config = {
@@ -17,7 +21,7 @@ in {
       {
         username = "tommy";
         stateVersion = "23.05";
-        sessionVariables.EDITOR = "vim";
+        packages = mkMerge [ cfg.extraPkgs cfg.defaultPkgs ];
       }
 
       (mkIf (cfg.system == "darwin") {
