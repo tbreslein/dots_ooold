@@ -32,11 +32,7 @@ in {
   };
 
   config = mkIf cfg.enable {
-    home = {
-      packages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
-      sessionVariables.EDITOR = "nvim";
-      shellAliases.vim = "nvim";
-    };
+    home.packages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
     programs = {
       direnv = {
         enable = true;

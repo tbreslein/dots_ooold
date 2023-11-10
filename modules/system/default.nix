@@ -10,7 +10,7 @@ in {
     };
     defaultPkgs = mkOption {
       type = with types; listOf package;
-      default = with pkgs; [ vim coreutils wget curl unzip git killall ];
+      default = with pkgs; [ neovim vim coreutils wget curl unzip git killall ];
     };
   };
 
@@ -29,7 +29,11 @@ in {
         ];
       };
     };
-    environment.systemPackages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
+    environment = {
+      systemPackages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
+      shellAliases.vim = "nvim";
+      sessionVariables.EDITOR = "nvim";
+    };
     programs.zsh.enable = true;
     time.timeZone = "Europe/Berlin";
   };
