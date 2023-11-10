@@ -42,6 +42,10 @@ in {
         enable = true;
         enableAliases = true;
       };
+      fzf = {
+        enable = true;
+        enableZshIntegration = true;
+      };
       git = {
         enable = true;
         userName = "Tommy Breslein";
