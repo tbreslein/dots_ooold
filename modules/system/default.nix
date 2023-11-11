@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, userName, ... }:
 let
   inherit (lib) mkMerge mkOption types;
   cfg = config.conf.systemDefaults;
@@ -22,7 +22,7 @@ in {
         options = "--delete-older-than 1w";
       };
       settings = {
-        trusted-users = [ "tommy" ];
+        trusted-users = [ userName ];
         substituters = [ "https://cachix.cachix.org" ];
         trusted-public-keys = [
           "cachix.cachix.org-1:eWNHQldwUO7G2VkjpnjDbWwy4KQ/HNxht7H4SSoMckM="

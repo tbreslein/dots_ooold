@@ -1,4 +1,4 @@
-{ config, lib, ... }:
+{ config, lib, userName, ... }:
 let
   inherit (lib) mkIf mkMerge mkOption types;
   cfg = config.conf.homeDefaults;
@@ -19,16 +19,16 @@ in {
     nixpkgs.config.allowUnfree = true;
     home = mkMerge [
       {
-        username = "tommy";
+        username = userName;
         stateVersion = "23.05";
         packages = mkMerge [ cfg.extraPkgs cfg.defaultPkgs ];
       }
 
       (mkIf (cfg.system == "darwin") {
-        homeDirectory = lib.mkForce "/Users/tommy";
+        homeDirectory = lib.mkForce "/Users/${userName}";
       })
       (mkIf (cfg.system == "linux" || cfg.system == "wsl") {
-        homeDirectory = lib.mkForce "/home/tommy";
+        homeDirectory = lib.mkForce "/home/${userName}";
       })
     ];
     programs.home-manager.enable = true;

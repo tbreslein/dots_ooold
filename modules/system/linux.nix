@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, userName, ... }:
 let
   inherit (lib) mkIf mkMerge;
   cfg = config.conf.systemDefaults;
@@ -39,7 +39,7 @@ in {
       i18n.defaultLocale = "en_US.UTF-8";
 
       environment.sessionVariables.EDITOR = "nvim";
-      users.users.tommy = {
+      users.users.${userName} = {
         isNormalUser = true;
         extraGroups = [ "wheel" "networkmanager" ];
         initialPassword = "qwert";

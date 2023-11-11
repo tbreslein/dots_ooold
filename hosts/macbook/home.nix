@@ -1,4 +1,4 @@
-_:
+{ config, ... }:
 
 {
   conf = {
@@ -11,7 +11,7 @@ _:
       extraShellAliases = {
         twork = "smug dots --detach; smug notes --detach; smug planning";
         pvim =
-          "poetry -C /Users/tommy/work/planning/projects/planning_api/ run nvim";
+          "poetry -C ${config.home.homeDirectory}/work/planning/projects/planning_api/ run nvim";
       };
     };
     desktop = {
