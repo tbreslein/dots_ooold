@@ -56,7 +56,7 @@ in {
                   git add flake.lock && git commit -m "update flake.lock"
               fi
               case "$(uname -s)" in
-                Linux*) sudo nixos-rebuild switch --flake .;;
+                Linux*) sudo nixos-rebuild switch --impure --flake .;;
                 Darwin*) darwin-rebuild switch --flake .;;
                 *) echo "Error: unknown uname";;
               esac
