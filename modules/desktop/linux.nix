@@ -1,4 +1,4 @@
-{ config, lib, pkgs, colors, ... }:
+{ config, lib, inputs, pkgs, colors, ... }:
 let
   inherit (lib) mkIf mkMerge mkOption types;
   gtkGruvboxPlus = import ./gtk-themes/gruvbox-plus.nix { inherit pkgs; };
@@ -30,6 +30,7 @@ in {
     };
   };
 
+  imports = [ inputs.ags.homeManagerModules.default ];
   config = mkIf cfg.enable {
     home.packages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
     services = {
