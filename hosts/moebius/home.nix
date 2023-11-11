@@ -6,7 +6,7 @@ _:
     coding.enable = true;
     desktop = {
       enable = true;
-      terminalFontSize = 10;
+      terminalFontSize = 14;
       linux.enable = true;
       wayland.enable = true;
       x11.enable = false;

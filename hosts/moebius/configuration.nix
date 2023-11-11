@@ -23,9 +23,6 @@
       enableWayland = true;
       enableX11 = false;
     };
-    systemDefaults = {
-      system = "linux";
-      enableGaming = true;
-    };
+    systemDefaults.enableGaming = true;
   };
 }
