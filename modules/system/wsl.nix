@@ -1,17 +1,13 @@
-{ config, lib, userName, ... }:
-let
-  inherit (lib) mkIf mkMerge;
-  cfg = config.conf.systemDefaults;
-in {
+{ userName, ... }:
+
+{
   options.conf.systemDefaults = { };
 
-  config = mkMerge [
-    (mkIf (cfg.system == "wsl") {
-      imports = [ <nixos-wsl/modules> ];
-      wsl = {
-        enable = true;
-        defaultUser = userName;
-      };
-    })
-  ];
+  imports = [ <nixos-wsl/modules> ];
+  config = {
+    wsl = {
+      enable = true;
+      defaultUser = userName;
+    };
+  };
 }
