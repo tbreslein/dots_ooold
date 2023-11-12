@@ -12,7 +12,10 @@ _:
       x11.enable = false;
     };
     homeDefaults.system = "linux";
-    up.system = "nixos";
+    up = {
+      system = "nixos";
+      addProtonGE = true;
+    };
   };
 
   wayland.windowManager.hyprland.settings.master.mfact = 0.66;

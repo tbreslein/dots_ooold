@@ -56,7 +56,7 @@ in {
       [
         (pkgs.writeShellScriptBin "up" ''
           up-nix
-          command -v up-protonge &>/dev/null && up-protenge || true
+          command -v up-protonge &>/dev/null && up-protonge || true
         '')
       ]
     ];
