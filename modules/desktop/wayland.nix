@@ -1,4 +1,5 @@
-{ config, lib, pkgs, inputs, colors, ... }:
+{ config, lib, pkgs, colors, ... }:
+
 let
   inherit (lib) mkIf mkMerge mkOption types;
   cfg = config.conf.desktop.wayland;
@@ -217,13 +218,13 @@ in {
         ];
         "$mod" = "SUPER";
         bind = [
-          "$mod, Return, exec, alacritty"
+          "$mod, b, exec, alacritty"
+          "$mod SHIFT, b, exec, brave"
           "$mod, Space, exec, bemenu-run -i -c -p '' -W 0.3 -l 20 --fn 'Hack 18' --fb '##${colors.black}' --ff '##${colors.foreground}' --nb '##${colors.background}' --nf '##${colors.foreground}' --ab '##${colors.background}' --af '##${colors.foreground}' --hb '##${colors.background}' --hf '##${colors.accent}'"
-          "$mod ALT, b, exec, brave"
-          "$mod CTRL, q, killactive,"
-          "$mod CTRL, m, exit,"
-          "$mod SHIFT, f, fullscreen, 1"
-          "$mod CTRL, f, fullscreen, 0"
+          "$mod, q, killactive,"
+          "$mod SHIFT, q, exit,"
+          "$mod, f, fullscreen, 1"
+          "$mod SHIFT, f, fullscreen, 0"
           "$mod SHIFT, v, togglefloating,"
           ", XF86AudioRaiseVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_SINK@ 5%+"
           ", XF86AudioLowerVolume, exec, wpctl set-volume -l 1.5 @DEFAULT_SINK@ 5%-"
@@ -231,17 +232,17 @@ in {
           ", XF86AudioPlay, exec, playerctl play-pause"
           ", XF86AudioPrev, exec, playerctl previous"
           ", XF86AudioNext, exec, playerctl next"
-          "$mod CTRL, p, exec, grim -g '$(slurp)' ~/Pictures/$(date +'%s_grim.png')"
-          "$mod ALT, p, exec, grim -g '$(slurp)' - | wl-copy"
-          "$mod CTRL, o, exec, grim ~/Pictures/$(date +'%s_grim.png')"
-          "$mod ALT, o, exec, grim - | wl-copy"
+          "$mod, p, exec, grim -g '$(slurp)' ~/Pictures/$(date +'%s_grim.png')"
+          "$mod SHIFT, p, exec, grim -g '$(slurp)' - | wl-copy"
+          "$mod, o, exec, grim ~/Pictures/$(date +'%s_grim.png')"
+          "$mod SHIFT, o, exec, grim - | wl-copy"
 
-          "$mod SHIFT, j, cyclenext,"
-          "$mod SHIFT, k, cyclenext, prev"
-          "$mod CTRL, h, swapwindow, l"
-          "$mod CTRL, j, swapwindow, d"
-          "$mod CTRL, k, swapwindow, u"
-          "$mod CTRL, l, swapwindow, r"
+          "$mod, j, cyclenext,"
+          "$mod, k, cyclenext, prev"
+          "$mod SHIFT, h, swapwindow, l"
+          "$mod SHIFT, j, swapwindow, d"
+          "$mod SHIFT, k, swapwindow, u"
+          "$mod SHIFT, l, swapwindow, r"
           "$mod, Tab, cyclenext,"
           "$mod, Tab, bringactivetotop,"
 
