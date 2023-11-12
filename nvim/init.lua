@@ -238,10 +238,10 @@ cmp.setup({
     mapping = cmp.mapping.preset.insert({
         ["<c-u>"] = cmp.mapping.scroll_docs(-4),
         ["<c-d>"] = cmp.mapping.scroll_docs(4),
-        ["<c-n>"] = cmp.mapping.select_next_item(select_opts),
-        ["<c-p>"] = cmp.mapping.select_prev_item(select_opts),
+        ["<c-b>"] = cmp.mapping.select_next_item(select_opts),
+        ["<c-g>"] = cmp.mapping.select_prev_item(select_opts),
         ["<c-e>"] = cmp.mapping.abort(),
-        ["<c-y>"] = cmp.mapping.confirm({ select = true }),
+        ["<c-t>"] = cmp.mapping.confirm({ select = true }),
     }),
     enabled = function() return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" end,
     formatting = {
