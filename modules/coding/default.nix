@@ -143,7 +143,7 @@ in {
     programs = {
       neovim = {
         enable = true;
-        plugins = with pkgs.vimPlugins; [
+        plugins = (with pkgs.vimPlugins; [
           # deps
           plenary-nvim
           nvim-web-devicons
@@ -176,8 +176,8 @@ in {
           luasnip
           conform-nvim
           nvim-lint
-
-          (vimUtils.buildVimPlugins {
+        ]) ++ [
+          (pkgs.vimUtils.buildVimPlugins {
             name = "tvim";
             src = ./nvim;
           })
