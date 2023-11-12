@@ -12,10 +12,7 @@ _:
       x11.enable = false;
     };
     homeDefaults.system = "linux";
-    up = {
-      system = "nixos";
-      additionalRoles = [ "coding" "gaming" ];
-    };
+    up.system = "nixos";
   };
 
   wayland.windowManager.hyprland.settings.master.mfact = 0.66;

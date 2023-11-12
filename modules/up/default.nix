@@ -8,14 +8,7 @@ in {
       type = with types; enum [ "darwin" "nixos" ];
       default = null;
     };
-    additionalRoles = mkOption {
-      type = with types; listOf (enum [ "gaming" ]);
-      default = [ ];
-    };
-    addProtonGE = mkOption {
-      type = types.bool;
-      default = false;
-    };
+    addProtonGE = lib.mkEnableOption "add up-protonge";
   };
 
   config = {

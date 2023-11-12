@@ -9,9 +9,6 @@ _:
       terminalFontSize = 14;
     };
     homeDefaults.system = "linux";
-    up = {
-      system = "nixos";
-      additionalRoles = [ "coding" ];
-    };
+    up.system = "nixos";
   };
 }

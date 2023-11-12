@@ -19,9 +19,6 @@
       terminalFontSize = 18;
     };
     homeDefaults.system = "darwin";
-    up = {
-      system = "darwin";
-      additionalRoles = [ "coding" ];
-    };
+    up.system = "darwin";
   };
 }
