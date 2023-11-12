@@ -64,7 +64,10 @@ in {
     };
     defaultShellAliases = mkOption {
       type = with types; attrsOf str;
-      default = { lg = "lazygit"; };
+      default = {
+        lg = "lazygit";
+        vim = "nvim";
+      };
     };
     extraShellAliases = mkOption {
       type = with types; attrsOf str;
@@ -91,6 +94,7 @@ in {
         cfg.extraPkgs
         (mkIf cfg.enableTmux [ pkgs.smug ])
       ];
+      sessionVariables.EDITOR = lib.mkForce "nvim";
       file = mkMerge [
         # {
         #   nvim = {
@@ -143,6 +147,7 @@ in {
     programs = {
       neovim = {
         enable = true;
+        extraLuaConfig = "require('tvim')";
         plugins = (with pkgs.vimPlugins; [
           # deps
           plenary-nvim
@@ -161,12 +166,14 @@ in {
           nvim-surround
           nvim-treesitter.withAllGrammars
           nvim-treesitter-textobjects
+          nvim-treesitter-context
           nvim-ts-autotag
           git-conflict-nvim
 
           # LSP
           fidget-nvim
           nvim-lspconfig
+          lspkind-nvim
           nvim-cmp
           cmp-nvim-lsp
           cmp-buffer
@@ -177,7 +184,7 @@ in {
           conform-nvim
           nvim-lint
         ]) ++ [
-          (pkgs.vimUtils.buildVimPlugins {
+          (pkgs.vimUtils.buildVimPlugin {
             name = "tvim";
             src = ./nvim;
           })

@@ -63,7 +63,11 @@
       noto-fonts-cjk-serif
       noto-fonts-color-emoji
     ];
+  };
 
+  programs.zsh = {
+    enable = true;
+    variables.EDITOR = "vim";
   };
 
   environment.loginShell = pkgs.zsh;

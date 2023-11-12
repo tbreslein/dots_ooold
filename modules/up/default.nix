@@ -9,39 +9,34 @@ in {
       default = null;
     };
     additionalRoles = mkOption {
-      type = with types; listOf (enum [ "coding" "gaming" ]);
+      type = with types; listOf (enum [ "gaming" ]);
       default = [ ];
+    };
+    addProtonGE = mkOption {
+      type = types.bool;
+      default = false;
     };
   };
 
   config = {
     home.packages = mkMerge [
       [
-        (mkIf (builtins.elem "coding" cfg.additionalRoles)
-          (pkgs.writeShellScriptBin "up-nvim" ''
-            echo -e "\n\033[1;32m[ $(basename $0) ]\033[0m"
-            CC=gcc CXX=g++ nvim --headless "+Lazy! sync" "+TSUpdateSync" +qa
-          ''))
-      ]
-
-      [
-        (mkIf (builtins.elem "gaming" cfg.additionalRoles)
-          (pkgs.writeShellScriptBin "up-protonge" ''
-            echo -e "\n\033[1;32m[ $(basename $0) ]\033[0m"
-            mkdir -p ~/tmp/proton-ge-custom
-            pushd ~/tmp/proton-ge-custom
-            curl -LOJ "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep .tar.gz)"
-            curl -LOJ "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep .sha512sum)"
-            if [[ $(sha512sum -c ./*.sha512sum) ]]; then
-                mkdir -p ~/.steam/root/compatibilitytools.d
-                tar -xf GE-Proton*.tar.gz -C ~/.steam/root/compatibilitytools.d/
-                echo "All done :)"
-            else
-                echo "Error: protonge sha512sum did not match!"
-            fi
-            popd
-            rm -fr ~/tmp/proton-ge-custom
-          ''))
+        (mkIf cfg.addProtonGE (pkgs.writeShellScriptBin "up-protonge" ''
+          echo -e "\n\033[1;32m[ $(basename $0) ]\033[0m"
+          mkdir -p ~/tmp/proton-ge-custom
+          pushd ~/tmp/proton-ge-custom
+          curl -LOJ "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep .tar.gz)"
+          curl -LOJ "$(curl -s https://api.github.com/repos/GloriousEggroll/proton-ge-custom/releases/latest | grep browser_download_url | cut -d\" -f4 | grep .sha512sum)"
+          if [[ $(sha512sum -c ./*.sha512sum) ]]; then
+              mkdir -p ~/.steam/root/compatibilitytools.d
+              tar -xf GE-Proton*.tar.gz -C ~/.steam/root/compatibilitytools.d/
+              echo "All done :)"
+          else
+              echo "Error: protonge sha512sum did not match!"
+          fi
+          popd
+          rm -fr ~/tmp/proton-ge-custom
+        ''))
       ]
 
       [
@@ -68,7 +63,6 @@ in {
       [
         (pkgs.writeShellScriptBin "up" ''
           up-nix
-          command -v up-nvim &>/dev/null && up-nvim
           command -v up-protonge &>/dev/null && up-protenge
         '')
       ]

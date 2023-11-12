@@ -12,7 +12,6 @@ in {
     defaultPkgs = mkOption {
       type = with types; listOf package;
       default = with pkgs; [
-        neovim
         bat
         fd
         htop

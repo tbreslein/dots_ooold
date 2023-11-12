@@ -1,56 +1,4 @@
 vim.g.mapleader = " "
-
--- local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
--- if not vim.loop.fs_stat(lazypath) then
---     vim.fn.system({
---         "git",
---         "clone",
---         "--filter=blob:none",
---         "https://github.com/folke/lazy.nvim.git",
---         "--branch=stable", -- latest stable release
---         lazypath,
---     })
--- end
--- vim.opt.rtp:prepend(lazypath)
--- require("lazy").setup({
---     -- common deps
---     "nvim-lua/plenary.nvim",
---     "nvim-tree/nvim-web-devicons",
---
---     "alexghergh/nvim-tmux-navigation",
---     { "MeanderingProgrammer/harpoon-core.nvim", opts = {} },
---     "nvim-telescope/telescope.nvim",
---     { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
---
---     "sainnhe/gruvbox-material",
---     "mbbill/undotree",
---     { "numtostr/Comment.nvim", opts = {} },
---     { "echasnovski/mini.surround", opts = {} },
---     { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
---     "nvim-treesitter/nvim-treesitter-context",
---     "nvim-treesitter/nvim-treesitter-textobjects",
---     "windwp/nvim-ts-autotag",
---     { "akinsho/git-conflict.nvim", opts = { default_mappings = false } },
---
---     { "j-hui/fidget.nvim", opts = {} },
---     "neovim/nvim-lspconfig",
---     "hrsh7th/nvim-cmp",
---     "hrsh7th/cmp-nvim-lsp",
---     "hrsh7th/cmp-buffer",
---     "hrsh7th/cmp-path",
---     "hrsh7th/cmp-cmdline",
---     "L3MON4D3/LuaSnip",
---     "saadparwaiz1/cmp_luasnip",
---     "onsails/lspkind.nvim",
---     "stevearc/conform.nvim",
---     "mfussenegger/nvim-lint",
--- })
-require("harpoon").setup()
-require("Comment").setup()
-require("nvim-surround").setup()
-require("fidget").setup()
-
--- {{ Vim Settings }}
 vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -140,6 +88,7 @@ kmap("n", "<c-j>", ":TmuxNavigateDown<cr>")
 kmap("n", "<c-k>", ":TmuxNavigateUp<cr>")
 kmap("n", "<c-l>", ":TmuxNavigateRight<cr>")
 
+require("harpoon").setup()
 kmap("n", "<m-u>", ":lua require('harpoon.ui').nav_file(1)<cr>")
 kmap("n", "<m-i>", ":lua require('harpoon.ui').nav_file(2)<cr>")
 kmap("n", "<m-o>", ":lua require('harpoon.ui').nav_file(3)<cr>")
@@ -164,6 +113,8 @@ kmap("n", "<leader>pg", require("telescope.builtin").git_files)
 kmap("n", "<leader>ps", require("telescope.builtin").live_grep)
 
 -- {{ Editing }}
+require("Comment").setup()
+require("nvim-surround").setup()
 kmap("n", "<leader>U", vim.cmd.UndotreeToggle)
 require("nvim-treesitter.configs").setup({
     ensure_installed = { "markdown", "markdown_inline", "lua" },
@@ -204,6 +155,7 @@ kmap("n", "<leader>cv", ":GitConflictChooseNone<cr>")
 kmap("n", "<leader>cl", ":GitConflictChooseListQf<cr>")
 
 -- {{ LSP }}
+require("fidget").setup()
 local lspconfig = require("lspconfig")
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 local servers = {
