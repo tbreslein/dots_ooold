@@ -101,7 +101,8 @@
       darwinConfigurations.Tommys-MacBook-Pro = darwin.lib.darwinSystem {
         system = "aarch64-darwin";
         specialArgs = commonInherits;
-        modules = systemConfModules ++ [
+        modules = [
+          ./modules/system
           ./modules/system/aarch64-darwin.nix
 
           home-manager.darwinModules.home-manager
