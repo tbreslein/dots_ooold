@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 let
   inherit (lib) mkIf mkMerge mkEnableOption mkOption types;
   cfg = config.conf.coding;
@@ -70,14 +70,14 @@ in {
       type = with types; attrsOf str;
       default = { };
     };
-    nvimConfigSource = mkOption {
-      type = types.str;
-      default = "${config.home.homeDirectory}/dots/nvim";
-    };
-    nvimConfigTarget = mkOption {
-      type = types.str;
-      default = "${config.home.homeDirectory}/.config/nvim";
-    };
+    # nvimConfigSource = mkOption {
+    #   type = types.str;
+    #   default = "${config.home.homeDirectory}/dots/nvim";
+    # };
+    # nvimConfigTarget = mkOption {
+    #   type = types.str;
+    #   default = "${config.home.homeDirectory}/.config/nvim";
+    # };
     enableTmux = mkOption {
       type = types.bool;
       default = true;
@@ -92,12 +92,12 @@ in {
         (mkIf cfg.enableTmux [ pkgs.smug ])
       ];
       file = mkMerge [
-        {
-          nvim = {
-            source = config.lib.file.mkOutOfStoreSymlink cfg.nvimConfigSource;
-            target = cfg.nvimConfigTarget;
-          };
-        }
+        # {
+        #   nvim = {
+        #     source = config.lib.file.mkOutOfStoreSymlink cfg.nvimConfigSource;
+        #     target = cfg.nvimConfigTarget;
+        #   };
+        # }
         (mkIf cfg.enableTmux {
           smug_notes = mkSmug "notes" "syncthing/notes" [ plainDev ];
           smug_dots = mkSmug "dots" "dots" [ plainDev ];
@@ -140,64 +140,109 @@ in {
       };
     };
 
-    programs.tmux = mkIf cfg.enableTmux {
-      enable = true;
-      baseIndex = 1;
-      clock24 = true;
-      escapeTime = 0;
-      historyLimit = 10000;
-      keyMode = "vi";
-      mouse = true;
-      plugins = with pkgs;
-        with tmuxPlugins; [
-          sensible
+    programs = {
+      neovim = {
+        enable = true;
+        plugins = with pkgs.vimPlugins; [
+          # deps
+          plenary-nvim
+          nvim-web-devicons
+
+          # navigation
           vim-tmux-navigator
-          yank
+          harpoon
+          telescope-nvim
+          telescope-fzf-native-nvim
+
+          # ui/editing
+          gruvbox-material
+          undotree
+          comment-nvim
+          nvim-surround
+          nvim-treesitter.withAllGrammars
+          nvim-treesitter-textobjects
+          nvim-ts-autotag
+          git-conflict-nvim
+
+          # LSP
+          fidget-nvim
+          nvim-lspconfig
+          nvim-cmp
+          cmp-nvim-lsp
+          cmp-buffer
+          cmp-cmdline
+          cmp-path
+          cmp_luasnip
+          luasnip
+          conform-nvim
+          nvim-lint
+
+          (vimUtils.buildVimPlugins {
+            name = "tvim";
+            src = ./nvim;
+          })
         ];
-      extraConfig = ''
-        #if-shell "uname | grep -q Darwin" {
-        #    set -g default-terminal "xterm-256color"
-        #    set -ag terminal-overrides ",xterm-256color:RGB"
-        #} {
-        #    set -g default-terminal "alacritty"
-        #    set -ag terminal-overrides ",alacritty:RGB"
-        #}
-        set -g default-terminal "alacritty"
-        set -ag terminal-overrides ",alacritty:RGB"
+      };
+      tmux = mkIf cfg.enableTmux {
+        enable = true;
+        prefix = "C-a";
+        baseIndex = 1;
+        clock24 = true;
+        escapeTime = 0;
+        historyLimit = 10000;
+        keyMode = "vi";
+        mouse = true;
+        plugins = with pkgs;
+          with tmuxPlugins; [
+            sensible
+            vim-tmux-navigator
+            yank
+          ];
+        extraConfig = ''
+          #if-shell "uname | grep -q Darwin" {
+          #    set -g default-terminal "xterm-256color"
+          #    set -ag terminal-overrides ",xterm-256color:RGB"
+          #} {
+          #    set -g default-terminal "alacritty"
+          #    set -ag terminal-overrides ",alacritty:RGB"
+          #}
+          set -g default-terminal "alacritty"
+          set -ag terminal-overrides ",alacritty:RGB"
 
-        set-option -g renumber-windows on
-        setw -g main-pane-height 60
+          set-option -g renumber-windows on
+          setw -g main-pane-height 60
 
-        bind-key -n M-n previous-window
-        bind-key -n M-m next-window
+          bind-key -n M-n previous-window
+          bind-key -n M-m next-window
 
-        bind-key C-g copy-mode
-        bind-key -T copy-mode-vi v send-keys -X begin-selection
-        bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
-        bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
-        bind-key -T copy-mode-vi Enter send-keys -X copy-selection-and-cancel
+          bind-key C-g copy-mode
+          bind-key -T copy-mode-vi v send-keys -X begin-selection
+          bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+          bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+          bind-key -T copy-mode-vi Enter send-keys -X copy-selection-and-cancel
 
-        bind C-x split-window -v -c "#{pane_current_path}"
-        bind C-v split-window -h -c "#{pane_current_path}"
-        bind C-t new-window
-        bind -r M-h resize-pane -L 5
-        bind -r M-j resize-pane -D 5
-        bind -r M-k resize-pane -U 5
-        bind -r M-l resize-pane -R 5
+          bind C-x split-window -v -c "#{pane_current_path}"
+          bind C-v split-window -h -c "#{pane_current_path}"
+          bind C-t new-window
+          bind -r M-h resize-pane -L 5
+          bind -r M-j resize-pane -D 5
+          bind -r M-k resize-pane -U 5
+          bind -r M-l resize-pane -R 5
 
-        set -gq status-utf8 on
-        set -g status-interval 30
-        set -g status-position top
-        set -g status-justify left
-        set -g status-left "#[fg=blue,bold] #S λ  "
-        set -g status-right ""
-        set -g status-style fg=white,bg=black
-        set -g message-style fg=yellow,bold,bg=black
-        setw -g window-status-style fg=white,bg=black
-        setw -g window-status-current-style fg=yellow,bold,bg=black
-        set -g pane-border-style fg=white,bg=black
-        set -g pane-active-border-style fg=yellow,bg=black
-      '';
+          set -gq status-utf8 on
+          set -g status-interval 30
+          set -g status-position top
+          set -g status-justify left
+          set -g status-left "#[fg=blue,bold] #S λ  "
+          set -g status-right ""
+          set -g status-style fg=white,bg=black
+          set -g message-style fg=yellow,bold,bg=black
+          setw -g window-status-style fg=white,bg=black
+          setw -g window-status-current-style fg=yellow,bold,bg=black
+          set -g pane-border-style fg=white,bg=black
+          set -g pane-active-border-style fg=yellow,bg=black
+        '';
+      };
     };
   };
 }
