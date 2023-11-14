@@ -1,6 +1,4 @@
 vim.g.mapleader = " "
-
--- {{ Vim Settings }}
 vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -113,6 +111,8 @@ kmap("n", "<leader>pf", function()
 end)
 kmap("n", "<leader>pg", require("telescope.builtin").git_files)
 kmap("n", "<leader>ps", require("telescope.builtin").live_grep)
+require("oil").setup({ keymaps = { ["q"] = "actions.close" } })
+kmap("n", "<leader>pp", ":Oil --float<cr>")
 
 -- {{ Editing }}
 require("Comment").setup()
