@@ -1,4 +1,4 @@
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, ... }:
 let
   inherit (lib) mkIf mkMerge mkEnableOption mkOption types;
   cfg = config.conf.coding;
@@ -73,14 +73,6 @@ in {
       type = with types; attrsOf str;
       default = { };
     };
-    # nvimConfigSource = mkOption {
-    #   type = types.str;
-    #   default = "${config.home.homeDirectory}/dots/nvim";
-    # };
-    # nvimConfigTarget = mkOption {
-    #   type = types.str;
-    #   default = "${config.home.homeDirectory}/.config/nvim";
-    # };
     enableTmux = mkOption {
       type = types.bool;
       default = true;
@@ -96,12 +88,6 @@ in {
       ];
       sessionVariables.EDITOR = lib.mkForce "nvim";
       file = mkMerge [
-        # {
-        #   nvim = {
-        #     source = config.lib.file.mkOutOfStoreSymlink cfg.nvimConfigSource;
-        #     target = cfg.nvimConfigTarget;
-        #   };
-        # }
         (mkIf cfg.enableTmux {
           smug_notes = mkSmug "notes" "syncthing/notes" [ plainDev ];
           smug_dots = mkSmug "dots" "dots" [ plainDev ];
@@ -154,6 +140,7 @@ in {
           nvim-web-devicons
 
           # navigation
+          oil-nvim
           vim-tmux-navigator
           harpoon
           telescope-nvim
