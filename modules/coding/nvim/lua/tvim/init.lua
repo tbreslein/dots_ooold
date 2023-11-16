@@ -189,14 +189,13 @@ lspconfig.pyright.setup({
     end,
 })
 
--- if opts ~= nil then _opts = vim.tbl_deep_extend("force", _opts, opts) end
+local cmp = require("cmp")
 local cmp_mappings = {
     ["<c-b>"] = cmp.mapping.select_next_item(select_opts),
     ["<c-g>"] = cmp.mapping.select_prev_item(select_opts),
     ["<c-e>"] = cmp.mapping.abort(),
     ["<c-t>"] = cmp.mapping.confirm({ select = true }),
 }
-local cmp = require("cmp")
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
     snippet = {
