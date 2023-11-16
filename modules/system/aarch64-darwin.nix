@@ -95,7 +95,7 @@ in {
       in {
         path = with pkgs; [ poetry python3 ];
         environment.POETRY_VIRTUALENVS_IN_PROJECT = "true";
-        ServiceConfig = {
+        serviceConfig = {
           Label = "mococlient";
           ProgramArguments = [
             "poetry"
