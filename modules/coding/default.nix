@@ -148,7 +148,10 @@ in {
 
           # ui/editing
           gruvbox-material
+          kanagawa-nvim
+          flash-nvim
           undotree
+          autoclose-nvim
           comment-nvim
           nvim-surround
           nvim-treesitter.withAllGrammars

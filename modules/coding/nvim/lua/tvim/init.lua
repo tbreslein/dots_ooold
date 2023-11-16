@@ -22,16 +22,20 @@ vim.opt.linebreak = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
 vim.opt.mouse = "a"
-vim.opt.background = "dark"
 vim.opt.fileencoding = "utf-8"
 vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
-vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3
-vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
-vim.g.gruvbox_material_dim_inactive_windows = 1
-vim.g.gruvbox_material_transparent_background = 1
-vim.g.gruvbox_material_ui_contrast = "high"
-vim.cmd("colorscheme gruvbox-material")
+vim.opt.background = "dark"
+-- vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
+-- vim.g.gruvbox_material_dim_inactive_windows = 1
+-- vim.g.gruvbox_material_transparent_background = 1
+-- vim.g.gruvbox_material_ui_contrast = "high"
+-- vim.cmd("colorscheme gruvbox-material")
+-- Default options:
+require("kanagawa").setup({
+    transparent = false,
+    terminalColors = true,
+})
+vim.cmd("colorscheme kanagawa-dragon")
 
 -- {{ Keymaps }}
 local function kmap(modes, bindings, action, opts)
@@ -84,15 +88,17 @@ end)
 
 -- {{ Navigation }}
 require("harpoon").setup()
-kmap("n", "<c-h>", ":TmuxNavigateLeft<cr>")
-kmap("n", "<c-j>", ":TmuxNavigateDown<cr>")
-kmap("n", "<c-k>", ":TmuxNavigateUp<cr>")
-kmap("n", "<c-l>", ":TmuxNavigateRight<cr>")
+kmap("n", "<c-h>", "<cmd>TmuxNavigateLeft<cr>")
+kmap("n", "<c-j>", "<cmd>TmuxNavigateDown<cr>")
+kmap("n", "<c-k>", "<cmd>TmuxNavigateUp<cr>")
+kmap("n", "<c-l>", "<cmd>TmuxNavigateRight<cr>")
 
-kmap("n", "<m-u>", ":lua require('harpoon.ui').nav_file(1)<cr>")
-kmap("n", "<m-i>", ":lua require('harpoon.ui').nav_file(2)<cr>")
-kmap("n", "<m-o>", ":lua require('harpoon.ui').nav_file(3)<cr>")
-kmap("n", "<m-p>", ":lua require('harpoon.ui').nav_file(4)<cr>")
+kmap({ "n", "x", "o" }, "s", "<cmd>lua require('flash').jump()<cr>")
+
+kmap("n", "<m-u>", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>")
+kmap("n", "<m-i>", "<cmd>lua require('harpoon.ui').nav_file(2)<cr>")
+kmap("n", "<m-o>", "<cmd>lua require('harpoon.ui').nav_file(3)<cr>")
+kmap("n", "<m-p>", "<cmd>lua require('harpoon.ui').nav_file(4)<cr>")
 kmap("n", "<leader>a", require("harpoon.mark").add_file)
 kmap("n", "<leader>e", require("harpoon.ui").toggle_quick_menu)
 
@@ -112,12 +118,20 @@ end)
 kmap("n", "<leader>pg", require("telescope.builtin").git_files)
 kmap("n", "<leader>ps", require("telescope.builtin").live_grep)
 require("oil").setup({ keymaps = { ["q"] = "actions.close" } })
-kmap("n", "<leader>pp", ":Oil --float<cr>")
+kmap("n", "<leader>pp", "<cmd>Oil --float<cr>")
 
 -- {{ Editing }}
 require("Comment").setup()
 require("nvim-surround").setup()
-kmap("n", "<leader>U", vim.cmd.UndotreeToggle)
+require("autoclose").setup({
+    keys = {
+        -- ['"'] = { escape = true, close = true, pair = '""' },
+        -- ["'"] = { escape = true, close = true, pair = "''" },
+        ['"'] = {},
+        ["'"] = {},
+    },
+})
+kmap("n", "<leader>u", vim.cmd.UndotreeToggle)
 require("nvim-treesitter.configs").setup({
     highlight = {
         enable = true,
@@ -146,13 +160,13 @@ require("nvim-treesitter.configs").setup({
     },
 })
 require("treesitter-context").setup({ multiline_threshold = 2 })
-kmap("n", "<leader>cn", ":GitConflictNextConflict<cr>")
-kmap("n", "<leader>cp", ":GitConflictPrevConflict<cr>")
-kmap("n", "<leader>co", ":GitConflictChooseOurs<cr>")
-kmap("n", "<leader>ct", ":GitConflictChooseTheirs<cr>")
-kmap("n", "<leader>cb", ":GitConflictChooseBoth<cr>")
-kmap("n", "<leader>cv", ":GitConflictChooseNone<cr>")
-kmap("n", "<leader>cl", ":GitConflictChooseListQf<cr>")
+kmap("n", "<leader>cn", "<cmd>GitConflictNextConflict<cr>")
+kmap("n", "<leader>cp", "<cmd>GitConflictPrevConflict<cr>")
+kmap("n", "<leader>co", "<cmd>GitConflictChooseOurs<cr>")
+kmap("n", "<leader>ct", "<cmd>GitConflictChooseTheirs<cr>")
+kmap("n", "<leader>cb", "<cmd>GitConflictChooseBoth<cr>")
+kmap("n", "<leader>cv", "<cmd>GitConflictChooseNone<cr>")
+kmap("n", "<leader>cl", "<cmd>GitConflictChooseListQf<cr>")
 
 -- {{ LSP }}
 require("fidget").setup()
