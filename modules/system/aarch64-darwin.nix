@@ -75,7 +75,10 @@ in {
       ];
     };
 
-    environment.loginShell = pkgs.zsh;
+    environment = {
+      loginShell = pkgs.zsh;
+      systemPackages = with pkgs; [ poetry python3 ];
+    };
     homebrew = {
       onActivation = {
         autoUpdate = true;
@@ -87,8 +90,20 @@ in {
       # macApps = {};
       casks = mkMerge [ cfg.extraCasks cfg.defaultCasks ];
     };
-    # launchd = {
-    #   ...
-    # };
+    launchd.agents.mococlient =
+      let mocodir = "/Users/tommy/work/MocoTrackingClient";
+      in {
+        path = with pkgs; [ poetry python3 ];
+        environment.POETRY_VIRTUALENVS_IN_PROJECT = "true";
+        ServiceConfig = {
+          Label = "mococlient";
+          ProgramArguments = [
+            "poetry"
+            "-C ${mocodir}"
+            "run"
+            "python3 ${mocodir}/moco_client.py"
+          ];
+        };
+      };
   };
 }
