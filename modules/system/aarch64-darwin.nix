@@ -90,20 +90,27 @@ in {
       # macApps = {};
       casks = mkMerge [ cfg.extraCasks cfg.defaultCasks ];
     };
-    launchd.agents.mococlient =
-      let mocodir = "/Users/tommy/work/MocoTrackingClient";
-      in {
-        path = with pkgs; [ poetry python3 ];
-        environment.POETRY_VIRTUALENVS_IN_PROJECT = "true";
-        serviceConfig = {
-          Label = "mococlient";
-          ProgramArguments = [
-            "poetry"
-            "-C ${mocodir}"
-            "run"
-            "python3 ${mocodir}/moco_client.py"
-          ];
-        };
-      };
+    # launchd.agents.mococlient =
+    #   let mocodir = "/Users/tommy/work/MocoTrackingClient";
+    #   in {
+    #     # path = with pkgs; [ poetry python3 ];
+    #     environment.POETRY_VIRTUALENVS_IN_PROJECT = "true";
+    #     serviceConfig = {
+    #       Label = "mococlient";
+    #       KeepAlive = true;
+    #       RunAtLoad = true;
+    #       UserName = "tommy";
+    #       StandardOutPath = "/Users/tommy/.mococlient.out.log";
+    #       StandardErrorPath = "/Users/tommy/.mococlient.err.log";
+    #       WorkingDirectory = mocodir;
+    #       ProcessType = "Interactive";
+    #       ProgramArguments = [
+    #         "${pkgs.poetry}/bin/poetry"
+    #         "run"
+    #         "${pkgs.python3}/bin/python3"
+    #         "moco_client.py"
+    #       ];
+    #     };
+    #   };
   };
 }
