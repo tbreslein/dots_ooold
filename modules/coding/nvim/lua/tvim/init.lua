@@ -82,12 +82,11 @@ end)
 
 -- {{ Navigation }}
 require("harpoon").setup()
+kmap({ "n", "x", "o" }, "s", "<cmd>lua require('flash').jump()<cr>")
 kmap("n", "<c-h>", "<cmd>TmuxNavigateLeft<cr>")
 kmap("n", "<c-j>", "<cmd>TmuxNavigateDown<cr>")
 kmap("n", "<c-k>", "<cmd>TmuxNavigateUp<cr>")
 kmap("n", "<c-l>", "<cmd>TmuxNavigateRight<cr>")
-
-kmap({ "n", "x", "o" }, "s", "<cmd>lua require('flash').jump()<cr>")
 
 kmap("n", "<m-u>", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>")
 kmap("n", "<m-i>", "<cmd>lua require('harpoon.ui').nav_file(2)<cr>")
@@ -119,8 +118,6 @@ require("Comment").setup()
 require("nvim-surround").setup()
 require("autoclose").setup({
     keys = {
-        -- ['"'] = { escape = true, close = true, pair = '""' },
-        -- ["'"] = { escape = true, close = true, pair = "''" },
         ['"'] = {},
         ["'"] = {},
     },
@@ -192,6 +189,13 @@ lspconfig.pyright.setup({
     end,
 })
 
+-- if opts ~= nil then _opts = vim.tbl_deep_extend("force", _opts, opts) end
+local cmp_mappings = {
+    ["<c-b>"] = cmp.mapping.select_next_item(select_opts),
+    ["<c-g>"] = cmp.mapping.select_prev_item(select_opts),
+    ["<c-e>"] = cmp.mapping.abort(),
+    ["<c-t>"] = cmp.mapping.confirm({ select = true }),
+}
 local cmp = require("cmp")
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
@@ -199,14 +203,10 @@ cmp.setup({
         expand = function(args) require("luasnip").lsp_expand(args.body) end,
     },
     window = { documentation = cmp.config.window.bordered() },
-    mapping = cmp.mapping.preset.insert({
+    mapping = cmp.mapping.preset.insert(vim.tbl_deep_extend("force", {
         ["<c-u>"] = cmp.mapping.scroll_docs(-4),
         ["<c-d>"] = cmp.mapping.scroll_docs(4),
-        ["<c-b>"] = cmp.mapping.select_next_item(select_opts),
-        ["<c-g>"] = cmp.mapping.select_prev_item(select_opts),
-        ["<c-e>"] = cmp.mapping.abort(),
-        ["<c-t>"] = cmp.mapping.confirm({ select = true }),
-    }),
+    }, cmp_mappings)),
     enabled = function() return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" end,
     formatting = {
         format = function(entry, vim_item)
@@ -228,11 +228,11 @@ cmp.setup({
     },
 })
 cmp.setup.cmdline({ "/", "?" }, {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmp.mapping.preset.insert(cmp_mappings),
     sources = { { name = "buffer" } },
 })
 cmp.setup.cmdline(":", {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmp.mapping.preset.insert(cmp_mappings),
     sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
