@@ -20,7 +20,11 @@ _:
 
   wayland.windowManager.hyprland.settings = {
     master.mfact = 0.66;
-    input.kb_options = "grp:alt_space_toggle";
+    input = {
+      kb_layout = "us,de";
+      # kb_variant = "";
+      kb_options = "grp:alt_space_toggle";
+    };
   };
   services.kanshi.profiles.def.outputs = [{
     criteria = "DP-3";

@@ -187,10 +187,6 @@ in {
       settings = {
         exec-once = [ "waybar" "mako" "swww init" ];
         exec = [ "kanshi" "wlsunset" ];
-        input = {
-          kb_layout = "us,de";
-          kb_options = "grp:alt_space_toggle,ctrl:nocaps";
-        };
         general = {
           border_size = 2;
           "col.active_border" = "rgba(${colors.accent}ee)";

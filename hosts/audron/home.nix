@@ -18,7 +18,8 @@ _:
   wayland.windowManager.hyprland.settings = {
     master.mfact = 0.5;
     input = {
-      kb_variant = "colemak,";
+      kb_layout = "us,us,de";
+      kb_variant = "colemak_dh,,";
       kb_options = "grp:alt_space_toggle,ctrl:nocaps";
     };
   };
