@@ -44,7 +44,6 @@ local function kmap(modes, bindings, action, opts)
     end
 end
 
-kmap("i", { "jk", "kj" }, "<esc>")
 kmap("n", "<leader>w", ":w<cr>", { silent = false })
 kmap("v", "<leader>r", '"hy:%s/<c-r>h//g<left><left>', { silent = false })
 kmap("v", "<leader>s", ":sort<cr>")
@@ -66,8 +65,8 @@ kmap({ "n", "v" }, "n", "nzzzv")
 kmap({ "n", "v" }, "N", "Nzzzv")
 kmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 kmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
-kmap("n", { "<leader>fk", "<F11>" }, ":cprev<cr>zz")
-kmap("n", { "<leader>fj", "<F12>" }, ":cnext<cr>zz")
+kmap("n", { "<leader>ff", "<F11>" }, "<cmd>cprev<cr>zz")
+kmap("n", { "<leader>fp", "<F12>" }, "<cmd>cnext<cr>zz")
 kmap("n", "<leader>ft", function()
     local qf_exists = false
     for _, win in pairs(vim.fn.getwininfo()) do
@@ -83,15 +82,15 @@ end)
 -- {{ Navigation }}
 require("harpoon").setup()
 kmap({ "n", "x", "o" }, "s", "<cmd>lua require('flash').jump()<cr>")
-kmap("n", "<c-h>", "<cmd>TmuxNavigateLeft<cr>")
-kmap("n", "<c-j>", "<cmd>TmuxNavigateDown<cr>")
-kmap("n", "<c-k>", "<cmd>TmuxNavigateUp<cr>")
-kmap("n", "<c-l>", "<cmd>TmuxNavigateRight<cr>")
+kmap("n", "<c-Left>", "<cmd>TmuxNavigateLeft<cr>")
+kmap("n", "<c-Down>", "<cmd>TmuxNavigateDown<cr>")
+kmap("n", "<c-Up>", "<cmd>TmuxNavigateUp<cr>")
+kmap("n", "<c-Right>", "<cmd>TmuxNavigateRight<cr>")
 
-kmap("n", "<m-u>", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>")
-kmap("n", "<m-i>", "<cmd>lua require('harpoon.ui').nav_file(2)<cr>")
-kmap("n", "<m-o>", "<cmd>lua require('harpoon.ui').nav_file(3)<cr>")
-kmap("n", "<m-p>", "<cmd>lua require('harpoon.ui').nav_file(4)<cr>")
+kmap("n", "<m-l>", "<cmd>lua require('harpoon.ui').nav_file(1)<cr>")
+kmap("n", "<m-u>", "<cmd>lua require('harpoon.ui').nav_file(2)<cr>")
+kmap("n", "<m-y>", "<cmd>lua require('harpoon.ui').nav_file(3)<cr>")
+kmap("n", "<m-j>", "<cmd>lua require('harpoon.ui').nav_file(4)<cr>")
 kmap("n", "<leader>a", require("harpoon.mark").add_file)
 kmap("n", "<leader>e", require("harpoon.ui").toggle_quick_menu)
 
@@ -191,10 +190,13 @@ lspconfig.pyright.setup({
 
 local cmp = require("cmp")
 local cmp_mappings = {
-    ["<c-b>"] = cmp.mapping.select_next_item(select_opts),
-    ["<c-g>"] = cmp.mapping.select_prev_item(select_opts),
-    ["<c-e>"] = cmp.mapping.abort(),
-    ["<c-t>"] = cmp.mapping.confirm({ select = true }),
+    -- ["<c-b>"] = cmp.mapping.select_next_item(select_opts),
+    -- ["<c-g>"] = cmp.mapping.select_prev_item(select_opts),
+    -- ["<c-e>"] = cmp.mapping.abort(),
+    -- ["<c-y>"] = cmp.mapping.confirm({ select = true }),
+    ["<c-n>"] = cmp.mapping.select_next_item(select_opts),
+    ["<c-h>"] = cmp.mapping.select_prev_item(select_opts),
+    ["<c-y>"] = cmp.mapping.confirm({ select = true }),
 }
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
@@ -203,8 +205,8 @@ cmp.setup({
     },
     window = { documentation = cmp.config.window.bordered() },
     mapping = cmp.mapping.preset.insert(vim.tbl_deep_extend("force", {
-        ["<c-u>"] = cmp.mapping.scroll_docs(-4),
-        ["<c-d>"] = cmp.mapping.scroll_docs(4),
+        ["<c-m>"] = cmp.mapping.scroll_docs(-4),
+        ["<c-k>"] = cmp.mapping.scroll_docs(4),
     }, cmp_mappings)),
     enabled = function() return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" end,
     formatting = {

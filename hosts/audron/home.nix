@@ -15,7 +15,13 @@ _:
     up.system = "nixos";
   };
 
-  wayland.windowManager.hyprland.settings.master.mfact = 0.5;
+  wayland.windowManager.hyprland.settings = {
+    master.mfact = 0.5;
+    input = {
+      kb_variant = "colemak,";
+      kb_options = "grp:alt_space_toggle,ctrl:nocaps";
+    };
+  };
   services.kanshi.profiles.def.outputs = [{
     criteria = "eDP-1";
     mode = "2256x1504@59.999";
