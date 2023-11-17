@@ -33,9 +33,14 @@ in {
   config = mkIf cfg.enable {
     home.packages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
     programs = {
+      bash = {
+        enable = true;
+        enableCompletion = true;
+      };
       direnv = {
         enable = true;
         enableZshIntegration = true;
+        enableBashIntegration = true;
         nix-direnv.enable = true;
       };
       eza = {
@@ -45,6 +50,7 @@ in {
       fzf = {
         enable = true;
         enableZshIntegration = true;
+        enableBashIntegration = true;
       };
       git = {
         enable = true;
@@ -77,6 +83,7 @@ in {
       starship = {
         enable = true;
         enableZshIntegration = true;
+        enableBashIntegration = true;
         settings = {
           character = {
             success_symbol = "[λ](bold yellow)";
@@ -98,6 +105,7 @@ in {
       zoxide = {
         enable = true;
         enableZshIntegration = true;
+        enableBashIntegration = true;
       };
       zsh = {
         enable = true;

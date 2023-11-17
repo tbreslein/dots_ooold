@@ -30,7 +30,9 @@ in {
       };
     };
     environment.systemPackages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
+
     programs.zsh.enable = true;
+    programs.bash.enable = true;
     time.timeZone = "Europe/Berlin";
   };
 }

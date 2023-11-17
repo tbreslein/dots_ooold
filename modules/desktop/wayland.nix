@@ -213,8 +213,8 @@ in {
         ];
         "$mod" = "SUPER";
         bind = [
-          "$mod, b, exec, alacritty"
-          "$mod ALT, b, exec, brave"
+          "$mod, t, exec, alacritty"
+          "$mod, b, exec, brave"
           "$mod, Space, exec, bemenu-run -i -c -p '' -W 0.3 -l 20 --fn 'Hack 18' --fb '##${colors.black}' --ff '##${colors.foreground}' --nb '##${colors.background}' --nf '##${colors.foreground}' --ab '##${colors.background}' --af '##${colors.foreground}' --hb '##${colors.background}' --hf '##${colors.accent}'"
           "$mod, q, killactive,"
           "$mod ALT, q, exit,"
