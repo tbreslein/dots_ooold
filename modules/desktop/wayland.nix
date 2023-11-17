@@ -84,7 +84,6 @@ in {
           clock.format = "{:%H:%M}";
           "custom/separator".format = " | ";
           battery = {
-            # bat = "BAT0";
             states = {
               full = 99;
               good = 98;
