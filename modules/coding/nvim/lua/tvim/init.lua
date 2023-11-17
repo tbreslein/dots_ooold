@@ -150,13 +150,6 @@ require("nvim-treesitter.configs").setup({
     },
 })
 require("treesitter-context").setup({ multiline_threshold = 2 })
-kmap("n", "<leader>cn", "<cmd>GitConflictNextConflict<cr>")
-kmap("n", "<leader>cp", "<cmd>GitConflictPrevConflict<cr>")
-kmap("n", "<leader>co", "<cmd>GitConflictChooseOurs<cr>")
-kmap("n", "<leader>ct", "<cmd>GitConflictChooseTheirs<cr>")
-kmap("n", "<leader>cb", "<cmd>GitConflictChooseBoth<cr>")
-kmap("n", "<leader>cv", "<cmd>GitConflictChooseNone<cr>")
-kmap("n", "<leader>cl", "<cmd>GitConflictChooseListQf<cr>")
 
 -- {{ LSP }}
 require("fidget").setup()

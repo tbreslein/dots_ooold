@@ -157,7 +157,6 @@ in {
           nvim-treesitter-textobjects
           nvim-treesitter-context
           nvim-ts-autotag
-          git-conflict-nvim
 
           # LSP
           fidget-nvim
