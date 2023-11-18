@@ -29,9 +29,11 @@ in {
         ];
       };
     };
-    environment.systemPackages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
+    environment = {
+      systemPackages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
+      pathsToLink = [ "/share/bash-completion" ];
+    };
 
-    programs.zsh.enable = true;
     programs.bash.enable = true;
     time.timeZone = "Europe/Berlin";
   };

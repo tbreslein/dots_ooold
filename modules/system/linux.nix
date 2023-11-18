@@ -43,7 +43,7 @@ in {
         isNormalUser = true;
         extraGroups = [ "wheel" "networkmanager" ];
         initialPassword = "qwert";
-        shell = pkgs.zsh;
+        shell = pkgs.bash;
         openssh.authorizedKeys.keyFiles = [ ./id_rsa.pub ];
       };
 

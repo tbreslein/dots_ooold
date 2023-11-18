@@ -76,7 +76,7 @@ in {
     };
 
     environment = {
-      loginShell = pkgs.zsh;
+      loginShell = pkgs.bash;
       systemPackages = with pkgs; [ poetry python3 ];
     };
     homebrew = {

@@ -22,6 +22,29 @@ in {
         username = userName;
         stateVersion = "23.05";
         packages = mkMerge [ cfg.extraPkgs cfg.defaultPkgs ];
+        shellAliases = {
+          v = "vim";
+          g = "git";
+          gs = "git status";
+          gl = "git pull";
+          gp = "git push origin";
+          gpu = "git push --set-upstream";
+          gpf = "git push --force-with-lease";
+          gsw = "git switch";
+          gb = "git branch";
+          gco = "git checkout";
+          ga = "git add";
+          gaa = "git add .";
+          gc = "git commit";
+          gca = "git commit -a";
+          gcam = "git commit --amend";
+          gcaam = "git commit -a --amend";
+          grm = "git rm";
+          gmv = "git mv";
+          gr = "git rebase";
+          grc = "git rebase --continue";
+          gra = "git rebase --abort";
+        };
       }
 
       (mkIf (cfg.system == "darwin") {
