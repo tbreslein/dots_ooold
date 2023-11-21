@@ -34,6 +34,9 @@ in {
       pathsToLink = [ "/share/bash-completion" ];
     };
 
+    programs.zsh.enable = true;
+    programs.bash.enable = true;
+
     time.timeZone = "Europe/Berlin";
   };
 }
