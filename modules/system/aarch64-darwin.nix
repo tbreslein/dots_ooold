@@ -70,8 +70,10 @@ in {
     };
 
     environment = {
-      loginShell = pkgs.zsh;
+      # loginShell = pkgs.zsh;
       systemPackages = with pkgs; [ poetry python3 ];
+      shells = with pkgs; [ bashInteractive ];
+      loginShell = pkgs.bashInteractive;
     };
     homebrew = {
       onActivation = {
