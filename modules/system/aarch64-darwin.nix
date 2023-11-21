@@ -66,13 +66,7 @@ in {
 
     fonts = {
       fontDir.enable = true;
-      fonts = with pkgs; [
-        (nerdfonts.override { fonts = [ "Hack" ]; })
-        noto-fonts
-        noto-fonts-cjk-sans
-        noto-fonts-cjk-serif
-        noto-fonts-color-emoji
-      ];
+      fonts = [ (pkgs.nerdfonts.override { fonts = [ "Hack" ]; }) ];
     };
 
     environment = {
