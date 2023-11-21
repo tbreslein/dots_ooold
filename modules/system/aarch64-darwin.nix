@@ -69,6 +69,11 @@ in {
       fonts = [ (pkgs.nerdfonts.override { fonts = [ "Hack" ]; }) ];
     };
 
+    programs = {
+      zsh.enable = true;
+      bash.enable = true;
+    };
+
     environment = {
       # loginShell = pkgs.zsh;
       systemPackages = with pkgs; [ poetry python3 ];
