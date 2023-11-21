@@ -40,7 +40,7 @@ in {
         historyControl = [ "erasedups" "ignoredups" "ignorespace" ];
         historyIgnore = [ "ls" "cd" "exit" ];
         initExtra = ''
-          PS1='\n`if [ \$? != 0 ]; then echo -n \[\e[31m$? \]; fi`\[\e[92m\e[1m\][\u@\h]: \[\e[0m\]\w `if [ \$(git rev-parse --is-inside-work-tree 2>/dev/null) ]; then if [[ -n \$(git status -s) ]]; then echo -n \[\e[31m \]; fi; if [[ -n \$(git log @{u}) ]]; then echo -n \[\e[31m󰶣 \]; fi; fi`\e[0m\n\[\e[1m\e[1m\e[93m\]λ\[\e[0m\] '
+          PS1='\n`if [ \$? != 0 ]; then echo -n \[\e[31m$? \]; fi`\[\e[92m\e[1m\][\u@\h]: \[\e[0m\]\w `if [ \$(git rev-parse --is-inside-work-tree 2>/dev/null) ]; then if [[ -n \$(git status -s) ]]; then echo -n \[\e[31m \]; fi; if [[ -n \$(git cherry -v) ]]; then echo -n \[\e[31m󰶣 \]; fi; fi`\e[0m\n\[\e[1m\e[1m\e[93m\]λ\[\e[0m\] '
         '';
       };
       direnv = {
