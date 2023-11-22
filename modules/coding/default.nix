@@ -135,42 +135,55 @@ in {
         enable = true;
         extraLuaConfig = "require('tvim')";
         plugins = (with pkgs.vimPlugins; [
-          # deps
-          plenary-nvim
-          nvim-web-devicons
-
-          # navigation
-          oil-nvim
-          vim-tmux-navigator
-          harpoon
-          telescope-nvim
-          telescope-fzf-native-nvim
-
-          # ui/editing
           gruvbox-material
-          flash-nvim
+          plenary-nvim
+          mini-nvim
+          harpoon
           undotree
-          autoclose-nvim
-          comment-nvim
-          nvim-surround
           nvim-treesitter.withAllGrammars
-          nvim-treesitter-textobjects
           nvim-treesitter-context
           nvim-ts-autotag
-
-          # LSP
           fidget-nvim
           nvim-lspconfig
-          lspkind-nvim
-          nvim-cmp
-          cmp-nvim-lsp
-          cmp-buffer
-          cmp-cmdline
-          cmp-path
-          cmp_luasnip
-          luasnip
           conform-nvim
           nvim-lint
+
+          # # deps
+          # plenary-nvim
+          # nvim-web-devicons
+          #
+          # # navigation
+          # oil-nvim
+          # vim-tmux-navigator
+          # harpoon
+          # telescope-nvim
+          # telescope-fzf-native-nvim
+          #
+          # # ui/editing
+          # gruvbox-material
+          # flash-nvim
+          # undotree
+          # autoclose-nvim
+          # comment-nvim
+          # nvim-surround
+          # nvim-treesitter.withAllGrammars
+          # nvim-treesitter-textobjects
+          # nvim-treesitter-context
+          # nvim-ts-autotag
+          #
+          # # LSP
+          # fidget-nvim
+          # nvim-lspconfig
+          # lspkind-nvim
+          # nvim-cmp
+          # cmp-nvim-lsp
+          # cmp-buffer
+          # cmp-cmdline
+          # cmp-path
+          # cmp_luasnip
+          # luasnip
+          # conform-nvim
+          # nvim-lint
         ]) ++ [
           (pkgs.vimUtils.buildVimPlugin {
             name = "tvim";
@@ -187,12 +200,7 @@ in {
         historyLimit = 10000;
         keyMode = "vi";
         mouse = true;
-        plugins = with pkgs;
-          with tmuxPlugins; [
-            sensible
-            vim-tmux-navigator
-            yank
-          ];
+        plugins = with pkgs; with tmuxPlugins; [ sensible yank ];
         extraConfig = ''
           set -g default-terminal "alacritty"
           set -ag terminal-overrides ",alacritty:RGB"
@@ -200,8 +208,8 @@ in {
           set-option -g renumber-windows on
           setw -g main-pane-height 60
 
-          bind-key -n M-n previous-window
-          bind-key -n M-m next-window
+          bind-key -n M-m previous-window
+          bind-key -n M-n next-window
 
           bind-key C-g copy-mode
           bind-key -T copy-mode-vi v send-keys -X begin-selection
@@ -216,6 +224,10 @@ in {
           bind -r M-j resize-pane -D 5
           bind -r M-k resize-pane -U 5
           bind -r M-l resize-pane -R 5
+          bind-key -n C-h select-pane -L
+          bind-key -n C-j select-pane -D
+          bind-key -n C-k select-pane -U
+          bind-key -n C-l select-pane -R
 
           set -gq status-utf8 on
           set -g status-interval 30

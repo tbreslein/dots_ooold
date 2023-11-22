@@ -37,8 +37,8 @@ in {
           gaa = "git add .";
           gc = "git commit";
           gca = "git commit -a";
-          gcam = "git commit --amend";
-          gcaam = "git commit -a --amend";
+          gcam = "git commit --amend --no-edit";
+          gcaam = "git commit -a --amend --no-edit";
           grm = "git rm";
           gmv = "git mv";
           gr = "git rebase";

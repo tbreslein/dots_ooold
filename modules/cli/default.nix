@@ -68,7 +68,6 @@ in {
           options = {
             line-numbers = true;
             true-color = "always";
-            features = "base16";
           };
         };
       };
