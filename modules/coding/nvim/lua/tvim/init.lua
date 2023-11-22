@@ -84,8 +84,10 @@ kmap("n", "<m-y>", "<cmd>lua require('harpoon.ui').nav_file(3)<cr>")
 kmap("n", "<m-j>", "<cmd>lua require('harpoon.ui').nav_file(4)<cr>")
 kmap("n", "<leader>a", require("harpoon.mark").add_file)
 kmap("n", "<leader>e", require("harpoon.ui").toggle_quick_menu)
+require("mini.files").setup()
 
 -- {{ Editing }}
+require("mini.comment").setup()
 kmap("n", "<leader>u", vim.cmd.UndotreeToggle)
 require("nvim-treesitter.configs").setup({
     highlight = {
@@ -141,9 +143,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 
---require("mini.completion").setup({ window = { info = { width = 50 } } })
 local keys = {
-    ["cr"] = vim.api.nvim_replace_termcodes("<CR>", true, true, true),
+    ["cr"] = vim.api.nvim_replace_termcodes("<CR>", true, truce, true),
     ["ctrl-y"] = vim.api.nvim_replace_termcodes("<C-y>", true, true, true),
     ["ctrl-y_cr"] = vim.api.nvim_replace_termcodes("<C-y><CR>", true, true, true),
 }
@@ -159,7 +160,8 @@ _G.cr_action = function()
         return keys["cr"]
     end
 end
-vim.g.pumwidth = 40
+require("mini.completion").setup()
+vim.g.lsp_preview_max_width = 40
 kmap("i", "<CR>", "v:lua._G.cr_action()", { expr = true })
 kmap("i", "<C-e>", [[pumvisible() ? "\<C-p>" : "\<C-e>"]], { expr = true })
 
