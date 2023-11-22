@@ -84,10 +84,14 @@ kmap("n", "<m-y>", "<cmd>lua require('harpoon.ui').nav_file(3)<cr>")
 kmap("n", "<m-j>", "<cmd>lua require('harpoon.ui').nav_file(4)<cr>")
 kmap("n", "<leader>a", require("harpoon.mark").add_file)
 kmap("n", "<leader>e", require("harpoon.ui").toggle_quick_menu)
+require("mini.jump2d").setup()
+kmap("n", "s", "<cmd>lua MiniJump2d.start()<cr>")
 require("mini.files").setup()
+kmap("n", "<leader>pp", "<cmd>lua MiniFiles.open()<cr>")
 
 -- {{ Editing }}
 require("mini.comment").setup()
+require("mini.pairs").setup({ mappings = { ['"'] = {}, ["'"] = {}, ["`"] = {} } })
 kmap("n", "<leader>u", vim.cmd.UndotreeToggle)
 require("nvim-treesitter.configs").setup({
     highlight = {
