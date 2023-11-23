@@ -87,7 +87,7 @@ kmap("n", "<m-y>", "<cmd>lua require('harpoon.ui').nav_file(3)<cr>")
 kmap("n", "<m-j>", "<cmd>lua require('harpoon.ui').nav_file(4)<cr>")
 kmap("n", "<leader>a", require("harpoon.mark").add_file)
 kmap("n", "<leader>e", require("harpoon.ui").toggle_quick_menu)
-kmap({ "n", "x", "o" }, "s", "<cmd>lua require('flash').jump()<cr>")
+kmap({ "n", "x", "o" }, "<leader>s", "<cmd>lua require('flash').jump()<cr>")
 
 require("telescope").setup({ defaults = {
     layout_strategy = "vertical",
@@ -108,14 +108,8 @@ require("oil").setup({ keymaps = { ["q"] = "actions.close" } })
 kmap("n", "<leader>pp", "<cmd>Oil --float<cr>")
 
 -- {{ Editing }}
--- require("Comment").setup()
--- require("nvim-surround").setup()
--- require("autoclose").setup({
---     keys = {
---         ['"'] = {},
---         ["'"] = {},
---     },
--- })
+require("mini.comment").setup()
+require("mini.surround").setup()
 kmap("n", "<leader>u", vim.cmd.UndotreeToggle)
 require("nvim-treesitter.configs").setup({
     highlight = {
@@ -130,23 +124,12 @@ require("treesitter-context").setup({ multiline_threshold = 2 })
 require("fidget").setup()
 local lspconfig = require("lspconfig")
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
-local servers = {
-    "astro",
-    "clangd",
-    "cmake",
-    "gopls",
-    "html",
-    "marksman",
-    "nil_ls",
-    "svelte",
-    "tsserver",
-    "uiua",
-    "rust_analyzer",
-    "zls",
-}
-for _, server in ipairs(servers) do
-    lspconfig[server].setup({ capabilities = lsp_capabilities })
-end
+lspconfig.clangd.setup({ capabilities = lsp_capabilities })
+lspconfig.cmake.setup({ capabilities = lsp_capabilities })
+lspconfig.gopls.setup({ capabilities = lsp_capabilities })
+lspconfig.uiua.setup({ capabilities = lsp_capabilities })
+lspconfig.rust_analyzer.setup({ capabilities = lsp_capabilities })
+lspconfig.zls.setup({ capabilities = lsp_capabilities })
 lspconfig.pyright.setup({
     capabilities = lsp_capabilities,
     on_new_config = function(config, root_dir)
@@ -155,6 +138,12 @@ lspconfig.pyright.setup({
         if string.len(env) > 0 then config.settings.python.pythonPath = env end
     end,
 })
+lspconfig.marksman.setup({ capabilities = lsp_capabilities })
+lspconfig.nil_ls.setup({ capabilities = lsp_capabilities })
+lspconfig.astro.setup({ capabilities = lsp_capabilities })
+lspconfig.html.setup({ capabilities = lsp_capabilities })
+lspconfig.svelte.setup({ capabilities = lsp_capabilities })
+lspconfig.tsserver.setup({ capabilities = lsp_capabilities })
 
 local cmp = require("cmp")
 local cmp_mappings = {
