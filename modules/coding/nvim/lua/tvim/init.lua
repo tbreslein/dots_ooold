@@ -49,6 +49,9 @@ kmap("v", "<leader>r", '"hy:%s/<c-r>h//g<left><left>', { silent = false })
 kmap("v", "<leader>s", ":sort<cr>")
 kmap("n", "<esc>", ":noh<cr>")
 kmap({ "n", "v" }, "Q", "<nop>")
+kmap({ "n", "v", "x" }, "<leader>y", '"+y')
+kmap({ "n", "v", "x" }, "<leader>p", '"+p')
+kmap({ "n", "v", "x" }, "x", '"_x')
 kmap("v", ">", ">gv")
 kmap("v", "<", "<gv")
 kmap("v", "K", ":m '<-2<cr>gv=gv")
@@ -84,14 +87,35 @@ kmap("n", "<m-y>", "<cmd>lua require('harpoon.ui').nav_file(3)<cr>")
 kmap("n", "<m-j>", "<cmd>lua require('harpoon.ui').nav_file(4)<cr>")
 kmap("n", "<leader>a", require("harpoon.mark").add_file)
 kmap("n", "<leader>e", require("harpoon.ui").toggle_quick_menu)
-require("mini.jump2d").setup()
-kmap("n", "s", "<cmd>lua MiniJump2d.start()<cr>")
-require("mini.files").setup()
-kmap("n", "<leader>pp", "<cmd>lua MiniFiles.open()<cr>")
+kmap({ "n", "x", "o" }, "s", "<cmd>lua require('flash').jump()<cr>")
+
+require("telescope").setup({ defaults = {
+    layout_strategy = "vertical",
+    layout_config = { height = 0.95 },
+} })
+require("telescope").load_extension("fzf")
+kmap("n", "<leader>pf", function()
+    vim.fn.system("git rev-parse --is-inside-work-tree")
+    if vim.v.shell_error == 0 then
+        require("telescope.builtin").git_files()
+    else
+        require("telescope.builtin").find_files()
+    end
+end)
+kmap("n", "<leader>pg", require("telescope.builtin").git_files)
+kmap("n", "<leader>ps", require("telescope.builtin").live_grep)
+require("oil").setup({ keymaps = { ["q"] = "actions.close" } })
+kmap("n", "<leader>pp", "<cmd>Oil --float<cr>")
 
 -- {{ Editing }}
-require("mini.comment").setup()
-require("mini.pairs").setup({ mappings = { ['"'] = {}, ["'"] = {}, ["`"] = {} } })
+-- require("Comment").setup()
+-- require("nvim-surround").setup()
+-- require("autoclose").setup({
+--     keys = {
+--         ['"'] = {},
+--         ["'"] = {},
+--     },
+-- })
 kmap("n", "<leader>u", vim.cmd.UndotreeToggle)
 require("nvim-treesitter.configs").setup({
     highlight = {
@@ -105,69 +129,78 @@ require("treesitter-context").setup({ multiline_threshold = 2 })
 -- {{ LSP }}
 require("fidget").setup()
 local lspconfig = require("lspconfig")
-lspconfig.clangd.setup({})
-lspconfig.cmake.setup({})
-lspconfig.gopls.setup({})
-lspconfig.rust_analyzer.setup({})
-lspconfig.zls.setup({})
-lspconfig.uiua.setup({})
+local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+local servers = {
+    "astro",
+    "clangd",
+    "cmake",
+    "gopls",
+    "html",
+    "marksman",
+    "nil_ls",
+    "svelte",
+    "tsserver",
+    "uiua",
+    "rust_analyzer",
+    "zls",
+}
+for _, server in ipairs(servers) do
+    lspconfig[server].setup({ capabilities = lsp_capabilities })
+end
 lspconfig.pyright.setup({
-    --capabilities = lsp_capabilities,
+    capabilities = lsp_capabilities,
     on_new_config = function(config, root_dir)
         local env =
             vim.trim(vim.fn.system('cd "' .. (root_dir or ".") .. '"; poetry env info --executable 2>/dev/null'))
         if string.len(env) > 0 then config.settings.python.pythonPath = env end
     end,
 })
-lspconfig.nil_ls.setup({})
-lspconfig.marksman.setup({})
-lspconfig.astro.setup({})
-lspconfig.html.setup({})
-lspconfig.svelte.setup({})
-lspconfig.tsserver.setup({})
 
-kmap("n", "<space>e", vim.diagnostic.open_float)
-kmap("n", { "[d", "F7" }, vim.diagnostic.goto_prev)
-kmap("n", { "]d", "F8" }, vim.diagnostic.goto_next)
-kmap("n", "<space>q", vim.diagnostic.setloclist)
-vim.api.nvim_create_autocmd("LspAttach", {
-    group = vim.api.nvim_create_augroup("UserLspConfig", {}),
-    callback = function(ev)
-        -- vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-        local opts = { buffer = ev.buf }
-        kmap("n", "gD", vim.lsp.buf.declaration, opts)
-        kmap("n", "gd", vim.lsp.buf.definition, opts)
-        kmap("n", "K", vim.lsp.buf.hover, opts)
-        kmap("n", "gi", vim.lsp.buf.implementation, opts)
-        kmap("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-        kmap("n", "<space>D", vim.lsp.buf.type_definition, opts)
-        kmap("n", "<space>lr", vim.lsp.buf.rename, opts)
-        kmap({ "n", "v" }, "<space>la", vim.lsp.buf.code_action, opts)
-        kmap("n", "gr", vim.lsp.buf.references, opts)
-    end,
-})
-
-local keys = {
-    ["cr"] = vim.api.nvim_replace_termcodes("<CR>", true, truce, true),
-    ["ctrl-y"] = vim.api.nvim_replace_termcodes("<C-y>", true, true, true),
-    ["ctrl-y_cr"] = vim.api.nvim_replace_termcodes("<C-y><CR>", true, true, true),
+local cmp = require("cmp")
+local cmp_mappings = {
+    ["<c-n>"] = cmp.mapping.select_next_item(select_opts),
+    ["<c-h>"] = cmp.mapping.select_prev_item(select_opts),
+    ["<c-y>"] = cmp.mapping.confirm({ select = true }),
 }
-_G.cr_action = function()
-    if vim.fn.pumvisible() ~= 0 then
-        -- If popup is visible, confirm selected item or add new line otherwise
-        local item_selected = vim.fn.complete_info()["selected"] ~= -1
-        return item_selected and keys["ctrl-y"] or keys["ctrl-y_cr"]
-    else
-        -- If popup is not visible, use plain `<CR>`. You might want to customize
-        -- according to other plugins. For example, to use 'mini.pairs', replace
-        -- next line with `return require('mini.pairs').cr()`
-        return keys["cr"]
-    end
-end
-require("mini.completion").setup()
-vim.g.lsp_preview_max_width = 40
-kmap("i", "<CR>", "v:lua._G.cr_action()", { expr = true })
-kmap("i", "<C-e>", [[pumvisible() ? "\<C-p>" : "\<C-e>"]], { expr = true })
+local select_opts = { behavior = cmp.SelectBehavior.Select }
+cmp.setup({
+    snippet = {
+        expand = function(args) require("luasnip").lsp_expand(args.body) end,
+    },
+    window = { documentation = cmp.config.window.bordered() },
+    mapping = cmp.mapping.preset.insert(vim.tbl_deep_extend("force", {
+        ["<c-m>"] = cmp.mapping.scroll_docs(-4),
+        ["<c-k>"] = cmp.mapping.scroll_docs(4),
+    }, cmp_mappings)),
+    enabled = function() return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" end,
+    formatting = {
+        format = function(entry, vim_item)
+            local kind = require("lspkind").cmp_format({
+                mode = "symbol_text",
+                maxwidth = 40,
+            })(entry, vim_item)
+            local strings = vim.split(kind.kind, "%s", { trimempty = true })
+            kind.kind = " " .. (strings[1] or "") .. " "
+            kind.menu = "    (" .. (strings[2] or "") .. ")"
+            return kind
+        end,
+    },
+    sources = {
+        { name = "path" },
+        { name = "nvim_lsp", keyword_length = 1 },
+        { name = "buffer", keyword_length = 3 },
+        { name = "luasnip" },
+    },
+})
+cmp.setup.cmdline({ "/", "?" }, {
+    mapping = cmp.mapping.preset.insert(cmp_mappings),
+    sources = { { name = "buffer" } },
+})
+cmp.setup.cmdline(":", {
+    mapping = cmp.mapping.preset.insert(cmp_mappings),
+    sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
+})
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
 -- {{ Formatting + Linting }}
 require("conform").setup({
@@ -268,117 +301,3 @@ function statusline()
     return table.concat({ "%f", "%m", "%= | ", "%p%% %l:%c", lsp_status() })
 end
 vim.cmd([[ set statusline=%!luaeval('statusline()') ]])
-
--- -- {{ Navigation }}
--- kmap({ "n", "x", "o" }, "s", "<cmd>lua require('flash').jump()<cr>")
--- kmap("n", "<c-Left>", "<cmd>TmuxNavigateLeft<cr>")
--- kmap("n", "<c-Down>", "<cmd>TmuxNavigateDown<cr>")
--- kmap("n", "<c-Up>", "<cmd>TmuxNavigateUp<cr>")
--- kmap("n", "<c-Right>", "<cmd>TmuxNavigateRight<cr>")
---
--- require("telescope").setup({ defaults = {
---     layout_strategy = "vertical",
---     layout_config = { height = 0.95 },
--- } })
--- require("telescope").load_extension("fzf")
--- kmap("n", "<leader>pf", function()
---     vim.fn.system("git rev-parse --is-inside-work-tree")
---     if vim.v.shell_error == 0 then
---         require("telescope.builtin").git_files()
---     else
---         require("telescope.builtin").find_files()
---     end
--- end)
--- kmap("n", "<leader>pg", require("telescope.builtin").git_files)
--- kmap("n", "<leader>ps", require("telescope.builtin").live_grep)
--- require("oil").setup({ keymaps = { ["q"] = "actions.close" } })
--- kmap("n", "<leader>pp", "<cmd>Oil --float<cr>")
---
--- -- {{ Editing }}
--- require("Comment").setup()
--- require("nvim-surround").setup()
--- require("autoclose").setup({
---     keys = {
---         ['"'] = {},
---         ["'"] = {},
---     },
--- })
--- kmap("n", "<leader>u", vim.cmd.UndotreeToggle)
--- require("nvim-treesitter.configs").setup({
---     highlight = {
---         enable = true,
---         additional_vim_regex_highlighting = false,
---     },
---     autotag = { enable = true },
---     textobjects = {
---         select = {
---             enable = true,
---             lookahead = true,
---             keymaps = {
---                 ["af"] = "@function.outer",
---                 ["if"] = "@function.inner",
---                 ["ac"] = "@class.outer",
---                 ["ic"] = "@class.inner",
---                 ["ai"] = "@conditional.outer",
---                 ["ii"] = "@conditional.inner",
---                 ["al"] = "@loop.outer",
---                 ["il"] = "@loop.inner",
---                 ["aa"] = "@parameter.outer",
---                 ["ia"] = "@parameter.inner",
---                 ["as"] = "@block.outer",
---                 ["is"] = "@block.inner",
---             },
---         },
---     },
--- })
--- require("treesitter-context").setup({ multiline_threshold = 2 })
---
--- local cmp = require("cmp")
--- local cmp_mappings = {
---     -- ["<c-b>"] = cmp.mapping.select_next_item(select_opts),
---     -- ["<c-g>"] = cmp.mapping.select_prev_item(select_opts),
---     -- ["<c-e>"] = cmp.mapping.abort(),
---     -- ["<c-y>"] = cmp.mapping.confirm({ select = true }),
---     ["<c-n>"] = cmp.mapping.select_next_item(select_opts),
---     ["<c-h>"] = cmp.mapping.select_prev_item(select_opts),
---     ["<c-y>"] = cmp.mapping.confirm({ select = true }),
--- }
--- local select_opts = { behavior = cmp.SelectBehavior.Select }
--- cmp.setup({
---     snippet = {
---         expand = function(args) require("luasnip").lsp_expand(args.body) end,
---     },
---     window = { documentation = cmp.config.window.bordered() },
---     mapping = cmp.mapping.preset.insert(vim.tbl_deep_extend("force", {
---         ["<c-m>"] = cmp.mapping.scroll_docs(-4),
---         ["<c-k>"] = cmp.mapping.scroll_docs(4),
---     }, cmp_mappings)),
---     enabled = function() return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" end,
---     formatting = {
---         format = function(entry, vim_item)
---             local kind = require("lspkind").cmp_format({
---                 mode = "symbol_text",
---                 maxwidth = 40,
---             })(entry, vim_item)
---             local strings = vim.split(kind.kind, "%s", { trimempty = true })
---             kind.kind = " " .. (strings[1] or "") .. " "
---             kind.menu = "    (" .. (strings[2] or "") .. ")"
---             return kind
---         end,
---     },
---     sources = {
---         { name = "path" },
---         { name = "nvim_lsp", keyword_length = 1 },
---         { name = "buffer", keyword_length = 3 },
---         { name = "luasnip" },
---     },
--- })
--- cmp.setup.cmdline({ "/", "?" }, {
---     mapping = cmp.mapping.preset.insert(cmp_mappings),
---     sources = { { name = "buffer" } },
--- })
--- cmp.setup.cmdline(":", {
---     mapping = cmp.mapping.preset.insert(cmp_mappings),
---     sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
--- })
--- vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })

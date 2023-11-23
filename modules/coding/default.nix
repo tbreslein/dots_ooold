@@ -135,55 +135,38 @@ in {
         enable = true;
         extraLuaConfig = "require('tvim')";
         plugins = (with pkgs.vimPlugins; [
-          gruvbox-material
+          # deps
           plenary-nvim
           mini-nvim
+
+          # navigation
+          oil-nvim
           harpoon
+          telescope-nvim
+          telescope-fzf-native-nvim
+
+          # ui/editing
+          gruvbox-material
+          flash-nvim
           undotree
+          nvim-surround
           nvim-treesitter.withAllGrammars
           nvim-treesitter-context
           nvim-ts-autotag
+
+          # LSP
           fidget-nvim
           nvim-lspconfig
+          lspkind-nvim
+          nvim-cmp
+          cmp-nvim-lsp
+          cmp-buffer
+          cmp-cmdline
+          cmp-path
+          cmp_luasnip
+          luasnip
           conform-nvim
           nvim-lint
-
-          # # deps
-          # plenary-nvim
-          # nvim-web-devicons
-          #
-          # # navigation
-          # oil-nvim
-          # vim-tmux-navigator
-          # harpoon
-          # telescope-nvim
-          # telescope-fzf-native-nvim
-          #
-          # # ui/editing
-          # gruvbox-material
-          # flash-nvim
-          # undotree
-          # autoclose-nvim
-          # comment-nvim
-          # nvim-surround
-          # nvim-treesitter.withAllGrammars
-          # nvim-treesitter-textobjects
-          # nvim-treesitter-context
-          # nvim-ts-autotag
-          #
-          # # LSP
-          # fidget-nvim
-          # nvim-lspconfig
-          # lspkind-nvim
-          # nvim-cmp
-          # cmp-nvim-lsp
-          # cmp-buffer
-          # cmp-cmdline
-          # cmp-path
-          # cmp_luasnip
-          # luasnip
-          # conform-nvim
-          # nvim-lint
         ]) ++ [
           (pkgs.vimUtils.buildVimPlugin {
             name = "tvim";
