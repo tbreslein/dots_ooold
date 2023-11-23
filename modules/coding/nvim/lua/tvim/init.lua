@@ -248,6 +248,9 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.keymap.set("n", "q", "<cmd>close<cr>", { buffer = event.buf, silent = true })
     end,
 })
+kmap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
+kmap("n", { "gp", "<F7>" }, "<cmd>lua vim.diagnostic.goto_prev()<cr>")
+kmap("n", { "gn", "<F8>" }, "<cmd>lua vim.diagnostic.goto_next()<cr>")
 vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
     callback = function()
@@ -261,9 +264,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         bufmap("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
         bufmap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>")
         bufmap("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>")
-        bufmap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
-        bufmap("n", { "gp", "<F7>" }, "<cmd>lua vim.diagnostic.goto_prev()<cr>")
-        bufmap("n", { "gn", "<F8>" }, "<cmd>lua vim.diagnostic.goto_next()<cr>")
     end,
 })
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
