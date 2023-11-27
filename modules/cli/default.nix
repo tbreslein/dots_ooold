@@ -60,7 +60,13 @@ in {
       };
       git = {
         enable = true;
-        extraConfig = { pull.rebase = true; };
+        extraConfig = {
+          pull.rebase = true;
+          push = {
+            autoSetupRemote = true;
+            default = "simple";
+          };
+        };
         userName = "Tommy Breslein";
         userEmail = cfg.gitEmail;
         delta = {
