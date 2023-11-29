@@ -39,11 +39,12 @@ in {
       i18n.defaultLocale = "en_US.UTF-8";
 
       environment.sessionVariables.EDITOR = "nvim";
+      programs.fish.enable = true;
       users.users.${userName} = {
         isNormalUser = true;
         extraGroups = [ "wheel" "networkmanager" ];
         initialPassword = "qwert";
-        shell = pkgs.bash;
+        shell = pkgs.fish;
         openssh.authorizedKeys.keyFiles = [ ./id_rsa.pub ];
       };
 

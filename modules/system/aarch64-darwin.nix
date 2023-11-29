@@ -70,14 +70,15 @@ in {
     };
 
     programs = {
-      zsh.enable = true;
       bash.enable = true;
+      fish.enable = true;
+      zsh.enable = true;
     };
 
     environment = {
       # loginShell = pkgs.zsh;
       systemPackages = with pkgs; [ poetry python3 ];
-      shells = with pkgs; [ bashInteractive ];
+      shells = with pkgs; [ bashInteractive fish ];
       loginShell = pkgs.bashInteractive;
     };
     homebrew = {

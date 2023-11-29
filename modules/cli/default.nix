@@ -34,18 +34,10 @@ in {
   config = mkIf cfg.enable {
     home.packages = mkMerge [ cfg.defaultPkgs cfg.extraPkgs ];
     programs = {
-      bash = {
-        enable = true;
-        enableCompletion = true;
-        historyControl = [ "erasedups" "ignoredups" "ignorespace" ];
-        historyIgnore = [ "ls" "cd" "exit" ];
-        initExtra = ''
-          PS1='\n`if [ \$? != 0 ]; then echo -n \[\e[31m$? \]; fi`\[\e[92m\e[1m\][\u@\h]: \[\e[0m\]\w `if [ \$(git rev-parse --is-inside-work-tree 2>/dev/null) ]; then if [[ -n \$(git status -s) ]]; then echo -n \[\e[31m \]; fi; if [[ -n \$(git cherry -v) ]]; then echo -n \[\e[31m󰶣 \]; fi; fi`\e[0m\n\[\e[1m\e[1m\e[93m\]λ\[\e[0m\] '
-        '';
-      };
       direnv = {
         enable = true;
         enableBashIntegration = true;
+        enableFishIntegration = true;
         enableZshIntegration = true;
         nix-direnv.enable = true;
       };
@@ -56,6 +48,7 @@ in {
       fzf = {
         enable = true;
         enableBashIntegration = true;
+        enableFishIntegration = true;
         enableZshIntegration = true;
       };
       git = {
@@ -80,6 +73,7 @@ in {
       starship = {
         enable = true;
         enableBashIntegration = false;
+        enableFishIntegration = true;
         enableZshIntegration = true;
         settings = {
           character = {
@@ -92,18 +86,32 @@ in {
             truncation_symbol = ".../";
             style = "bold blue";
           };
-          username.format = "[$user]($style)@";
-          hostname.format = "[$ssh_symbol$hostname]($style): ";
+          username = {
+            show_always = true;
+            format = "[$user]($style)@";
+          };
+          hostname.format = "[$ssh_symbol$hostname]($style)";
           format =
-            "$directory$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$line_break$username$hostname$nix_shell$battery$character";
+            "\\[$username$hostname\\] $directory$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$line_break$nix_shell$battery$character";
           nix_shell.format = "[$symbol]($style)";
         };
       };
       zoxide = {
         enable = true;
         enableBashIntegration = true;
+        enableFishIntegration = true;
         enableZshIntegration = true;
       };
+      bash = {
+        enable = true;
+        enableCompletion = true;
+        historyControl = [ "erasedups" "ignoredups" "ignorespace" ];
+        historyIgnore = [ "ls" "cd" "exit" ];
+        initExtra = ''
+          PS1='\n`if [ \$? != 0 ]; then echo -n \[\e[31m$? \]; fi`\[\e[92m\e[1m\][\u@\h]: \[\e[0m\]\w `if [ \$(git rev-parse --is-inside-work-tree 2>/dev/null) ]; then if [[ -n \$(git status -s) ]]; then echo -n \[\e[31m \]; fi; if [[ -n \$(git cherry -v) ]]; then echo -n \[\e[31m󰶣 \]; fi; fi`\e[0m\n\[\e[1m\e[1m\e[93m\]λ\[\e[0m\] '
+        '';
+      };
+      fish = { enable = true; };
       zsh = {
         enable = true;
         enableCompletion = false;
