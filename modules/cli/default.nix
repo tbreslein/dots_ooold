@@ -94,7 +94,7 @@ in {
           # format =
           #   "\\[$username$hostname\\] $directory$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$line_break$nix_shell$battery$character";
           format =
-            "$directory$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$line_break$nix_shell$battery$character";
+            "$battery$directory$nix_shell$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$line_break$character";
           nix_shell.format = "[$symbol]($style)";
         };
       };
