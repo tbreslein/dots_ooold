@@ -146,12 +146,12 @@ lspconfig.svelte.setup({ capabilities = lsp_capabilities })
 lspconfig.tsserver.setup({ capabilities = lsp_capabilities })
 
 local cmp = require("cmp")
+local select_opts = { behavior = cmp.SelectBehavior.Select }
 local cmp_mappings = {
     ["<c-n>"] = cmp.mapping.select_next_item(select_opts),
-    ["<c-h>"] = cmp.mapping.select_prev_item(select_opts),
+    ["<c-e>"] = cmp.mapping.select_prev_item(select_opts),
     ["<c-y>"] = cmp.mapping.confirm({ select = true }),
 }
-local select_opts = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
     snippet = {
         expand = function(args) require("luasnip").lsp_expand(args.body) end,
