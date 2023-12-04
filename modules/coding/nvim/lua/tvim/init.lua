@@ -180,60 +180,35 @@ cmp.setup({
         { name = "luasnip" },
     },
 })
+local cmp_cmdline_mappings = {
+    ["<c-p>"] = cmp.config.disable,
+    ["<c-n>"] = {
+        c = function(fallback)
+            local cmp = require("cmp")
+            if cmp.visible() then
+                cmp.select_next_item()
+            else
+                fallback()
+            end
+        end,
+    },
+    ["<c-e>"] = {
+        c = function(fallback)
+            local cmp = require("cmp")
+            if cmp.visible() then
+                cmp.select_prev_item()
+            else
+                fallback()
+            end
+        end,
+    },
+}
 cmp.setup.cmdline({ "/", "?" }, {
-    mapping = cmp.mapping.preset.cmdline({
-        -- ["<c-n>"] = cmp.mapping.select_next_item(),
-        -- ["<c-e>"] = cmp.mapping.select_prev_item(),
-
-        ["<C-n>"] = {
-            c = function(fallback)
-                local cmp = require("cmp")
-                if cmp.visible() then
-                    cmp.select_next_item()
-                else
-                    fallback()
-                end
-            end,
-        },
-        ["<C-e>"] = {
-            c = function(fallback)
-                local cmp = require("cmp")
-                if cmp.visible() then
-                    cmp.select_prev_item()
-                else
-                    fallback()
-                end
-            end,
-        },
-    }),
+    mapping = cmp.mapping.preset.cmdline(cmp_cmdline_mappings),
     sources = { { name = "buffer" } },
 })
 cmp.setup.cmdline(":", {
-    -- mapping = cmp.mapping.preset.cmdline(),
-    mapping = cmp.mapping.preset.cmdline({
-        -- ["<c-n>"] = cmp.mapping.select_next_item(),
-        -- ["<c-e>"] = cmp.mapping.select_prev_item(),
-        ["<C-n>"] = {
-            c = function(fallback)
-                local cmp = require("cmp")
-                if cmp.visible() then
-                    cmp.select_next_item()
-                else
-                    fallback()
-                end
-            end,
-        },
-        ["<C-e>"] = {
-            c = function(fallback)
-                local cmp = require("cmp")
-                if cmp.visible() then
-                    cmp.select_prev_item()
-                else
-                    fallback()
-                end
-            end,
-        },
-    }),
+    mapping = cmp.mapping.preset.cmdline(cmp_cmdline_mappings),
     sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })

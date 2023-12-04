@@ -37,6 +37,7 @@ in {
       direnv = {
         enable = true;
         enableBashIntegration = true;
+        # in fish, this is just enabled by default
         #enableFishIntegration = true;
         enableZshIntegration = true;
         nix-direnv.enable = true;
@@ -86,13 +87,6 @@ in {
             truncation_symbol = ".../";
             style = "bold blue";
           };
-          # username = {
-          #   show_always = true;
-          #   format = "[$user]($style)@";
-          # };
-          # hostname.format = "[$ssh_symbol$hostname]($style)";
-          # format =
-          #   "\\[$username$hostname\\] $directory$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$line_break$nix_shell$battery$character";
           format =
             "$battery$directory$nix_shell$vcsh$fossil_branch$git_branch$git_commit$git_state$git_metrics$git_status$hg_branch$line_break$character";
           nix_shell.format = "[$symbol]($style)";
