@@ -147,20 +147,19 @@ lspconfig.tsserver.setup({ capabilities = lsp_capabilities })
 
 local cmp = require("cmp")
 local select_opts = { behavior = cmp.SelectBehavior.Select }
-local cmp_mappings = {
-    ["<c-n>"] = cmp.mapping.select_next_item(select_opts),
-    ["<c-e>"] = cmp.mapping.select_prev_item(select_opts),
-    ["<c-y>"] = cmp.mapping.confirm({ select = true }),
-}
 cmp.setup({
-    snippet = {
-        expand = function(args) require("luasnip").lsp_expand(args.body) end,
-    },
+    snippet = { expand = function(args) require("luasnip").lsp_expand(args.body) end },
     window = { documentation = cmp.config.window.bordered() },
-    mapping = cmp.mapping.preset.insert(vim.tbl_deep_extend("force", {
-        ["<c-m>"] = cmp.mapping.scroll_docs(-4),
-        ["<c-k>"] = cmp.mapping.scroll_docs(4),
-    }, cmp_mappings)),
+    mapping = cmp.mapping.preset.insert({
+        ["<c-p>"] = cmp.config.disable,
+        ["<c-b>"] = cmp.config.disable,
+        ["<c-f>"] = cmp.config.disable,
+        ["<c-n>"] = cmp.mapping.select_next_item(select_opts),
+        ["<c-e>"] = cmp.mapping.select_prev_item(select_opts),
+        ["<c-y>"] = cmp.mapping.confirm({ select = true }),
+        ["<c-s>"] = cmp.mapping(cmp.mapping.scroll_docs(-4)),
+        ["<c-t>"] = cmp.mapping(cmp.mapping.scroll_docs(4)),
+    }),
     enabled = function() return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" end,
     formatting = {
         format = function(entry, vim_item)
@@ -182,11 +181,59 @@ cmp.setup({
     },
 })
 cmp.setup.cmdline({ "/", "?" }, {
-    mapping = cmp.mapping.preset.insert(cmp_mappings),
+    mapping = cmp.mapping.preset.cmdline({
+        -- ["<c-n>"] = cmp.mapping.select_next_item(),
+        -- ["<c-e>"] = cmp.mapping.select_prev_item(),
+
+        ["<C-n>"] = {
+            c = function(fallback)
+                local cmp = require("cmp")
+                if cmp.visible() then
+                    cmp.select_next_item()
+                else
+                    fallback()
+                end
+            end,
+        },
+        ["<C-e>"] = {
+            c = function(fallback)
+                local cmp = require("cmp")
+                if cmp.visible() then
+                    cmp.select_prev_item()
+                else
+                    fallback()
+                end
+            end,
+        },
+    }),
     sources = { { name = "buffer" } },
 })
 cmp.setup.cmdline(":", {
-    mapping = cmp.mapping.preset.insert(cmp_mappings),
+    -- mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmp.mapping.preset.cmdline({
+        -- ["<c-n>"] = cmp.mapping.select_next_item(),
+        -- ["<c-e>"] = cmp.mapping.select_prev_item(),
+        ["<C-n>"] = {
+            c = function(fallback)
+                local cmp = require("cmp")
+                if cmp.visible() then
+                    cmp.select_next_item()
+                else
+                    fallback()
+                end
+            end,
+        },
+        ["<C-e>"] = {
+            c = function(fallback)
+                local cmp = require("cmp")
+                if cmp.visible() then
+                    cmp.select_prev_item()
+                else
+                    fallback()
+                end
+            end,
+        },
+    }),
     sources = cmp.config.sources({ { name = "path" } }, { { name = "cmdline" } }),
 })
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
