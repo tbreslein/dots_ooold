@@ -39,9 +39,12 @@ in {
           if [[ -n $(git status -s) ]]; then
               echo "Error: git tree is dirty"
           else
+              git pull
               nix flake update
               if [[ -n $(git status -s) ]]; then
-                  git add flake.lock && git commit -m "update flake.lock"
+                  git add flake.lock && \
+                    git commit -m "update flake.lock" && \
+                    git push
               fi
               case "$(uname -s)" in
                 Linux*) sudo nixos-rebuild switch --impure --flake .;;
