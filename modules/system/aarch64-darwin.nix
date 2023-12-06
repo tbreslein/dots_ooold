@@ -17,7 +17,7 @@ in {
   config = {
     nix = {
       useDaemon = true;
-      # gc.interval.Weeks = 1;
+      gc.interval.Hour = 168;
       settings.auto-optimise-store = true;
       extraOptions = "experimental-features = nix-command flakes";
     };
