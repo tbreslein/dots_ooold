@@ -108,8 +108,8 @@ require("oil").setup({ keymaps = { ["q"] = "actions.close" } })
 kmap("n", "<leader>pp", "<cmd>Oil --float<cr>")
 
 -- {{ Editing }}
-require("mini.comment").setup()
-require("mini.surround").setup()
+require("Comment").setup()
+require("nvim-surround").setup()
 kmap("n", "<leader>u", vim.cmd.UndotreeToggle)
 require("nvim-treesitter.configs").setup({
     highlight = {

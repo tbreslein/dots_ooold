@@ -135,9 +135,7 @@ in {
         enable = true;
         extraLuaConfig = "require('tvim')";
         plugins = (with pkgs.vimPlugins; [
-          # deps
           plenary-nvim
-          mini-nvim
 
           # navigation
           oil-nvim
@@ -146,6 +144,7 @@ in {
           telescope-fzf-native-nvim
 
           # ui/editing
+          comment-nvim
           gruvbox-material
           flash-nvim
           undotree
