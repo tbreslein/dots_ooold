@@ -133,6 +133,7 @@ in {
     programs = {
       neovim = {
         enable = true;
+        package = pkgs.neovim-nightly;
         extraLuaConfig = "require('tvim')";
         plugins = (with pkgs.vimPlugins; [
           plenary-nvim

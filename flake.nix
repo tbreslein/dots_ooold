@@ -8,13 +8,18 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ags.url = "github:Aylur/ags";
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     darwin = {
       url = "github:lnl7/nix-darwin";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, darwin, ... }:
+  outputs =
+    inputs@{ self, nixpkgs, home-manager, neovim-nightly-overlay, darwin, ... }:
     let
       theme = "gruvbox-material";
       colors = if theme == "gruvbox-material" then rec {
@@ -53,7 +58,8 @@
       } else
         { };
       userName = "tommy";
-      commonInherits = { inherit inputs colors userName; };
+      overlays = [ neovim-nightly-overlay.overlay ];
+      commonInherits = { inherit inputs colors userName overlays; };
       homeConfModules = [
         ./modules/cli
         ./modules/coding
