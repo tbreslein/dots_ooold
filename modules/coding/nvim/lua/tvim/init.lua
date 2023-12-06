@@ -1,4 +1,4 @@
-vim.g.mapleader = " "
+vim.g.mapleader = " "tv
 vim.opt.guicursor = ""
 vim.opt.nu = true
 vim.opt.relativenumber = true
@@ -87,7 +87,7 @@ kmap("n", "<m-y>", "<cmd>lua require('harpoon.ui').nav_file(3)<cr>")
 kmap("n", "<m-j>", "<cmd>lua require('harpoon.ui').nav_file(4)<cr>")
 kmap("n", "<leader>a", require("harpoon.mark").add_file)
 kmap("n", "<leader>e", require("harpoon.ui").toggle_quick_menu)
-kmap({ "n", "x", "o" }, "<leader>s", "<cmd>lua require('flash').jump()<cr>")
+kmap({ "n", "x", "o" }, "s", "<cmd>lua require('flash').jump()<cr>")
 
 require("telescope").setup({ defaults = {
     layout_strategy = "vertical",

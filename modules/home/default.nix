@@ -1,4 +1,4 @@
-{ config, lib, userName, overlays, ... }:
+{ config, lib, userName, ... }:
 let
   inherit (lib) mkIf mkMerge mkOption types;
   cfg = config.conf.homeDefaults;
@@ -16,10 +16,7 @@ in {
   };
 
   config = {
-    nixpkgs = {
-      config.allowUnfree = true;
-      inherit overlays;
-    };
+    nixpkgs.config.allowUnfree = true;
     home = mkMerge [
       {
         username = userName;

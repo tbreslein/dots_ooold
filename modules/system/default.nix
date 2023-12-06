@@ -1,4 +1,4 @@
-{ config, lib, pkgs, userName, ... }:
+{ config, lib, pkgs, userName, overlays, ... }:
 let
   inherit (lib) mkMerge mkOption types;
   cfg = config.conf.systemDefaults;
@@ -15,7 +15,10 @@ in {
   };
 
   config = {
-    nixpkgs.config.allowUnfree = true;
+    nixpkgs = {
+      config.allowUnfree = true;
+      inherit overlays;
+    };
     nix = {
       gc = {
         automatic = true;
