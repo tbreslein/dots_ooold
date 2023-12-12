@@ -37,8 +37,9 @@ in {
       direnv = {
         enable = true;
         enableBashIntegration = true;
-        # in fish, this is just enabled by default
+        # in fish and nushell, this is just enabled by default
         #enableFishIntegration = true;
+        #enableNushellIntegration = true;
         enableZshIntegration = true;
         nix-direnv.enable = true;
       };
@@ -50,6 +51,7 @@ in {
         enable = true;
         enableBashIntegration = true;
         enableFishIntegration = true;
+        enableNushellIntegration = true;
         enableZshIntegration = true;
       };
       git = {
@@ -75,6 +77,7 @@ in {
         enable = true;
         enableBashIntegration = false;
         enableFishIntegration = true;
+        enableNushellIntegration = true;
         enableZshIntegration = true;
         settings = {
           character = {
@@ -96,6 +99,7 @@ in {
         enable = true;
         enableBashIntegration = true;
         enableFishIntegration = true;
+        enableNushellIntegration = true;
         enableZshIntegration = true;
       };
       bash = {
@@ -111,6 +115,7 @@ in {
         enable = true;
         interactiveShellInit = "set -g fish_greeting";
       };
+      nushell = { enable = true; };
       zsh = {
         enable = true;
         enableCompletion = false;
