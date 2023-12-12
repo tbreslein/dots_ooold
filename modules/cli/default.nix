@@ -51,7 +51,7 @@ in {
         enable = true;
         enableBashIntegration = true;
         enableFishIntegration = true;
-        enableNushellIntegration = true;
+        # enableNushellIntegration = true;
         enableZshIntegration = true;
       };
       git = {
