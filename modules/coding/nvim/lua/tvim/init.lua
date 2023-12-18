@@ -125,7 +125,7 @@ require("fidget").setup()
 local lspconfig = require("lspconfig")
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 lspconfig.clangd.setup({ capabilities = lsp_capabilities })
-lspconfig.cmake.setup({ capabilities = lsp_capabilities })
+lspconfig.neocmake.setup({ capabilities = lsp_capabilities })
 lspconfig.gopls.setup({ capabilities = lsp_capabilities })
 lspconfig.uiua.setup({ capabilities = lsp_capabilities })
 lspconfig.rust_analyzer.setup({ capabilities = lsp_capabilities })
@@ -241,7 +241,7 @@ require("conform").setup({
 require("lint").linters_by_ft = {
     c = { "cppcheck" },
     cpp = { "cppcheck" },
-    cmake = { "cmakelint" },
+    -- cmake = { "cmakelint" },
     go = { "golangcilint" },
     python = { "ruff" },
     javascript = { "eslint_d" },
