@@ -15,7 +15,7 @@ in {
       default = with pkgs; [
         waybar
         wl-clipboard
-        swww
+        swaybg
         kanshi
         bemenu
         wdisplays
@@ -185,7 +185,11 @@ in {
       enable = true;
       xwayland.enable = true;
       settings = {
-        exec-once = [ "waybar" "mako" "swww init" ];
+        exec-once = [
+          "waybar"
+          "mako"
+          "swaybg -m fill -i /home/tommy/syncthing/personal/wallpapers/gruvbox/lofi-cafe_gray.jpg"
+        ];
         exec = [ "kanshi" "wlsunset" ];
         general = {
           border_size = 2;
