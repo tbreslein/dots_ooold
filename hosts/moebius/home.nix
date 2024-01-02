@@ -19,7 +19,7 @@ _:
   };
 
   wayland.windowManager.hyprland.settings = {
-    master.mfact = 0.66;
+    master.mfact = 0.5;
     input = {
       kb_layout = "us,de";
       # kb_variant = "";
