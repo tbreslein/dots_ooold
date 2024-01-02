@@ -55,7 +55,6 @@ in {
         go-task
         lazygit
         pandoc
-        scc
       ];
     };
     extraPkgs = mkOption {
@@ -107,6 +106,11 @@ in {
               panes = [ "- commands: [poetry run python moco_client.py]" ];
             }]);
         })
+        ({
+          "${config.home.homeDirectory}/.config/nvim".source =
+            config.lib.file.mkOutOfStoreSymlink
+            "${config.home.homeDirectory}/dots/modules/coding/nvim";
+        })
       ];
 
       shellAliases = mkMerge [ cfg.defaultShellAliases cfg.extraShellAliases ];
@@ -134,45 +138,50 @@ in {
       neovim = {
         enable = true;
         package = pkgs.neovim-nightly;
-        extraLuaConfig = "require('tvim')";
-        plugins = (with pkgs.vimPlugins; [
-          plenary-nvim
-
-          # navigation
-          oil-nvim
-          harpoon
-          telescope-nvim
-          telescope-fzf-native-nvim
-
-          # ui/editing
-          comment-nvim
-          gruvbox-material
-          flash-nvim
-          undotree
-          nvim-surround
-          nvim-treesitter.withAllGrammars
-          nvim-treesitter-context
-          nvim-ts-autotag
-
-          # LSP
-          fidget-nvim
-          nvim-lspconfig
-          lspkind-nvim
-          nvim-cmp
-          cmp-nvim-lsp
-          cmp-buffer
-          cmp-cmdline
-          cmp-path
-          cmp_luasnip
-          luasnip
-          conform-nvim
-          nvim-lint
-        ]) ++ [
-          (pkgs.vimUtils.buildVimPlugin {
-            name = "tvim";
-            src = ./nvim;
-          })
-        ];
+        # plugins = (with pkgs.vimPlugins; [
+        #   telescope-nvim
+        #   telescope-fzf-native-nvim
+        #   nvim-treesitter.withAllGrammars
+        # ]);
+        # extraLuaConfig = "require('tvim')";
+        # plugins = (with pkgs.vimPlugins; [
+        #   plenary-nvim
+        #
+        #   # navigation
+        #   oil-nvim
+        #   harpoon
+        #   telescope-nvim
+        #   telescope-fzf-native-nvim
+        #
+        #   # ui/editing
+        #   comment-nvim
+        #   gruvbox-material
+        #   flash-nvim
+        #   undotree
+        #   nvim-surround
+        #   nvim-treesitter.withAllGrammars
+        #   nvim-treesitter-context
+        #   nvim-ts-autotag
+        #
+        #   # LSP
+        #   fidget-nvim
+        #   nvim-lspconfig
+        #   lspkind-nvim
+        #   nvim-cmp
+        #   cmp-nvim-lsp
+        #   cmp-buffer
+        #   cmp-cmdline
+        #   cmp-path
+        #   cmp_luasnip
+        #   luasnip
+        #   conform-nvim
+        #   nvim-lint
+        # ]) ++ [
+        #   (pkgs.vimUtils.buildVimPlugin {
+        #     name = "tvim";
+        #     src = ./nvim;
+        #   })
+        # ];
       };
       tmux = mkIf cfg.enableTmux {
         enable = true;
