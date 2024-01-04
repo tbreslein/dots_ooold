@@ -11,7 +11,7 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
--- >>> VIM SETTINGS
+-- >>> Vim settings
 vim.g.mapleader = " "
 vim.opt.guicursor = ""
 vim.opt.nu = true
@@ -39,7 +39,7 @@ vim.opt.mouse = "a"
 vim.opt.fileencoding = "utf-8"
 vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 
--- >>> STATUS LINE
+-- >>> Status line
 function statusline()
     local function lsp_status()
         local nums = {
@@ -96,6 +96,7 @@ require("lazy").setup({
     { "kylechui/nvim-surround", opts = {} },
     { "j-hui/fidget.nvim", opts = {} },
     { "yorickpeterse/nvim-pqf", config = function() require("pqf").setup() end },
+    "mbbill/undotree",
 
     -- navigation
     {
@@ -338,7 +339,6 @@ local cmp_cmdline_mappings = {
     ["<c-p>"] = cmp.config.disable,
     ["<c-n>"] = {
         c = function(fallback)
-            local cmp = require("cmp")
             if cmp.visible() then
                 cmp.select_next_item()
             else
@@ -348,7 +348,6 @@ local cmp_cmdline_mappings = {
     },
     ["<c-e>"] = {
         c = function(fallback)
-            local cmp = require("cmp")
             if cmp.visible() then
                 cmp.select_prev_item()
             else
