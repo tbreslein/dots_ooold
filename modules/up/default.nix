@@ -55,9 +55,17 @@ in {
       ]
 
       [
+        (pkgs.writeShellScriptBin "up-nvim" ''
+          echo -e "\n\033[1;32m[ $(basename $0) ]\033[0m"
+          nvim --headless "+Lazy! sync" "+TSUpdate" +qa
+        '')
+      ]
+
+      [
         (pkgs.writeShellScriptBin "up" ''
           up-nix
           command -v up-protonge &>/dev/null && up-protonge || true
+          command -v nvim &>/dev/null && up-nvim || true
         '')
       ]
     ];
