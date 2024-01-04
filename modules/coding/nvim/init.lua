@@ -38,7 +38,6 @@ vim.opt.smartcase = true
 vim.opt.mouse = "a"
 vim.opt.fileencoding = "utf-8"
 vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
-vim.opt.background = "dark"
 
 -- >>> STATUS LINE
 function statusline()
@@ -68,15 +67,15 @@ require("lazy").setup({
 
     -- ui, editing, misc
     {
-        "mcchrish/zenbones.nvim",
-        dependencies = "rktjmp/lush.nvim",
+        "sainnhe/gruvbox-material",
         lazy = false,
         priority = 1000,
         config = function()
-            vim.g.zenbones_transparent_background = true
-            vim.opt.termguicolors = true
-            vim.opt.background = "dark"
-            vim.cmd([[colorscheme zenbones]])
+            vim.g.gruvbox_material_diagnostic_virtual_text = "colored"
+            vim.g.gruvbox_material_dim_inactive_windows = 1
+            vim.g.gruvbox_material_transparent_background = 1
+            vim.g.gruvbox_material_ui_contrast = "high"
+            vim.cmd("colorscheme gruvbox-material")
         end,
     },
     {
