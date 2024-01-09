@@ -34,7 +34,6 @@ in {
           size = cfg.terminalFontSize;
         };
         use_thin_strokes = true;
-        draw_bold_text_with_bright_colors = true;
         cursor.style = {
           shape = "Block";
           blinking = "Never";
@@ -42,6 +41,7 @@ in {
         mouse.hide_when_typing = true;
 
         colors = {
+          draw_bold_text_with_bright_colors = true;
           primary = {
             background = "0x${colors.background}";
             foreground = "0x${colors.foreground}";
