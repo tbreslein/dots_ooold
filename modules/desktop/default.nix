@@ -33,7 +33,6 @@ in {
           normal.family = "Hack Nerd Font";
           size = cfg.terminalFontSize;
         };
-        use_thin_strokes = true;
         cursor.style = {
           shape = "Block";
           blinking = "Never";
