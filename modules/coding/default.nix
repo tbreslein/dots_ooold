@@ -138,50 +138,6 @@ in {
       neovim = {
         enable = true;
         package = pkgs.neovim-nightly;
-        # plugins = (with pkgs.vimPlugins; [
-        #   telescope-nvim
-        #   telescope-fzf-native-nvim
-        #   nvim-treesitter.withAllGrammars
-        # ]);
-        # extraLuaConfig = "require('tvim')";
-        # plugins = (with pkgs.vimPlugins; [
-        #   plenary-nvim
-        #
-        #   # navigation
-        #   oil-nvim
-        #   harpoon
-        #   telescope-nvim
-        #   telescope-fzf-native-nvim
-        #
-        #   # ui/editing
-        #   comment-nvim
-        #   gruvbox-material
-        #   flash-nvim
-        #   undotree
-        #   nvim-surround
-        #   nvim-treesitter.withAllGrammars
-        #   nvim-treesitter-context
-        #   nvim-ts-autotag
-        #
-        #   # LSP
-        #   fidget-nvim
-        #   nvim-lspconfig
-        #   lspkind-nvim
-        #   nvim-cmp
-        #   cmp-nvim-lsp
-        #   cmp-buffer
-        #   cmp-cmdline
-        #   cmp-path
-        #   cmp_luasnip
-        #   luasnip
-        #   conform-nvim
-        #   nvim-lint
-        # ]) ++ [
-        #   (pkgs.vimUtils.buildVimPlugin {
-        #     name = "tvim";
-        #     src = ./nvim;
-        #   })
-        # ];
       };
       tmux = mkIf cfg.enableTmux {
         enable = true;
@@ -200,8 +156,8 @@ in {
           set-option -g renumber-windows on
           setw -g main-pane-height 60
 
-          bind-key -n M-m previous-window
-          bind-key -n M-n next-window
+          bind-key -n M-n previous-window
+          bind-key -n M-e next-window
 
           bind-key C-g copy-mode
           bind-key -T copy-mode-vi v send-keys -X begin-selection
@@ -212,14 +168,28 @@ in {
           bind C-x split-window -v -c "#{pane_current_path}"
           bind C-v split-window -h -c "#{pane_current_path}"
           bind C-t new-window
-          bind -r M-h resize-pane -L 5
-          bind -r M-j resize-pane -D 5
-          bind -r M-k resize-pane -U 5
-          bind -r M-l resize-pane -R 5
-          bind-key -n C-h select-pane -L
-          bind-key -n C-j select-pane -D
-          bind-key -n C-k select-pane -U
-          bind-key -n C-l select-pane -R
+
+          is_vim="ps -o state= -o comm= -t '#{pane_tty}' | grep -iqE '^[^TXZ ]+ +(\\S+\\/)?g?\.?(view|n?vim?x?)(-wrapped)?(diff)?$'"
+
+          bind-key -n 'C-h' if-shell "$is_vim" 'send-keys C-h' 'select-pane -L'
+          bind-key -n 'C-j' if-shell "$is_vim" 'send-keys C-j' 'select-pane -D'
+          bind-key -n 'C-k' if-shell "$is_vim" 'send-keys C-k' 'select-pane -U'
+          bind-key -n 'C-l' if-shell "$is_vim" 'send-keys C-l' 'select-pane -R'
+
+          bind-key -T copy-mode-vi 'C-h' select-pane -L
+          bind-key -T copy-mode-vi 'C-j' select-pane -D
+          bind-key -T copy-mode-vi 'C-k' select-pane -U
+          bind-key -T copy-mode-vi 'C-l' select-pane -R
+
+          bind -n 'M-h' if-shell "$is_vim" 'send-keys M-h' 'resize-pane -L 1'
+          bind -n 'M-j' if-shell "$is_vim" 'send-keys M-j' 'resize-pane -D 1'
+          bind -n 'M-k' if-shell "$is_vim" 'send-keys M-k' 'resize-pane -U 1'
+          bind -n 'M-l' if-shell "$is_vim" 'send-keys M-l' 'resize-pane -R 1'
+
+          bind-key -T copy-mode-vi M-h resize-pane -L 1
+          bind-key -T copy-mode-vi M-j resize-pane -D 1
+          bind-key -T copy-mode-vi M-k resize-pane -U 1
+          bind-key -T copy-mode-vi M-l resize-pane -R 1
 
           set -gq status-utf8 on
           set -g status-interval 30

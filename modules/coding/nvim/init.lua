@@ -119,6 +119,7 @@ require("lazy").setup({
         dependencies = "tpope/vim-repeat",
         config = function() require("leap").create_default_mappings() end,
     },
+    { "aserowy/tmux.nvim", opts = {} },
 
     -- LSP/linting/formatting
     { "j-hui/fidget.nvim", opts = {} },
