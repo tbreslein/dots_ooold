@@ -110,7 +110,7 @@ require("lazy").setup({
             require("telescope").load_extension("fzf")
         end,
     },
-    { "theprimeagen/harpoon", branch = "harpoon2", opts = {} },
+    { "theprimeagen/harpoon", branch = "harpoon2", opts = { settings = { save_on_toggle = true } } },
     { "stevearc/oil.nvim", opts = { keymaps = { ["q"] = "actions.close" } } },
     {
         "ggandor/leap.nvim",
