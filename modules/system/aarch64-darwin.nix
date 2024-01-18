@@ -80,7 +80,7 @@ in {
 
     environment = {
       # loginShell = pkgs.zsh;
-      systemPackages = with pkgs; [ poetry python3 ];
+      # systemPackages = with pkgs; [ poetry python3 ];
       shells = with pkgs; [ bashInteractive fish ];
       loginShell = pkgs.bashInteractive;
     };
