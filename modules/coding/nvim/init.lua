@@ -93,9 +93,7 @@ require("lazy").setup({
         end,
     },
     { "numToStr/Comment.nvim", opts = {} },
-    { "kylechui/nvim-surround", opts = {} },
     { "j-hui/fidget.nvim", opts = {} },
-    { "yorickpeterse/nvim-pqf", config = function() require("pqf").setup() end },
     "mbbill/undotree",
 
     -- navigation
@@ -122,7 +120,6 @@ require("lazy").setup({
     { "aserowy/tmux.nvim", opts = {} },
 
     -- LSP/linting/formatting
-    { "j-hui/fidget.nvim", opts = {} },
     { "folke/trouble.nvim", opts = {} },
     {
         "stevearc/conform.nvim",
