@@ -138,7 +138,7 @@ in {
     programs = {
       neovim = {
         enable = true;
-        package = pkgs.neovim-nightly;
+        # package = pkgs.neovim-nightly;
       };
       tmux = mkIf cfg.enableTmux {
         enable = true;
