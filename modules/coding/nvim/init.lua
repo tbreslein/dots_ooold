@@ -181,6 +181,7 @@ require("lazy").setup({
             "L3MON4D3/LuaSnip",
             "saadparwaiz1/cmp_luasnip",
             "onsails/lspkind.nvim",
+            "Exafunction/codeium.nvim",
         },
     },
 })
@@ -298,6 +299,7 @@ lspconfig.html.setup({ capabilities = lsp_capabilities })
 lspconfig.svelte.setup({ capabilities = lsp_capabilities })
 lspconfig.tsserver.setup({ capabilities = lsp_capabilities })
 
+require("codeium").setup()
 local cmp = require("cmp")
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
@@ -319,6 +321,7 @@ cmp.setup({
             local kind = require("lspkind").cmp_format({
                 mode = "symbol_text",
                 maxwidth = 40,
+                symbol_map = { Codeium = "" },
             })(entry, vim_item)
             local strings = vim.split(kind.kind, "%s", { trimempty = true })
             kind.kind = " " .. (strings[1] or "") .. " "
@@ -331,6 +334,7 @@ cmp.setup({
         { name = "nvim_lsp", keyword_length = 1 },
         { name = "buffer", keyword_length = 3 },
         { name = "luasnip" },
+        { name = "codeium" },
     },
 })
 local cmp_cmdline_mappings = {
