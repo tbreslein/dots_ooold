@@ -57,7 +57,7 @@ in {
       [
         (pkgs.writeShellScriptBin "up-nvim" ''
           echo -e "\n\033[1;32m[ $(basename $0) ]\033[0m"
-          nvim --headless "+Lazy! sync" "+TSUpdate" +qa
+          nvim --headless "+Lazy! sync" "+TSUpdateSync" "+TSInstallSync" +qa
         '')
       ]
 
