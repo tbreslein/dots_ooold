@@ -282,7 +282,10 @@ lspconfig.clangd.setup({ capabilities = lsp_capabilities })
 lspconfig.neocmake.setup({ capabilities = lsp_capabilities })
 lspconfig.gopls.setup({ capabilities = lsp_capabilities })
 lspconfig.uiua.setup({ capabilities = lsp_capabilities })
-lspconfig.rust_analyzer.setup({ capabilities = lsp_capabilities })
+lspconfig.rust_analyzer.setup({
+    capabilities = lsp_capabilities,
+    settings = { ["rust-analyzer"] = { files = { excludeDirs = { ".direnv" } } } },
+})
 lspconfig.zls.setup({ capabilities = lsp_capabilities })
 lspconfig.pyright.setup({
     capabilities = lsp_capabilities,
