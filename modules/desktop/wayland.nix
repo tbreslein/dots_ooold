@@ -198,7 +198,7 @@ in {
           layout = "master";
         };
         input = {
-          repeat_rate = 50;
+          repeat_rate = 35;
           repeat_delay = 300;
         };
         misc = {
