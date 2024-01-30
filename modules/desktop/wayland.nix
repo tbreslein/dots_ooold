@@ -197,6 +197,10 @@ in {
           "col.inactive_border" = "rgba(${colors.black}ee)";
           layout = "master";
         };
+        input = {
+          repeat_rate = 50;
+          repeat_delay = 300;
+        };
         misc = {
           disable_hyprland_logo = true;
           disable_splash_rendering = true;
