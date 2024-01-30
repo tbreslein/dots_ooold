@@ -27,7 +27,6 @@ in {
         window = {
           dynamic_padding = true;
           opacity = 0.92;
-          option_as_alt = "OnlyLeft";
         };
         font = {
           normal.family = "Hack Nerd Font";

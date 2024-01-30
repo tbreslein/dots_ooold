@@ -21,4 +21,6 @@
     homeDefaults.system = "darwin";
     up.system = "darwin";
   };
+
+  programs.alacritty.settings.window.option_as_alt = "OnlyLeft";
 }
