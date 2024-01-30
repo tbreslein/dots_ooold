@@ -5,7 +5,7 @@
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
     nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
     ags.url = "github:Aylur/ags";
@@ -74,10 +74,11 @@
       ];
       systemConfModules = [ ./modules/system ./modules/system/desktop.nix ];
       mkNixos = name: system: systemModules:
-        let
-          unstable = import nixpkgs-unstable { inherit system; };
-          # pkgs = import nixpkgs { inherit system; };
-        in nixpkgs.lib.nixosSystem {
+        # let
+        #   unstable = import nixpkgs-unstable { inherit system; };
+        #   # pkgs = import nixpkgs { inherit system; };
+        # in nixpkgs.lib.nixosSystem {
+        nixpkgs.lib.nixosSystem {
           inherit system;
           specialArgs = commonInherits;
           modules = systemConfModules ++ systemModules ++ [
@@ -86,7 +87,8 @@
             home-manager.nixosModules.home-manager
             {
               home-manager = {
-                extraSpecialArgs = commonInherits // { inherit unstable; };
+                # extraSpecialArgs = commonInherits // { inherit unstable; };
+                extraSpecialArgs = commonInherits;
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.${userName}.imports = homeConfModules
