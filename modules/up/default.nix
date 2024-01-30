@@ -40,6 +40,7 @@ in {
               echo "Error: git tree is dirty"
           else
               git pull
+              # nix --extra-experimental-features nix-command flake update
               nix flake update
               if [[ -n $(git status -s) ]]; then
                   git add flake.lock && git commit -m "update flake.lock"

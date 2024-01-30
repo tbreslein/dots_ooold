@@ -9,11 +9,11 @@ in {
 
   config = mkMerge [
     {
-      # nix = {
-      #   optimise.automatic = true;
-      #   gc.dates = "weekly";
-      #   settings.experimental-features = [ "nix-command" "flakes" ];
-      # };
+      nix = {
+        #   optimise.automatic = true;
+        #   gc.dates = "weekly";
+        settings.experimental-features = [ "nix-command" "flakes" ];
+      };
 
       networking = {
         networkmanager.enable = true;
