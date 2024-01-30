@@ -20,10 +20,10 @@ in {
       inherit overlays;
     };
     nix = {
-      gc = {
-        automatic = true;
-        options = "--delete-older-than 1w";
-      };
+      # gc = {
+      #   automatic = true;
+      #   options = "--delete-older-than 1w";
+      # };
       settings = {
         trusted-users = [ userName ];
         substituters = [ "https://cachix.cachix.org" ];

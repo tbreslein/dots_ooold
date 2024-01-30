@@ -12,7 +12,7 @@
       efiSupport = true;
       device = "nodev";
       useOSProber = true;
-      configurationLimit = 10;
+      # configurationLimit = 10;
     };
   };
   networking.hostName = "moebius";
@@ -23,6 +23,6 @@
       enableWayland = true;
       enableX11 = false;
     };
-    systemDefaults.enableGaming = true;
+    systemDefaults.enableGaming = false;
   };
 }

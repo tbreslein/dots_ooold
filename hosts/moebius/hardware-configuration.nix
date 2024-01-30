@@ -5,11 +5,11 @@
 
   boot = {
     initrd = {
-      availableKernelModules =
-        [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
+      availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" ];
+      # [ "nvme" "xhci_pci" "ahci" "usbhid" "usb_storage" "sd_mod" ];
       kernelModules = [ ];
     };
-    kernelModules = [ "amdgpu" ];
+    kernelModules = [ "kvm-amd" ];
     extraModulePackages = [ ];
   };
 
@@ -37,12 +37,12 @@
   hardware = {
     cpu.amd.updateMicrocode =
       lib.mkDefault config.hardware.enableRedistributableFirmware;
-    opengl = {
-      driSupport = true;
-      driSupport32Bit = true;
-      extraPackages = with pkgs; [ amdvlk ];
-      extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
-    };
+    # opengl = {
+    #   driSupport = true;
+    #   driSupport32Bit = true;
+    #   extraPackages = with pkgs; [ amdvlk ];
+    #   extraPackages32 = with pkgs; [ driversi686Linux.amdvlk ];
+    # };
   };
-  services.xserver.videoDrivers = [ "amdgpu" ];
+  # services.xserver.videoDrivers = [ "amdgpu" ];
 }
