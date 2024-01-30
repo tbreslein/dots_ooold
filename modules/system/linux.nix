@@ -10,8 +10,8 @@ in {
   config = mkMerge [
     {
       nix = {
-        #   optimise.automatic = true;
-        #   gc.dates = "weekly";
+        optimise.automatic = true;
+        gc.dates = "weekly";
         settings.experimental-features = [ "nix-command" "flakes" ];
       };
 
