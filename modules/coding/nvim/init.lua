@@ -40,25 +40,25 @@ vim.opt.fileencoding = "utf-8"
 vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 
 -- >>> Status line
-function statusline()
-    local function lsp_status()
-        local nums = {
-            #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR }),
-            #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN }),
-            #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO }),
-            #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT }),
-        }
-        local out = ""
-        if nums[1] > 0 then out = out .. " %#Red# " .. nums[1] end
-        if nums[2] > 0 then out = out .. " %#Yellow# " .. nums[2] end
-        if nums[3] > 0 then out = out .. " %#Green# " .. nums[3] end
-        if nums[4] > 0 then out = out .. " %#Blue# " .. nums[4] end
-        if out:len() > 0 then out = " |" .. out end
-        return out
-    end
-    return table.concat({ "%f", "%m", "%= | ", "%p%% %l:%c", lsp_status() })
-end
-vim.cmd([[ set statusline=%!luaeval('statusline()') ]])
+-- function statusline()
+--     local function lsp_status()
+--         local nums = {
+--             #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR }),
+--             #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN }),
+--             #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO }),
+--             #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT }),
+--         }
+--         local out = ""
+--         if nums[1] > 0 then out = out .. " %#Red# " .. nums[1] end
+--         if nums[2] > 0 then out = out .. " %#Yellow# " .. nums[2] end
+--         if nums[3] > 0 then out = out .. " %#Green# " .. nums[3] end
+--         if nums[4] > 0 then out = out .. " %#Blue# " .. nums[4] end
+--         if out:len() > 0 then out = " |" .. out end
+--         return out
+--     end
+--     return table.concat({ "%f", "%m", "%= | ", "%p%% %l:%c", lsp_status() })
+-- end
+-- vim.cmd([[ set statusline=%!luaeval('statusline()') ]])
 
 require("lazy").setup({
     -- common deps
@@ -95,6 +95,28 @@ require("lazy").setup({
     { "numToStr/Comment.nvim", opts = {} },
     { "j-hui/fidget.nvim", opts = {} },
     "mbbill/undotree",
+    {
+        "nvim-lualine/lualine.nvim",
+        opts = {
+            options = { component_separators = "", section_separators = "" },
+            sections = {
+                lualine_a = { "mode" },
+                lualine_b = {},
+                lualine_c = { { "filename", path = 3 } },
+                lualine_x = { "diagnostics" },
+                lualine_y = { "progress" },
+                lualine_z = { "location" },
+            },
+            inactive_sections = {
+                lualine_a = {},
+                lualine_b = {},
+                lualine_c = { "filename" },
+                lualine_x = { "location" },
+                lualine_y = {},
+                lualine_z = {},
+            },
+        },
+    },
 
     -- navigation
     {
