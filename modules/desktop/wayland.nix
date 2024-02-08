@@ -257,16 +257,16 @@ in {
           "$mod ALT, k, resizeactive, ,-10"
           "$mod ALT, l, resizeactive, 10,0"
 
-          "$mod, 1, workspace, 1"
-          "$mod, 2, workspace, 2"
-          "$mod, 3, workspace, 3"
-          "$mod, 4, workspace, 4"
-          "$mod, 5, workspace, 5"
-          "$mod ALT, 1, movetoworkspace, 1"
-          "$mod ALT, 2, movetoworkspace, 2"
-          "$mod ALT, 3, movetoworkspace, 3"
-          "$mod ALT, 4, movetoworkspace, 4"
-          "$mod ALT, 5, movetoworkspace, 5"
+          "$mod, m, workspace, 1"
+          "$mod, n, workspace, 2"
+          "$mod, e, workspace, 3"
+          "$mod, i, workspace, 4"
+          "$mod, o, workspace, 5"
+          "$mod ALT, m, movetoworkspace, 1"
+          "$mod ALT, n, movetoworkspace, 2"
+          "$mod ALT, e, movetoworkspace, 3"
+          "$mod ALT, i, movetoworkspace, 4"
+          "$mod ALT, o, movetoworkspace, 5"
         ];
         bindm =
           [ "$mod, mouse:272, movewindow" "$mod, mouse:273, resizewindow" ];
