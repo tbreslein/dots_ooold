@@ -24,5 +24,6 @@
       enableWayland = true;
       enableX11 = false;
     };
+    systemDefaults.enableGaming = false;
   };
 }
