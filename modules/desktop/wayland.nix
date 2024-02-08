@@ -236,10 +236,12 @@ in {
           ", XF86AudioPlay, exec, playerctl play-pause"
           ", XF86AudioPrev, exec, playerctl previous"
           ", XF86AudioNext, exec, playerctl next"
-          "$mod, p, exec, grim -g '$(slurp)' ~/Pictures/$(date +'%s_grim.png')"
+          ''
+            $mod, p, exec, grim -g "$(slurp)" - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png''
+          "$mod ALT, p, exec, grim - | satty --filename - --fullscreen --output-filename ~/Pictures/Screenshots/satty-$(date '+%Y%m%d-%H:%M:%S').png"
           "$mod ALT, p, exec, grim -g '$(slurp)' - | wl-copy"
-          "$mod, o, exec, grim ~/Pictures/$(date +'%s_grim.png')"
-          "$mod ALT, o, exec, grim - | wl-copy"
+          # "$mod, o, exec, grim ~/Pictures/$(date +'%s_grim.png')"
+          # "$mod ALT, o, exec, grim - | wl-copy"
 
           "$mod, j, cyclenext,"
           "$mod, k, cyclenext, prev"
