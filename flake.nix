@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs-unstable.url = "github:NixOS/nixpkgs/nixos-unstable";
     home-manager = {
       url = "github:nix-community/home-manager/release-23.11";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -18,8 +19,8 @@
     };
   };
 
-  outputs =
-    inputs@{ self, nixpkgs, home-manager, neovim-nightly-overlay, darwin, ... }:
+  outputs = inputs@{ self, nixpkgs, nixpkgs-unstable, home-manager
+    , neovim-nightly-overlay, darwin, ... }:
     let
       theme = "gruvbox-material";
       colors = if theme == "gruvbox-material" then rec {
@@ -59,7 +60,6 @@
         { };
       userName = "tommy";
       overlays = [ neovim-nightly-overlay.overlay ];
-      # overlays = [ ];
       commonInherits = { inherit inputs colors userName overlays; };
       homeConfModules = [
         ./modules/cli
@@ -73,16 +73,19 @@
       ];
       systemConfModules = [ ./modules/system ./modules/system/desktop.nix ];
       mkNixos = name: system: systemModules:
-        nixpkgs.lib.nixosSystem {
+        let
+          pkgs-unstable = import nixpkgs-unstable { inherit system; };
+          localInherits = commonInherits // { inherit pkgs-unstable; };
+        in nixpkgs.lib.nixosSystem {
           inherit system;
-          specialArgs = commonInherits;
+          specialArgs = localInherits;
           modules = systemConfModules ++ systemModules ++ [
             (./hosts + "/${name}/configuration.nix")
 
             home-manager.nixosModules.home-manager
             {
               home-manager = {
-                extraSpecialArgs = commonInherits;
+                extraSpecialArgs = localInherits;
                 useGlobalPkgs = true;
                 useUserPackages = true;
                 users.${userName}.imports = homeConfModules

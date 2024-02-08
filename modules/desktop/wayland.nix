@@ -1,4 +1,4 @@
-{ config, lib, pkgs, colors, ... }:
+{ config, lib, pkgs, pkgs-unstable, colors, ... }:
 
 let
   inherit (lib) mkIf mkMerge mkOption types;
@@ -22,6 +22,7 @@ in {
         wlsunset
         grim
         slurp
+        pkgs-unstable.satty
       ];
     };
   };
