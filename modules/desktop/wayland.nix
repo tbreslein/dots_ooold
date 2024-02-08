@@ -262,11 +262,11 @@ in {
           "$mod, e, workspace, 3"
           "$mod, i, workspace, 4"
           "$mod, o, workspace, 5"
-          "$mod ALT, m, movetoworkspace, 1"
-          "$mod ALT, n, movetoworkspace, 2"
-          "$mod ALT, e, movetoworkspace, 3"
-          "$mod ALT, i, movetoworkspace, 4"
-          "$mod ALT, o, movetoworkspace, 5"
+          "$mod CTRL, m, movetoworkspace, 1"
+          "$mod CTRL, n, movetoworkspace, 2"
+          "$mod CTRL, e, movetoworkspace, 3"
+          "$mod CTRL, i, movetoworkspace, 4"
+          "$mod CTRL, o, movetoworkspace, 5"
         ];
         bindm =
           [ "$mod, mouse:272, movewindow" "$mod, mouse:273, resizewindow" ];
