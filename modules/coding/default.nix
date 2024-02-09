@@ -51,7 +51,6 @@ in {
         marksman
         prettierd
         stylua
-        codeium
 
         go-task
         lazygit
