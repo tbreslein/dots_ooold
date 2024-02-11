@@ -18,14 +18,8 @@ _:
     };
   };
 
-  wayland.windowManager.hyprland.settings = {
-    master.mfact = 0.5;
-    input = {
-      kb_layout = "us,de";
-      # kb_variant = "";
-      kb_options = "grp:alt_space_toggle";
-    };
-  };
+  wayland.windowManager.hyprland.settings.input.kb_options =
+    "grp:alt_space_toggle";
   services.kanshi.profiles.def.outputs = [{
     criteria = "DP-3";
     mode = "3440x1440@144.000";

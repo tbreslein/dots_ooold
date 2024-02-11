@@ -36,7 +36,6 @@ in {
           shape = "Block";
           blinking = "Never";
         };
-        mouse.hide_when_typing = true;
 
         colors = {
           draw_bold_text_with_bright_colors = true;

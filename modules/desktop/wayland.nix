@@ -198,9 +198,14 @@ in {
           "col.inactive_border" = "rgba(${colors.black}ee)";
           layout = "master";
         };
+        master = {
+          mfact = 0.5;
+          orientation = "right";
+        };
         input = {
           repeat_rate = 35;
           repeat_delay = 300;
+          kb_layout = "us,de";
         };
         misc = {
           disable_hyprland_logo = true;
@@ -209,7 +214,6 @@ in {
           key_press_enables_dpms = true;
         };
         decoration.rounding = 5;
-        master.orientation = "right";
         windowrulev2 = [
           "float,title:^(Picture(.)in(.)picture)$"
           "pin,title:^(Picture(.)in(.)picture)$"
