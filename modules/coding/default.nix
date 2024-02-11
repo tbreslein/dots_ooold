@@ -141,7 +141,6 @@ in {
       };
       tmux = mkIf cfg.enableTmux {
         enable = true;
-        prefix = "C-a";
         baseIndex = 1;
         clock24 = true;
         escapeTime = 0;
@@ -156,8 +155,8 @@ in {
           set-option -g renumber-windows on
           setw -g main-pane-height 60
 
-          bind-key -n M-n previous-window
-          bind-key -n M-e next-window
+          bind-key -n M-j previous-window
+          bind-key -n M-k next-window
 
           bind-key C-g copy-mode
           bind-key -T copy-mode-vi v send-keys -X begin-selection

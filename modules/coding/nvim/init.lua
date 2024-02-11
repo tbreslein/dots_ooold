@@ -241,9 +241,9 @@ kmap({ "n", "v" }, "n", "nzzzv")
 kmap({ "n", "v" }, "N", "Nzzzv")
 kmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 kmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
-kmap("n", { "<leader>ff", "<F11>" }, "<cmd>cprev<cr>zz")
-kmap("n", { "<leader>fp", "<F12>" }, "<cmd>cnext<cr>zz")
-kmap("n", "<leader>ft", function()
+kmap("n", { "<leader>cf", "<F11>" }, "<cmd>cprev<cr>zz")
+kmap("n", { "<leader>cp", "<F12>" }, "<cmd>cnext<cr>zz")
+kmap("n", "<leader>ct", function()
     local qf_exists = false
     for _, win in pairs(vim.fn.getwininfo()) do
         if win["quickfix"] == 1 then
@@ -257,14 +257,14 @@ end)
 kmap("n", "<leader>u", vim.cmd.UndotreeToggle)
 
 local harpoon = require("harpoon")
-kmap("n", "<m-l>", function() harpoon:list():select(1) end)
-kmap("n", "<m-u>", function() harpoon:list():select(2) end)
-kmap("n", "<m-y>", function() harpoon:list():select(3) end)
-kmap("n", "<m-j>", function() harpoon:list():select(4) end)
+kmap("n", "<m-u>", function() harpoon:list():select(1) end)
+kmap("n", "<m-i>", function() harpoon:list():select(2) end)
+kmap("n", "<m-o>", function() harpoon:list():select(3) end)
+kmap("n", "<m-p>", function() harpoon:list():select(4) end)
 kmap("n", "<leader>a", function() harpoon:list():append() end)
 kmap("n", "<leader>e", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
-kmap("n", "<leader>pf", function()
+kmap("n", "<leader>ff", function()
     vim.fn.system("git rev-parse --is-inside-work-tree")
     if vim.v.shell_error == 0 then
         require("telescope.builtin").git_files()
@@ -272,9 +272,9 @@ kmap("n", "<leader>pf", function()
         require("telescope.builtin").find_files()
     end
 end)
-kmap("n", "<leader>pg", require("telescope.builtin").git_files)
-kmap("n", "<leader>ps", require("telescope.builtin").live_grep)
-kmap("n", "<leader>pp", "<cmd>Oil --float<cr>")
+kmap("n", "<leader>fg", require("telescope.builtin").git_files)
+kmap("n", "<leader>fs", require("telescope.builtin").live_grep)
+kmap("n", "<leader>fo", "<cmd>Oil --float<cr>")
 kmap("n", "<leader>T", "<cmd>TroubleToggle<cr>")
 kmap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
 kmap("n", { "gp", "<F7>" }, "<cmd>lua vim.diagnostic.goto_prev()<cr>")
@@ -332,11 +332,11 @@ cmp.setup({
         ["<c-p>"] = cmp.config.disable,
         ["<c-b>"] = cmp.config.disable,
         ["<c-f>"] = cmp.config.disable,
-        ["<c-n>"] = cmp.mapping.select_next_item(select_opts),
-        ["<c-e>"] = cmp.mapping.select_prev_item(select_opts),
-        ["<c-y>"] = cmp.mapping.confirm({ select = true }),
-        ["<c-s>"] = cmp.mapping(cmp.mapping.scroll_docs(-4)),
-        ["<c-t>"] = cmp.mapping(cmp.mapping.scroll_docs(4)),
+        ["<c-j>"] = cmp.mapping.select_next_item(select_opts),
+        ["<c-k>"] = cmp.mapping.select_prev_item(select_opts),
+        ["<c-l>"] = cmp.mapping.confirm({ select = true }),
+        ["<c-m>"] = cmp.mapping(cmp.mapping.scroll_docs(-4)),
+        ["<c-.>"] = cmp.mapping(cmp.mapping.scroll_docs(4)),
     }),
     enabled = function() return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" end,
     formatting = {
@@ -360,7 +360,7 @@ cmp.setup({
 })
 local cmp_cmdline_mappings = {
     ["<c-p>"] = cmp.config.disable,
-    ["<c-n>"] = {
+    ["<c-j>"] = {
         c = function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
@@ -369,7 +369,7 @@ local cmp_cmdline_mappings = {
             end
         end,
     },
-    ["<c-e>"] = {
+    ["<c-k>"] = {
         c = function(fallback)
             if cmp.visible() then
                 cmp.select_prev_item()
