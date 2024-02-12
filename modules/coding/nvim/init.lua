@@ -39,27 +39,6 @@ vim.opt.mouse = "a"
 vim.opt.fileencoding = "utf-8"
 vim.opt.clipboard:append({ "unnamed", "unnamedplus" })
 
--- >>> Status line
--- function statusline()
---     local function lsp_status()
---         local nums = {
---             #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR }),
---             #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN }),
---             #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.INFO }),
---             #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.HINT }),
---         }
---         local out = ""
---         if nums[1] > 0 then out = out .. " %#Red# " .. nums[1] end
---         if nums[2] > 0 then out = out .. " %#Yellow# " .. nums[2] end
---         if nums[3] > 0 then out = out .. " %#Green# " .. nums[3] end
---         if nums[4] > 0 then out = out .. " %#Blue# " .. nums[4] end
---         if out:len() > 0 then out = " |" .. out end
---         return out
---     end
---     return table.concat({ "%f", "%m", "%= | ", "%p%% %l:%c", lsp_status() })
--- end
--- vim.cmd([[ set statusline=%!luaeval('statusline()') ]])
-
 require("lazy").setup({
     -- common deps
     "nvim-lua/plenary.nvim",
@@ -211,13 +190,7 @@ require("lazy").setup({
 local function kmap(modes, bindings, action, opts)
     local _opts = { silent = true, expr = false, noremap = true }
     if opts ~= nil then _opts = vim.tbl_deep_extend("force", _opts, opts) end
-    if type(bindings) == "table" then
-        for _, bind in ipairs(bindings) do
-            vim.keymap.set(modes, bind, action, _opts)
-        end
-    else
-        vim.keymap.set(modes, bindings, action, _opts)
-    end
+    vim.keymap.set(modes, bindings, action, _opts)
 end
 
 kmap("n", "<leader>w", ":w<cr>", { silent = false })
@@ -241,8 +214,8 @@ kmap({ "n", "v" }, "n", "nzzzv")
 kmap({ "n", "v" }, "N", "Nzzzv")
 kmap("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true })
 kmap("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true })
-kmap("n", { "<leader>cf", "<F11>" }, "<cmd>cprev<cr>zz")
-kmap("n", { "<leader>cp", "<F12>" }, "<cmd>cnext<cr>zz")
+kmap("n", "<leader>cj", "<cmd>cnext<cr>zz")
+kmap("n", "<leader>ck", "<cmd>cprev<cr>zz")
 kmap("n", "<leader>ct", function()
     local qf_exists = false
     for _, win in pairs(vim.fn.getwininfo()) do
@@ -277,8 +250,8 @@ kmap("n", "<leader>fs", require("telescope.builtin").live_grep)
 kmap("n", "<leader>fo", "<cmd>Oil --float<cr>")
 kmap("n", "<leader>T", "<cmd>TroubleToggle<cr>")
 kmap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
-kmap("n", { "gp", "<F7>" }, "<cmd>lua vim.diagnostic.goto_prev()<cr>")
-kmap("n", { "gn", "<F8>" }, "<cmd>lua vim.diagnostic.goto_next()<cr>")
+kmap("n", "gj", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
+kmap("n", "gk", "<cmd>lua vim.diagnostic.goto_next()<cr>")
 vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
     callback = function()
@@ -291,8 +264,8 @@ vim.api.nvim_create_autocmd("LspAttach", {
         -- bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
         bufmap("n", "gr", "<cmd>TroubleToggle lsp_references<cr>")
         bufmap("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
-        bufmap("n", "<F2>", "<cmd>lua vim.lsp.buf.rename()<cr>")
-        bufmap("n", "<F4>", "<cmd>lua vim.lsp.buf.code_action()<cr>")
+        bufmap("n", "<leader>R", "<cmd>lua vim.lsp.buf.rename()<cr>")
+        bufmap("n", "<leader>A", "<cmd>lua vim.lsp.buf.code_action()<cr>")
     end,
 })
 
@@ -302,7 +275,6 @@ local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 lspconfig.clangd.setup({ capabilities = lsp_capabilities })
 lspconfig.neocmake.setup({ capabilities = lsp_capabilities })
 lspconfig.gopls.setup({ capabilities = lsp_capabilities })
-lspconfig.uiua.setup({ capabilities = lsp_capabilities })
 lspconfig.rust_analyzer.setup({
     capabilities = lsp_capabilities,
     settings = { ["rust-analyzer"] = { files = { excludeDirs = { ".direnv" } } } },
