@@ -3,33 +3,59 @@ let
   inherit (lib) mkIf mkMerge mkEnableOption mkOption types;
   cfg = config.conf.coding;
 
+  # plainDev = {
+  #   name = "dev";
+  #   panes = [ "-" ];
+  # };
+  # plainSh = {
+  #   name = "sh";
+  #   panes = [ "-" ];
+  # };
+  # npmRunServe = {
+  #   name = "server";
+  #   panes = [ "- commands: [npm run serve]" ];
+  # };
+  # defaultWindows = [ plainDev plainSh ];
+  #
+  # mkWindow = { name, panes, root ? "." }:
+  #   "\n  - name: ${name}\n    root: ${root}\n    panes:\n"
+  #   + lib.concatStringsSep "\n" (map (x: "      " + x) panes);
+  #
+  # mkSmug = name: root: windows: {
+  #   target = "${config.home.homeDirectory}/.config/smug/${name}.yml";
+  #   text = ''
+  #     ---
+  #     session: ${name}
+  #     root: ~/${root}
+  #     windows: ${lib.concatStringsSep "\n" (map mkWindow windows)}
+  #   '';
+  # };
+
   plainDev = {
-    name = "dev";
-    panes = [ "-" ];
+    window_name = "dev";
+    panes = [{ shell_command = [ "" ]; }];
   };
+
   plainSh = {
-    name = "sh";
-    panes = [ "-" ];
+    window_name = "sh";
+    panes = [{ shell_command = [ "" ]; }];
   };
+
   npmRunServe = {
-    name = "server";
-    panes = [ "- commands: [npm run serve]" ];
+    window_name = "server";
+    panes = [{ shell_command = [ "npm run serve" ]; }];
   };
+
   defaultWindows = [ plainDev plainSh ];
 
-  mkWindow = { name, panes, root ? "." }:
-    "\n  - name: ${name}\n    root: ${root}\n    panes:\n"
-    + lib.concatStringsSep "\n" (map (x: "      " + x) panes);
+  mkTmuxpSession = { session_name, start_directory, windows ? defaultWindows
+    , extraConfig ? { } }: {
+      target =
+        "${config.home.homeDirectory}/.config/tmuxp/${session_name}.json";
+      text = builtins.toJSON
+        ({ inherit session_name start_directory windows; } // extraConfig);
+    };
 
-  mkSmug = name: root: windows: {
-    target = "${config.home.homeDirectory}/.config/smug/${name}.yml";
-    text = ''
-      ---
-      session: ${name}
-      root: ~/${root}
-      windows: ${lib.concatStringsSep "\n" (map mkWindow windows)}
-    '';
-  };
 in {
   options.conf.coding = {
     enable = mkEnableOption "enable coding tools";
@@ -83,34 +109,69 @@ in {
       packages = mkMerge [
         cfg.defaultPkgs
         cfg.extraPkgs
-        (mkIf cfg.enableTmux [ pkgs.smug ])
+        (mkIf cfg.enableTmux [ pkgs.tmuxp ])
       ];
       sessionVariables.EDITOR = lib.mkForce "nvim";
       file = mkMerge [
         (mkIf cfg.enableTmux {
-          smug_notes = mkSmug "notes" "syncthing/notes" [ plainDev ];
-          smug_dots = mkSmug "dots" "dots" [ plainDev ];
-          smug_corries = mkSmug "corries" "coding/corries" defaultWindows;
-          smug_tdos = mkSmug "tdos" "coding/tdos" defaultWindows;
-          smug_frankenrepo =
-            mkSmug "frankenrepo" "coding/frankenrepo" defaultWindows;
-          smug_frankenrepo-dev =
-            mkSmug "frankenrepo.dev" "coding/frankenrepo.dev"
-            (defaultWindows ++ [ npmRunServe ]);
-          smug_capturedlambda = mkSmug "capturedlambda" "coding/capturedlambda"
-            (defaultWindows ++ [ npmRunServe ]);
-          smug_planning = mkSmug "planning" "work/planning" (defaultWindows
-            ++ [{
-              name = "moco";
-              root = "../MocoTrackingClient";
-              panes = [ "- commands: [poetry run python moco_client.py]" ];
-            }]);
+          # mkTmuxpSession = { session_name, start_directory, windows ? defaultWindows
+          #   , extraConfig ? { } }: {
+          tmuxp_notes = mkTmuxpSession {
+            session_name = "notes";
+            start_directory = "${config.home.homeDirectory}/syncthing/notes";
+            windows = [ plainDev ];
+          };
+          tmuxp_dots = mkTmuxpSession {
+            session_name = "dots";
+            start_directory = "${config.home.homeDirectory}/dots";
+          };
+          tmuxp_corries = mkTmuxpSession {
+            session_name = "corries";
+            start_directory = "${config.home.homeDirectory}/coding/corries";
+          };
+          tmuxp_frankenrepo = mkTmuxpSession {
+            session_name = "frankenrepo";
+            start_directory = "${config.home.homeDirectory}/coding/frankenrepo";
+          };
+          tmuxp_capturedlambda = mkTmuxpSession {
+            session_name = "capturedlambda";
+            start_directory =
+              "${config.home.homeDirectory}/coding/capturedlambda";
+            windows = defaultWindows ++ [ npmRunServe ];
+          };
+          tmuxp_planning = mkTmuxpSession {
+            session_name = "planning";
+            start_directory = "${config.home.homeDirectory}/work/planning";
+          };
+          tmuxp_planning_docs = mkTmuxpSession {
+            session_name = "planning_docs";
+            start_directory = "${config.home.homeDirectory}/work/documentation";
+          };
+          tmuxp_schlogg = mkTmuxpSession {
+            session_name = "planning_schlogg";
+            start_directory = "${config.home.homeDirectory}/work/schlogg";
+          };
+          tmuxp_curls = mkTmuxpSession {
+            session_name = "planning_curls";
+            start_directory =
+              "${config.home.homeDirectory}/work/api-test-curls";
+          };
+          tmuxp_moco = mkTmuxpSession {
+            session_name = "planning_moco";
+            start_directory =
+              "${config.home.homeDirectory}/work/MocoTrackingClient";
+            windows = [{
+              window_name = "serve";
+              panes =
+                [{ shell_command = [ "poetry run python moco_client.py" ]; }];
+            }];
+          };
         })
-        ({
+        {
           "${config.home.homeDirectory}/.config/nvim".source =
             config.lib.file.mkOutOfStoreSymlink
             "${config.home.homeDirectory}/dots/modules/coding/nvim";
-        })
+        }
       ];
 
       shellAliases = mkMerge [ cfg.defaultShellAliases cfg.extraShellAliases ];

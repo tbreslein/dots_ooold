@@ -4,12 +4,13 @@
   conf = {
     cli = {
       enable = true;
-      gitEmail = "tommy.breslein@anacision.de";
+      gitEmail = "tommy.breslein@pailot.com";
     };
     coding = {
       enable = true;
       extraShellAliases = {
-        twork = "smug dots --detach; smug notes --detach; smug planning";
+        twork =
+          "tmuxp load planning_docs planning_curls planning_schlogg planning_moco dots planning_work notes planning";
         pvim =
           "poetry -C ${config.home.homeDirectory}/work/planning/projects/planning_api/ run nvim";
       };
