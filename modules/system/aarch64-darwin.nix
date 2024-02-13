@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 let
   inherit (lib) mkMerge mkOption types;
   cfg = config.conf.systemDefaults;
@@ -79,8 +79,9 @@ in {
 
     fonts = {
       fontDir.enable = true;
-      fonts =
-        [ (pkgs.nerdfonts.override { fonts = [ "Hack" "CommitMono" ]; }) ];
+      fonts = [
+        (pkgs-unstable.nerdfonts.override { fonts = [ "Hack" "CommitMono" ]; })
+      ];
     };
 
     programs = {

@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgs-unstable, ... }:
 let
   inherit (lib) mkIf mkMerge mkEnableOption mkOption types;
   cfg = config.conf.desktop;
@@ -70,7 +70,7 @@ in {
     fonts = {
       fontDir.enable = true;
       packages = with pkgs; [
-        (nerdfonts.override { fonts = [ "Hack" ]; })
+        (pkgs-unstable.nerdfonts.override { fonts = [ "Hack" "CommitMono" ]; })
         noto-fonts
         noto-fonts-cjk-sans
         noto-fonts-cjk-serif
