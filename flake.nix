@@ -108,9 +108,13 @@
           ./modules/system/aarch64-linux.nix
         ];
       };
-      darwinConfigurations.Tommys-MacBook-Pro = darwin.lib.darwinSystem {
+      darwinConfigurations.Tommys-MacBook-Pro = let
         system = "aarch64-darwin";
-        specialArgs = commonInherits;
+        pkgs-unstable = import nixpkgs-unstable { inherit system; };
+        localInherits = commonInherits // { inherit pkgs-unstable; };
+      in darwin.lib.darwinSystem {
+        inherit system;
+        specialArgs = localInherits;
         modules = [
           ./modules/system
           ./modules/system/aarch64-darwin.nix
@@ -118,7 +122,7 @@
           home-manager.darwinModules.home-manager
           {
             home-manager = {
-              extraSpecialArgs = commonInherits;
+              extraSpecialArgs = localInherits;
               useGlobalPkgs = true;
               useUserPackages = true;
               users.${userName}.imports = homeConfModules

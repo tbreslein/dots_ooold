@@ -4,13 +4,23 @@ let
   cfg = config.conf.systemDefaults;
 in {
   options.conf.systemDefaults = {
-    extraCasks = mkOption {
-      type = with types; listOf package;
-      default = [ ];
-    };
-    defaultCasks = mkOption {
-      type = with types; listOf str;
-      default = [ "amethyst" "alacritty" ];
+    homebrew = {
+      extraCasks = mkOption {
+        type = with types; listOf str;
+        default = [ ];
+      };
+      defaultCasks = mkOption {
+        type = with types; listOf str;
+        default = [ "amethyst" "alacritty" ];
+      };
+      extraBrews = mkOption {
+        type = with types; listOf str;
+        default = [ ];
+      };
+      defaultBrews = mkOption {
+        type = with types; listOf str;
+        default = [ "qmk/qmk/qmk" ];
+      };
     };
   };
 
@@ -69,7 +79,8 @@ in {
 
     fonts = {
       fontDir.enable = true;
-      fonts = [ (pkgs.nerdfonts.override { fonts = [ "Hack" ]; }) ];
+      fonts =
+        [ (pkgs.nerdfonts.override { fonts = [ "Hack" "CommitMono" ]; }) ];
     };
 
     programs = {
@@ -93,7 +104,8 @@ in {
       caskArgs.no_quarantine = true;
       global.brewfile = true;
       # macApps = {};
-      casks = mkMerge [ cfg.extraCasks cfg.defaultCasks ];
+      brews = mkMerge [ cfg.homebrew.extraBrews cfg.homebrew.defaultBrews ];
+      casks = mkMerge [ cfg.homebrew.extraCasks cfg.homebrew.defaultCasks ];
     };
     # launchd.agents.mococlient =
     #   let mocodir = "/Users/tommy/work/MocoTrackingClient";
