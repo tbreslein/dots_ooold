@@ -131,7 +131,7 @@ in {
           "super + Escape" = "pkill -USR1 -x sxhkd";
           "super + Return" = "alacritty";
           "super + @space" =
-            "dmenu_run -i -fn 'Hack:size=19' -nb '#${colors.background}' -nf '#${colors.foreground}' -sb '#${colors.brightBlack}' -sf '#${colors.accent}'";
+            "dmenu_run -i -fn 'CommitMono:size=19' -nb '#${colors.background}' -nf '#${colors.foreground}' -sb '#${colors.brightBlack}' -sf '#${colors.accent}'";
           "super + alt + b" = "brave";
           "XF86AudioMute" = "wpctl set-mute @DEFAULT_SINK@ toggle";
           "{XF86AudioRaiseVolume,XF86AudioLowerVolume}" =
@@ -183,7 +183,7 @@ in {
             module-margin = 1;
             separator = "|";
             separator-foreground = "#${colors.black}";
-            font-0 = "Hack Nerd Font; 2";
+            font-0 = "CommitMono Nerd Font; 2";
             modules-left = "workspaces";
             modules-center = "date";
             modules-right = "xkeyboard memory cpu wlan eth";

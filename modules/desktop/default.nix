@@ -29,7 +29,7 @@ in {
           opacity = 0.92;
         };
         font = {
-          normal.family = "Hack Nerd Font";
+          normal.family = "CommitMono Nerd Font";
           size = cfg.terminalFontSize;
         };
         cursor.style = {

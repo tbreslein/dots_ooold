@@ -114,7 +114,7 @@ in {
       };
       style = ''
         * {
-          font-family: "Hack Nerd Font";
+          font-family: "CommitMono Nerd Font";
           font-size: 18px;
         }
 
@@ -228,7 +228,7 @@ in {
         bind = [
           "$mod, t, exec, alacritty"
           "$mod, b, exec, brave"
-          "$mod, Space, exec, bemenu-run -i -c -p '' -W 0.3 -l 20 --fn 'Hack 18' --fb '##${colors.black}' --ff '##${colors.foreground}' --nb '##${colors.background}' --nf '##${colors.foreground}' --ab '##${colors.background}' --af '##${colors.foreground}' --hb '##${colors.background}' --hf '##${colors.accent}'"
+          "$mod, Space, exec, bemenu-run -i -c -p '' -W 0.3 -l 20 --fn 'CommitMono 18' --fb '##${colors.black}' --ff '##${colors.foreground}' --nb '##${colors.background}' --nf '##${colors.foreground}' --ab '##${colors.background}' --af '##${colors.foreground}' --hb '##${colors.background}' --hf '##${colors.accent}'"
           "$mod, q, killactive,"
           "$mod ALT, q, exit,"
           "$mod, f, fullscreen, 1"
