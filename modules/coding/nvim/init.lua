@@ -301,6 +301,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end,
 })
 kmap("n", "<leader>gg", require("neogit").open)
+kmap("n", "<leader>ss", require("spectre").toggle)
 
 -- >>> LSP
 local lspconfig = require("lspconfig")
