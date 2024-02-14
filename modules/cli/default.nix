@@ -114,6 +114,7 @@ in {
       fish = {
         enable = true;
         interactiveShellInit = "set -g fish_greeting";
+        shellInit = "fish_add_path /opt/homebrew/bin/";
       };
       nushell = { enable = true; };
       zsh = {
