@@ -86,8 +86,6 @@ in {
       sessionVariables.EDITOR = lib.mkForce "nvim";
       file = mkMerge [
         (mkIf cfg.enableTmux {
-          # mkTmuxpSession = { session_name, start_directory, windows ? defaultWindows
-          #   , extraConfig ? { } }: {
           tmuxp_notes = mkTmuxpSession {
             session_name = "notes";
             start_directory = "${config.home.homeDirectory}/syncthing/notes";
@@ -232,6 +230,7 @@ in {
           set -g status-position top
           set -g status-justify left
           set -g status-left "#[fg=blue,bold] #S λ  "
+          set -g status-left-length 80
           set -g status-right ""
           set -g status-style fg=white,bg=black
           set -g message-style fg=yellow,bold,bg=black
