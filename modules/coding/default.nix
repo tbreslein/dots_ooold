@@ -3,34 +3,6 @@ let
   inherit (lib) mkIf mkMerge mkEnableOption mkOption types;
   cfg = config.conf.coding;
 
-  # plainDev = {
-  #   name = "dev";
-  #   panes = [ "-" ];
-  # };
-  # plainSh = {
-  #   name = "sh";
-  #   panes = [ "-" ];
-  # };
-  # npmRunServe = {
-  #   name = "server";
-  #   panes = [ "- commands: [npm run serve]" ];
-  # };
-  # defaultWindows = [ plainDev plainSh ];
-  #
-  # mkWindow = { name, panes, root ? "." }:
-  #   "\n  - name: ${name}\n    root: ${root}\n    panes:\n"
-  #   + lib.concatStringsSep "\n" (map (x: "      " + x) panes);
-  #
-  # mkSmug = name: root: windows: {
-  #   target = "${config.home.homeDirectory}/.config/smug/${name}.yml";
-  #   text = ''
-  #     ---
-  #     session: ${name}
-  #     root: ~/${root}
-  #     windows: ${lib.concatStringsSep "\n" (map mkWindow windows)}
-  #   '';
-  # };
-
   plainDev = {
     window_name = "dev";
     panes = [{ shell_command = [ "" ]; }];
@@ -142,6 +114,10 @@ in {
           tmuxp_planning = mkTmuxpSession {
             session_name = "planning";
             start_directory = "${config.home.homeDirectory}/work/planning";
+          };
+          tmuxp_work = mkTmuxpSession {
+            session_name = "planning_work";
+            start_directory = "${config.home.homeDirectory}/work";
           };
           tmuxp_planning_docs = mkTmuxpSession {
             session_name = "planning_docs";
