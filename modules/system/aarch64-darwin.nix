@@ -19,7 +19,8 @@ in {
       };
       defaultBrews = mkOption {
         type = with types; listOf str;
-        default = [ "qmk/qmk/qmk" ];
+        # default = [ "qmk/qmk/qmk" ];
+        default = [ ];
       };
     };
   };
@@ -100,6 +101,7 @@ in {
       onActivation = {
         autoUpdate = true;
         upgrade = true;
+        extraFlags = [ "--verbose" ];
       };
       enable = true;
       caskArgs.no_quarantine = true;
