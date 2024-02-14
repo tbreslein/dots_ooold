@@ -3,7 +3,11 @@ _:
 {
   conf = {
     cli.enable = true;
-    coding.enable = true;
+    coding = {
+      enable = true;
+      extraShellAliases.tcode =
+        "tmuxp load home dots notes capturedlambda corries hydrie frankenrepo";
+    };
     desktop = {
       enable = true;
       terminalFontSize = 10;

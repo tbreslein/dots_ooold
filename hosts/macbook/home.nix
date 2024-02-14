@@ -10,7 +10,7 @@
       enable = true;
       extraShellAliases = {
         twork =
-          "tmuxp load planning_docs planning_curls planning_schlogg planning_moco dots planning_work notes planning";
+          "tmuxp load home dots notes planning_docs planning_curls planning_schlogg planning_moco planning_work planning";
         pvim =
           "poetry -C ${config.home.homeDirectory}/work/planning/projects/planning_api/ run nvim";
       };

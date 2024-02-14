@@ -86,18 +86,26 @@ in {
       sessionVariables.EDITOR = lib.mkForce "nvim";
       file = mkMerge [
         (mkIf cfg.enableTmux {
-          tmuxp_notes = mkTmuxpSession {
-            session_name = "notes";
-            start_directory = "${config.home.homeDirectory}/syncthing/notes";
-            windows = [ plainDev ];
+          tmuxp_home = mkTmuxpSession {
+            session_name = "home";
+            start_directory = "${config.home.homeDirectory}";
           };
           tmuxp_dots = mkTmuxpSession {
             session_name = "dots";
             start_directory = "${config.home.homeDirectory}/dots";
           };
+          tmuxp_notes = mkTmuxpSession {
+            session_name = "notes";
+            start_directory = "${config.home.homeDirectory}/syncthing/notes";
+            windows = [ plainDev ];
+          };
           tmuxp_corries = mkTmuxpSession {
             session_name = "corries";
             start_directory = "${config.home.homeDirectory}/coding/corries";
+          };
+          tmuxp_hydrie = mkTmuxpSession {
+            session_name = "hydrie";
+            start_directory = "${config.home.homeDirectory}/coding/hydrie";
           };
           tmuxp_frankenrepo = mkTmuxpSession {
             session_name = "frankenrepo";
