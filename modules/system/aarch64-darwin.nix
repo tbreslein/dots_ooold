@@ -19,8 +19,8 @@ in {
       };
       defaultBrews = mkOption {
         type = with types; listOf str;
-        # default = [ "qmk/qmk/qmk" ];
-        default = [ ];
+        default = [ "qmk/qmk/qmk" ];
+        # default = [ ];
       };
     };
   };
