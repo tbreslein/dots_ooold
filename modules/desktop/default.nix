@@ -14,6 +14,10 @@ in {
       type = types.int;
       default = null;
     };
+    terminalBlur = mkOption {
+      type = types.bool;
+      default = true;
+    };
   };
 
   config = mkIf cfg.enable {
@@ -27,6 +31,7 @@ in {
         window = {
           dynamic_padding = true;
           opacity = 0.92;
+          blur = cfg.terminalBlur;
         };
         font = {
           normal.family = "CommitMono Nerd Font";

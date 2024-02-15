@@ -17,7 +17,7 @@
     };
     desktop = {
       enable = true;
-      terminalFontSize = 18;
+      terminalFontSize = 17;
     };
     homeDefaults.system = "darwin";
     up.system = "darwin";
