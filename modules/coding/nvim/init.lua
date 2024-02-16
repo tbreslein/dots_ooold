@@ -279,8 +279,8 @@ kmap("n", "<leader>fs", require("telescope.builtin").live_grep)
 kmap("n", "<leader>fo", "<cmd>Oil --float<cr>")
 kmap("n", "<leader>T", "<cmd>TroubleToggle<cr>")
 kmap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
-kmap("n", "gj", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
-kmap("n", "gk", "<cmd>lua vim.diagnostic.goto_next()<cr>")
+kmap("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<cr>")
+kmap("n", "gk", "<cmd>lua vim.diagnostic.goto_prev()<cr>")
 vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
     callback = function()
