@@ -203,6 +203,7 @@ in {
           orientation = "right";
         };
         input = {
+          follow_mouse = 0;
           repeat_rate = 35;
           repeat_delay = 300;
           kb_layout = "us,de";
