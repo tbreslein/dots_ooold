@@ -141,7 +141,7 @@ require("lazy").setup({
     --         require("telescope").load_extension("fzf")
     --     end,
     -- },
-    { "ibhagwan/fzf-lua", opts = {} },
+    { "ibhagwan/fzf-lua", opts = { winopts = { preview = { layout = "vertical" } } } },
     { "theprimeagen/harpoon", branch = "harpoon2", opts = { settings = { save_on_toggle = true } } },
     -- { "stevearc/oil.nvim", opts = { keymaps = { ["q"] = "actions.close" } } },
     { "aserowy/tmux.nvim", opts = {} },
@@ -202,6 +202,7 @@ require("lazy").setup({
         dependencies = {
             "neovim/nvim-lspconfig",
             "hrsh7th/cmp-nvim-lsp",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
             "hrsh7th/cmp-cmdline",
@@ -336,19 +337,34 @@ lspconfig.svelte.setup({ capabilities = lsp_capabilities })
 lspconfig.tsserver.setup({ capabilities = lsp_capabilities })
 
 local cmp = require("cmp")
+local luasnip = require("luasnip")
 local select_opts = { behavior = cmp.SelectBehavior.Select }
 cmp.setup({
     snippet = { expand = function(args) require("luasnip").lsp_expand(args.body) end },
     window = { documentation = cmp.config.window.bordered() },
     mapping = cmp.mapping.preset.insert({
         ["<c-p>"] = cmp.config.disable,
-        ["<c-b>"] = cmp.config.disable,
         ["<c-f>"] = cmp.config.disable,
+        ["<c-b>"] = cmp.config.disable,
         ["<c-j>"] = cmp.mapping.select_next_item(select_opts),
         ["<c-k>"] = cmp.mapping.select_prev_item(select_opts),
         ["<c-l>"] = cmp.mapping.confirm({ select = true }),
         ["<c-n>"] = cmp.mapping(cmp.mapping.scroll_docs(-4)),
         ["<c-m>"] = cmp.mapping(cmp.mapping.scroll_docs(4)),
+        ["<Del>"] = cmp.mapping(function(fallback)
+            if luasnip.expand_or_jumpable() then
+                luasnip.expand_or_jump()
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
+        ["<Tab>"] = cmp.mapping(function(fallback)
+            if luasnip.jumpable(-1) then
+                luasnip.jump(-1)
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
     }),
     enabled = function() return vim.api.nvim_buf_get_option(0, "buftype") ~= "prompt" end,
     formatting = {
@@ -368,6 +384,7 @@ cmp.setup({
         { name = "nvim_lsp", keyword_length = 1 },
         { name = "buffer", keyword_length = 3 },
         { name = "luasnip" },
+        { name = "nvim_lsp_signature_help" },
     },
 })
 local cmp_cmdline_mappings = {
