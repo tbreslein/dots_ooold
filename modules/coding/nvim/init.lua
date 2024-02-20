@@ -69,15 +69,15 @@ require("lazy").setup({
                 override = {
                     ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
                     ["vim.lsp.util.stylize_markdown"] = true,
-                    ["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+                    ["cmp.entry.get_documentation"] = true,
                 },
             },
             presets = {
-                bottom_search = true, -- use a classic bottom cmdline for search
-                command_palette = true, -- position the cmdline and popupmenu together
-                long_message_to_split = true, -- long messages will be sent to a split
-                inc_rename = false, -- enables an input dialog for inc-rename.nvim
-                lsp_doc_border = false, -- add a border to hover docs and signature help
+                bottom_search = true,
+                command_palette = true,
+                long_message_to_split = true,
+                inc_rename = false,
+                lsp_doc_border = false,
             },
         },
     },
@@ -125,28 +125,25 @@ require("lazy").setup({
         opts = {},
     },
     { "nvim-pack/nvim-spectre", opts = {} },
+    { "akinsho/toggleterm.nvim", opts = {} },
 
     -- navigation
-    {
-        "nvim-telescope/telescope.nvim",
-        dependencies = { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-        config = function()
-            require("telescope").setup({
-                defaults = {
-                    layout_strategy = "vertical",
-                    layout_config = { height = 0.95 },
-                },
-            })
-            require("telescope").load_extension("fzf")
-        end,
-    },
+    -- {
+    --     "nvim-telescope/telescope.nvim",
+    --     dependencies = { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+    --     config = function()
+    --         require("telescope").setup({
+    --             defaults = {
+    --                 layout_strategy = "vertical",
+    --                 layout_config = { height = 0.95 },
+    --             },
+    --         })
+    --         require("telescope").load_extension("fzf")
+    --     end,
+    -- },
+    { "ibhagwan/fzf-lua", opts = {} },
     { "theprimeagen/harpoon", branch = "harpoon2", opts = { settings = { save_on_toggle = true } } },
-    { "stevearc/oil.nvim", opts = { keymaps = { ["q"] = "actions.close" } } },
-    {
-        "ggandor/leap.nvim",
-        dependencies = "tpope/vim-repeat",
-        config = function() require("leap").create_default_mappings() end,
-    },
+    -- { "stevearc/oil.nvim", opts = { keymaps = { ["q"] = "actions.close" } } },
     { "aserowy/tmux.nvim", opts = {} },
 
     -- LSP/linting/formatting
@@ -222,6 +219,7 @@ local function kmap(modes, bindings, action, opts)
     vim.keymap.set(modes, bindings, action, _opts)
 end
 
+kmap("t", "jk", [[<c-\><c-n>]])
 kmap("n", "<leader>w", ":w<cr>", { silent = false })
 kmap("v", "<leader>r", '"hy:%s/<c-r>h//g<left><left>', { silent = false })
 kmap("v", "<leader>s", ":sort<cr>")
@@ -257,6 +255,7 @@ kmap("n", "<leader>ct", function()
     if not vim.tbl_isempty(vim.fn.getqflist()) then return vim.cmd("copen") end
 end)
 kmap("n", "<leader>u", vim.cmd.UndotreeToggle)
+kmap("n", "<leader>tt", ":ToggleTerm size=20 direction=horizontal name=sh<cr>")
 
 local harpoon = require("harpoon")
 kmap("n", "<m-u>", function() harpoon:list():select(1) end)
@@ -266,17 +265,27 @@ kmap("n", "<m-p>", function() harpoon:list():select(4) end)
 kmap("n", "<leader>a", function() harpoon:list():append() end)
 kmap("n", "<leader>e", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
+-- kmap("n", "<leader>ff", function()
+--     vim.fn.system("git rev-parse --is-inside-work-tree")
+--     if vim.v.shell_error == 0 then
+--         require("telescope.builtin").git_files()
+--     else
+--         require("telescope.builtin").find_files()
+--     end
+-- end)
+-- kmap("n", "<leader>fg", require("telescope.builtin").git_files)
+-- kmap("n", "<leader>fs", require("telescope.builtin").live_grep)
+-- kmap("n", "<leader>fo", "<cmd>Oil --float<cr>
 kmap("n", "<leader>ff", function()
     vim.fn.system("git rev-parse --is-inside-work-tree")
     if vim.v.shell_error == 0 then
-        require("telescope.builtin").git_files()
+        require("fzf-lua").git_files()
     else
-        require("telescope.builtin").find_files()
+        require("fzf-lua").files()
     end
 end)
-kmap("n", "<leader>fg", require("telescope.builtin").git_files)
-kmap("n", "<leader>fs", require("telescope.builtin").live_grep)
-kmap("n", "<leader>fo", "<cmd>Oil --float<cr>")
+kmap("n", "<leader>fg", require("fzf-lua").git_files)
+kmap("n", "<leader>fs", require("fzf-lua").live_grep_native)
 kmap("n", "<leader>T", "<cmd>TroubleToggle<cr>")
 kmap("n", "gl", "<cmd>lua vim.diagnostic.open_float()<cr>")
 kmap("n", "gj", "<cmd>lua vim.diagnostic.goto_next()<cr>")
