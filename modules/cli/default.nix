@@ -23,6 +23,7 @@ in {
         rsync
         sd
         tealdeer
+        chezmoi
       ];
     };
     gitEmail = mkOption {
