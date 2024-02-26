@@ -83,7 +83,11 @@ require("lazy").setup({
     },
     {
         "nvim-treesitter/nvim-treesitter",
-        dependencies = { "windwp/nvim-ts-autotag", "nvim-treesitter/nvim-treesitter-context" },
+        dependencies = {
+            "windwp/nvim-ts-autotag",
+            "nvim-treesitter/nvim-treesitter-context",
+            { "indianboy42/tree-sitter-just", opts = {} },
+        },
         build = ":TSUpdate",
         config = function()
             require("nvim-treesitter.configs").setup({
@@ -128,22 +132,8 @@ require("lazy").setup({
     { "akinsho/toggleterm.nvim", opts = {} },
 
     -- navigation
-    -- {
-    --     "nvim-telescope/telescope.nvim",
-    --     dependencies = { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
-    --     config = function()
-    --         require("telescope").setup({
-    --             defaults = {
-    --                 layout_strategy = "vertical",
-    --                 layout_config = { height = 0.95 },
-    --             },
-    --         })
-    --         require("telescope").load_extension("fzf")
-    --     end,
-    -- },
     { "ibhagwan/fzf-lua", opts = { winopts = { preview = { layout = "vertical" } } } },
     { "theprimeagen/harpoon", branch = "harpoon2", opts = { settings = { save_on_toggle = true } } },
-    -- { "stevearc/oil.nvim", opts = { keymaps = { ["q"] = "actions.close" } } },
     { "aserowy/tmux.nvim", opts = {} },
 
     -- LSP/linting/formatting
@@ -160,12 +150,12 @@ require("lazy").setup({
                 zig = { "zigfmt" },
                 python = { "black" },
                 lua = { "stylua" },
-                -- markdown = { "prettierd" },
-                -- javascript = { "prettierd" },
-                -- javascriptreact = { "prettierd" },
-                -- typescript = { "prettierd" },
-                -- typescriptreact = { "prettierd" },
-                -- yaml = { "prettierd" },
+                markdown = { "prettier" },
+                javascript = { "prettier" },
+                javascriptreact = { "prettier" },
+                typescript = { "prettier" },
+                typescriptreact = { "prettier" },
+                yaml = { "prettier" },
                 sh = { "shfmt" },
                 bash = { "shfmt" },
                 zsh = { "shfmt" },
@@ -266,17 +256,6 @@ kmap("n", "<m-p>", function() harpoon:list():select(4) end)
 kmap("n", "<leader>a", function() harpoon:list():append() end)
 kmap("n", "<leader>e", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
 
--- kmap("n", "<leader>ff", function()
---     vim.fn.system("git rev-parse --is-inside-work-tree")
---     if vim.v.shell_error == 0 then
---         require("telescope.builtin").git_files()
---     else
---         require("telescope.builtin").find_files()
---     end
--- end)
--- kmap("n", "<leader>fg", require("telescope.builtin").git_files)
--- kmap("n", "<leader>fs", require("telescope.builtin").live_grep)
--- kmap("n", "<leader>fo", "<cmd>Oil --float<cr>
 kmap("n", "<leader>ff", function()
     vim.fn.system("git rev-parse --is-inside-work-tree")
     if vim.v.shell_error == 0 then
@@ -300,7 +279,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
         bufmap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<cr>")
         bufmap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<cr>")
         bufmap("n", "go", "<cmd>lua vim.lsp.buf.type_definition()<cr>")
-        -- bufmap("n", "gr", "<cmd>lua vim.lsp.buf.references()<cr>")
         bufmap("n", "gr", "<cmd>TroubleToggle lsp_references<cr>")
         bufmap("n", "gs", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
         bufmap("n", "<leader>R", "<cmd>lua vim.lsp.buf.rename()<cr>")
