@@ -129,7 +129,6 @@ require("lazy").setup({
         opts = {},
     },
     { "nvim-pack/nvim-spectre", opts = {} },
-    { "akinsho/toggleterm.nvim", opts = {} },
 
     -- navigation
     { "ibhagwan/fzf-lua", opts = { winopts = { preview = { layout = "vertical" } } } },
@@ -246,7 +245,6 @@ kmap("n", "<leader>ct", function()
     if not vim.tbl_isempty(vim.fn.getqflist()) then return vim.cmd("copen") end
 end)
 kmap("n", "<leader>u", vim.cmd.UndotreeToggle)
-kmap("n", "<leader>tt", ":ToggleTerm size=20 direction=horizontal name=sh<cr>")
 
 local harpoon = require("harpoon")
 kmap("n", "<m-u>", function() harpoon:list():select(1) end)
