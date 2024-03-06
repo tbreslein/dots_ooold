@@ -149,11 +149,11 @@ in {
             }];
           };
         })
-        {
-          "${config.home.homeDirectory}/.config/nvim".source =
-            config.lib.file.mkOutOfStoreSymlink
-            "${config.home.homeDirectory}/dots/modules/coding/nvim";
-        }
+        # {
+        #   "${config.home.homeDirectory}/.config/nvim".source =
+        #     config.lib.file.mkOutOfStoreSymlink
+        #     "${config.home.homeDirectory}/dots/modules/coding/nvim";
+        # }
       ];
 
       shellAliases = mkMerge [ cfg.defaultShellAliases cfg.extraShellAliases ];
